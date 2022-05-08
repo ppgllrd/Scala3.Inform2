@@ -120,7 +120,7 @@ def SortCorrectness(name: String, sort: Array[Int] => Unit): Unit =
   println(s"$name algorithm passed all sorting tests")
 
 
-// tests Selection Sort with a different random arrays
+// tests Selection Sort with different random arrays
 @main def selectionSortCorrectness(): Unit =
   SortCorrectness("Selection Sort", Sort.selectionSort)
 
