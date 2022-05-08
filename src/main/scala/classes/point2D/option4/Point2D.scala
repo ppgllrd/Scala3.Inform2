@@ -4,7 +4,14 @@
 
 package classes.point2D.option4
 
+object Point2D:
+  private var counter: Int = 0
+
+  def numberOfPoints: Int = counter
+
+
 class Point2D(private var x: Double, private var y: Double):
+  Point2D.counter += 1
 
   def this() =
     this(0, 0)
@@ -69,3 +76,5 @@ class Point2D(private var x: Double, private var y: Double):
 
   val p4 = Point2D(10)
   println(p4)
+
+  println(s"The total number of points that were created is ${Point2D.numberOfPoints}")
