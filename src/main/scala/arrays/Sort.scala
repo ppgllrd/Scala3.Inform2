@@ -7,7 +7,7 @@ package arrays
 object Sort:
   // checks whether array xs is sorted in ascending order
   def isSorted[A](xs: Array[A])(using ord: Ordering[A]): Boolean =
-    import ord._
+    import ord.*
 
     var sorted = true
     var i = 0
@@ -20,7 +20,7 @@ object Sort:
 
   // In place sorts an array using Selection Sort algorithm
   def selectionSort[A](xs: Array[A])(using ord: Ordering[A]): Unit =
-    import ord._
+    import ord.*
 
     // Swaps elements in array at indexes i and j
     def swap(i: Int, j: Int): Unit =
@@ -38,7 +38,7 @@ object Sort:
 
   // In place sorts an array using Quick Sort algorithm
   def quickSort[A](xs: Array[A])(using ord: Ordering[A]): Unit =
-    import ord._
+    import ord.*
 
     // Swaps elements in array at indexes i and j
     def swap(i: Int, j: Int): Unit =

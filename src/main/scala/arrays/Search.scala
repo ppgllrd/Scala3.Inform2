@@ -24,7 +24,7 @@ object Search:
 
 
   def binarySearch[A](x: A, xs: Array[A])(using ord: Ordering[A]): Option[Int] =
-    import ord._
+    import ord.*
     // precondition: xs must be sorted in ascending order
 
     var opt: Option[Int] = None
