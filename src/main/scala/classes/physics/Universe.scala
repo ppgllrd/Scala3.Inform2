@@ -7,8 +7,8 @@ package classes.physics
 import inform.graphics.draw2D.{Graphics2D, GraphicsWindow}
 
 
-class Universe(private val particles: Array[Particle]
-               , val radius: Double
+class Universe( private val particles: Array[Particle]
+              , val radius: Double
               ):
 
   def advance(dt: Double): Unit =
@@ -36,12 +36,71 @@ class Universe(private val particles: Array[Particle]
 
   val univ = Universe(particles, 6e10)
 
-  val v = GraphicsWindow("Physics", 600, 600)
-  v.scale = 1000 / (univ.radius * 2)
+  val w = GraphicsWindow("Physics", 600, 600)
+  w.scale = 1000 / (univ.radius * 2)
 
   val dt = 10000
-  while (true) {
+  while true do
     univ.advance(dt)
-    v.drawWith(univ.drawOn)
+    w.drawWith(univ.drawOn)
     Thread.sleep(5)
-  }
+
+
+@main def universe2Test(): Unit =
+  val particles = Array(
+      Particle(Vector2D(0, 0), Vector2D(0.05e4, 0), 6.97e24, 5e9)
+    , Particle(Vector2D(0, 4.5e10), Vector2D(3e4, 0), 2.999e30, 1e10)
+    , Particle(Vector2D(0, -4.5e10), Vector2D(-3e4, 0), 2.999e30, 1e10)
+  )
+
+  val univ = Universe(particles, 7e10)
+
+  val w = GraphicsWindow("Physics", 600, 600)
+  w.scale = 1000 / (univ.radius * 2)
+
+  val dt = 3600
+  while true do
+    univ.advance(dt)
+    w.drawWith(univ.drawOn)
+    Thread.sleep(5)
+
+
+@main def universe3Test(): Unit =
+  val particles = Array(
+      Particle(Vector2D(-3.5e10, 0), Vector2D(0, 1.4e3), 3e28, 5e9)
+    , Particle(Vector2D(-1e10, 0), Vector2D(0, 1.64e4), 3e28, 5e9)
+    , Particle(Vector2D(1e10, 0), Vector2D(0, -1.64e4), 3e28, 5e9)
+    , Particle(Vector2D(3.5e10, 0), Vector2D(0, -1.4e3), 3e28, 5e9)
+  )
+
+  val univ = Universe(particles, 1e11)
+
+  val w = GraphicsWindow("Physics", 600, 600)
+  w.scale = 1000 / (univ.radius * 2)
+
+  val dt = 20000
+  while true do
+    univ.advance(dt)
+    w.drawWith(univ.drawOn)
+    Thread.sleep(4)
+
+
+@main def universe4Test(): Unit =
+  val particles = Array(
+      Particle(Vector2D(-3.5e10, 0), Vector2D(0, 1.4e3), 3e28, 5e9)
+    , Particle(Vector2D(-1e10, 0), Vector2D(0, 1.645e4), 3e28, 5e9)
+    , Particle(Vector2D(1e10, 0), Vector2D(0, -1.645e4), 3e28, 5e9)
+    , Particle(Vector2D(3.5e10, 0), Vector2D(0, -1.4e3), 3e28, 5e9)
+  )
+
+  val univ = Universe(particles, 1e11)
+
+  val w = GraphicsWindow("Physics", 600, 600)
+  w.scale = 1000 / (univ.radius * 2)
+
+  val dt = 20000
+  while true do
+    univ.advance(dt)
+    w.drawWith(univ.drawOn)
+    Thread.sleep(4)
+
