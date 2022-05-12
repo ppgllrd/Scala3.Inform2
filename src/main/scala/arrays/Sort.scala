@@ -128,3 +128,50 @@ def SortCorrectness(name: String, sort: Array[Int] => Unit): Unit =
 // tests Quick Sort with different random arrays
 @main def quickSortCorrectness(): Unit =
   SortCorrectness("Quick Sort", Sort.quickSort)
+
+
+// chart of running times for sorting algorithms
+@main def sortingTimes(): Unit =
+  import inform.graphics.plot._
+
+  val seriesQS = XYSeries("Quick Sort")
+  val seriesSS = XYSeries("Selection Sort")
+
+  var seed = 0
+  val minLength = 100
+  val maxLength = 20000
+  val step = 500
+  for length <- minLength to maxLength by step do
+    // create an array of random integers
+    val rnd = scala.util.Random(seed)
+    val xs = Array.fill(length)(rnd.nextInt())
+    val ys = xs.clone()
+
+    seed += 1
+
+    val t0 = System.currentTimeMillis()
+    Sort.quickSort(xs)
+    val t1 = System.currentTimeMillis()
+    Sort.selectionSort(ys)
+    val t2 = System.currentTimeMillis()
+
+    val tQuickSort = t1-t0
+    val tSelection = t2-t1
+
+    println(s"Length: $length\t\tQS: $tQuickSort\tSS: $tSelection")
+
+    seriesQS += (length, tQuickSort)
+    seriesSS += (length, tSelection)
+
+  val seriesColl = XYSeriesCollection()
+  seriesColl += seriesQS
+  seriesColl += seriesSS
+
+  val chart = XYLineChart ( "Sorting Algorithms"
+    , "Array length", "Sorting time (ms)"
+    , seriesColl
+  )
+
+  chart.config(seriesQS, strokeWidth = 2)
+  chart.config(seriesSS, strokeWidth = 2)
+  chart.draw("Chart", 800, 600)
