@@ -30,8 +30,8 @@ class Universe( private val particles: Array[Particle]
 
 @main def universe1Test(): Unit =
   val particles = Array(
-      Particle(Vector2D(0, 4.5e10), Vector2D(1e4, 0), 1.5e30, 8e9)
-    , Particle(Vector2D(0, -4.5e10), Vector2D(-1e4, 0), 1.5e30, 8e9)
+      Particle(Vector2D(0, 4.5e10), Vector2D(1e4, 0), 1.5e30, 5e9)
+    , Particle(Vector2D(0, -4.5e10), Vector2D(-1e4, 0), 1.5e30, 5e9)
   )
 
   val univ = Universe(particles, 6e10)
@@ -48,10 +48,10 @@ class Universe( private val particles: Array[Particle]
 
 @main def universe2Test(): Unit =
   val particles = Array(
-      Particle(Vector2D(0, 0), Vector2D(0.05e4, 0), 6.97e24, 5e9)
-    , Particle(Vector2D(0, 4.5e10), Vector2D(3e4, 0), 2.999e30, 1e10)
-    , Particle(Vector2D(0, -4.5e10), Vector2D(-3e4, 0), 2.999e30, 1e10)
-  )
+      Particle(Vector2D(0, 4.5e10), Vector2D(3e4, 0), 2.999e30, 5e9)
+    , Particle(Vector2D(0, -4.5e10), Vector2D(-3e4, 0), 2.999e30, 5e9)
+    , Particle(Vector2D(0, 0), Vector2D(0.05e4, 0), 6.97e24, 2.5e9)
+    )
 
   val univ = Universe(particles, 7e10)
 

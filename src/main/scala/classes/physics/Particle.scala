@@ -20,6 +20,7 @@ class Particle(private var pos: Vector2D
     vel += acc * dt
     pos += vel * dt
 
+  
   def forceFrom(that: Particle): Vector2D =
     val G = 6.67e-11
     val delta = that.pos - this.pos
@@ -29,14 +30,14 @@ class Particle(private var pos: Vector2D
 
 
   def drawOn(g2D: Graphics2D): Unit =
-    def circle(x: Double, y: Double, r: Double, c: Color, c2: Color): Unit =
-      val r2 = r / 2
-      g2D.setColor(c)
-      g2D.fill(Ellipse(x - r2, y - r2, r, r))
+    def circle(x: Double, y: Double, r: Double, fillColor: Color, borderColor: Color): Unit =
+      val diameter = 2*r
+      g2D.setColor(fillColor)
+      g2D.fill(Ellipse(x - r, y - r, diameter, diameter))
 
-      g2D.setStroke(Stroke(5e8f))
-      g2D.setColor(c2)
-      g2D.draw(Ellipse(x - r2, y - r2, r, r))
+      g2D.setStroke(Stroke(8e8f))
+      g2D.setColor(borderColor)
+      g2D.draw(Ellipse(x - r, y - r, diameter, diameter))
 
     circle(pos.x, pos.y, radius, Color.green, Color.blue)
 
