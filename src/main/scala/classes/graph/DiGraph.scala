@@ -6,9 +6,9 @@ package classes.graph
 
 import scala.collection._
 
-case class Edge[V](src: V, dst: V)
+case class DiEdge[V](src: V, dst: V)
 
-class Graph[V]():
+class DiGraph[V]() extends classes.graph.Traversable[V]:
   private var map = immutable.Map[V, immutable.Set[V]]()
 
   def addVertex(v: V): Unit =
@@ -43,11 +43,11 @@ class Graph[V]():
   def vertices: immutable.Set[V] =
     map.keys.toSet
 
-  def edges: immutable.Set[Edge[V]] =
-    var es = immutable.Set[Edge[V]]()
+  def edges: immutable.Set[DiEdge[V]] =
+    var es = immutable.Set[DiEdge[V]]()
     for (src, destinations) <- map do
       for dst <- destinations do
-        es = es + Edge(src, dst)
+        es = es + DiEdge(src, dst)
     es
 
   def successors(v: V): immutable.Set[V] =
@@ -63,48 +63,9 @@ class Graph[V]():
     s"Graph($verticesStr, $edgesStr)"
 
 
-  private def pathFromTo(src: V, dst: V, sourceOf: Map[V, V]): List[V] =
-    require(sourceOf.contains(dst), s"No path to vertex $dst from $src")
-    var path = List[V](dst)
-    while path.head != src do
-      path ::= sourceOf(path.head)
-    path
-
-  class DFT(src: V):
-    private val sourceOf = mutable.Map[V, V]()
-    private val stack = mutable.Stack[Edge[V]]()
-
-    stack.push(Edge(src, src))
-    while stack.nonEmpty do
-      val Edge(src, dst) = stack.pop()
-      if !sourceOf.contains(dst) then
-        sourceOf(dst) = src
-        for v <- successors(dst) do
-          if !sourceOf.contains(v) then
-            stack.push(Edge(dst, v))
-
-    def pathTo(v: V): List[V] =
-      pathFromTo(src, v, sourceOf)
-
-  class BFT(src: V):
-    private val sourceOf = mutable.Map[V, V]()
-    private val queue = mutable.Queue[Edge[V]]()
-
-    queue.enqueue(Edge(src, src))
-    while queue.nonEmpty do
-      val Edge(src, dst) = queue.dequeue()
-      if !sourceOf.contains(dst) then
-        sourceOf(dst) = src
-        for v <- successors(dst) do
-          if !sourceOf.contains(v) then
-            queue.enqueue(Edge(dst, v))
-
-    def pathTo(v: V): List[V] =
-      pathFromTo(src, v, sourceOf)
-
 
 @main def graphTest(): Unit =
-  val g = new Graph[Int]()
+  val g = new DiGraph[Int]()
 
   g.addVertex(1)
   g.addVertex(2)
@@ -122,11 +83,11 @@ class Graph[V]():
   println(g)
 
   println()
-  val dft = new g.DFT(1)
+  val dft = g.depthFirstTraversal(1)
   for v <- g.vertices do
     println(dft.pathTo(v))
 
   println()
-  val bft = new g.BFT(1)
+  val bft = g.breadthFirstTraversal(1)
   for v <- g.vertices do
     println(bft.pathTo(v))
