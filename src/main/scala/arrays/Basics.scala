@@ -1,3 +1,7 @@
+/*
+  Pepe Gallardo, 2022
+ */
+
 package arrays
 
 @main def basicsTest(): Unit =

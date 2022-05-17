@@ -5,7 +5,7 @@
 package classes.mandelbrot
 
 object Mandelbrot:
-  import inform.fotos.*
+  import inform.photo.*
 
   val maxIters = 255
 
@@ -24,7 +24,7 @@ object Mandelbrot:
 
   def drawMandelbrot(real: Double, imaginary: Double, diameter: Double): Unit =
     val radius = diameter / 2
-    val photo = Foto(pixels, pixels)
+    val photo = Photo(pixels, pixels)
     for i <- 0 until pixels do
       for j <- 0 until pixels do
         // Compute point in complex plane corresponding to pixel with coordinates (i,j)
@@ -34,8 +34,8 @@ object Mandelbrot:
         // Get its color
         val iters = inMandelbrot(c)
         photo(i)(j) = inform.graphics.color.palette.fire(iters)
-      photo.actualizar()
-    photo.actualizar()
+      photo.show()
+    photo.show()
 
 
   @main def mandelbrotTest(): Unit =
