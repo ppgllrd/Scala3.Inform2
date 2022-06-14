@@ -10,7 +10,7 @@ package formats
   println(f"Age is $age%10d")
 
   val name = "John"
-  println(s"Name is $name and ageis $age")
+  println(s"Name is $name and age is $age")
   println(s"Name is $name and twice of age is ${age*2}")
 
   val num: Double = 3.141592653589793
