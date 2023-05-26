@@ -350,10 +350,14 @@ object random:
 
       def searcher(): Int =
         val n = rnd.nextInt(sum)
-        for i <- accumulators.indices do
+        var found = false
+        var i = 0
+        while !found && i < accumulators.length do
           if accumulators(i) > n then
-            return i
-        -1
+            found = true
+          else 
+            i += 1  
+        if found then i else -1
 
       searcher
 

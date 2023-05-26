@@ -126,12 +126,12 @@ class Photo private(private val image: BufferedImage):
       })
 
 
-  /** Saves Photo in a file. */
+  /** Saves Photo to a file. */
   def saveAs(name: String, showDialog: Boolean = false): Unit =
     saveToFile(new File(name), showDialog)
 
 
-  /** Saves Photo in a file. Prompts for file name. */
+  /** Saves Photo to a file. Prompts for file name. */
   def save(): Unit =
     val chooser = new FileDialog(frame.peer, "Use .png or .jpg extension", FileDialog.SAVE)
     chooser.setVisible(true)
@@ -143,7 +143,7 @@ class Photo private(private val image: BufferedImage):
     fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase()
 
 
-  /** Saves Photo in a file. */
+  /** Saves Photo to a file. */
   def saveToFile(file: File, showDialog: Boolean = false): Unit =
     val suffix = extension(fileName)
 

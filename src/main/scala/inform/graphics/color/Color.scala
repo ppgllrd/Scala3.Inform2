@@ -57,8 +57,8 @@ object Color:
    * @return Deconstructs a color into its (Red, Green, Blue) components
    *         <a href="https://en.wikipedia.org/wiki/RGB_color_model">RGB</a>.
    */
-  def unapply(c: Color): Option[(Int, Int, Int)] =
-    Some(c.getRed, c.getGreen, c.getBlue)
+  def unapply(c: Color): (Int, Int, Int) =
+    (c.getRed, c.getGreen, c.getBlue)
 
   
   object RGB:
@@ -75,8 +75,8 @@ object Color:
      * @return Deconstructs a color into its (Red, Green, Blue) components
      *         <a href="https://en.wikipedia.org/wiki/RGB_color_model">RGB</a>.
      */
-    def unapply(c: Color): Option[(Int, Int, Int)] =
-      Some(c.getRed, c.getGreen, c.getBlue)
+    def unapply(c: Color): (Int, Int, Int) =
+      (c.getRed, c.getGreen, c.getBlue)
   
 
   object RGBA:
@@ -92,8 +92,8 @@ object Color:
      * @return Deconstructs a color into its (Red, Green, Blue, Alpha) components
      *         <a href="https://en.wikipedia.org/wiki/RGBA_color_model">RGBA</a>.
      */
-    def unapply(c: Color): Option[(Int, Int, Int, Int)] =
-      Some(c.getRed, c.getGreen, c.getBlue, c.getAlpha)
+    def unapply(c: Color): (Int, Int, Int, Int) =
+      (c.getRed, c.getGreen, c.getBlue, c.getAlpha)
   
   
 

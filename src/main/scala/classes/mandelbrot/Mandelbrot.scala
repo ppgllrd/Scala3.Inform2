@@ -9,16 +9,19 @@ object Mandelbrot:
 
   val maxIters = 255
 
-  // Returns iteration in which we firstly found modulus larger than 2
+  // Returns iteration in which we firstly found a modulus larger than 2
   // o maxIters otherwise
   def inMandelbrot(c: Complex): Int =
     var z: Complex = c
-    for (i <- 0 until maxIters)
-      if (z.mod > 2.0)
-        return i  // gets out of loop and returns i
+    var bounded = true
+    var i = 0
+    while bounded && i < maxIters do
+      if z.mod > 2.0 then
+        bounded = false  // gets out of loop to return i
       else
         z = z*z + c
-    maxIters // only reached if all modulus were <= 2.0
+        i += 1
+    i // i will be maxIters if all modulus were <= 2.0
 
   val pixels = 512 // photo will consist of 512x512 pixels
 
