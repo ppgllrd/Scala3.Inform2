@@ -15,11 +15,10 @@ class Transform extends java.awt.geom.AffineTransform:
   def apply(shape: java.awt.Shape): java.awt.Shape =
     createTransformedShape(shape)
 
+  
   override def toString: String =
     s"Transform([$getScaleX, $getShearX, $getTranslateX], [$getShearY, $getScaleY, $getTranslateY])"
-
-  // this and then t
-
+  
   /**
    * Composes this and that transformations.
    * @param that second transformation to compose.
@@ -31,6 +30,7 @@ class Transform extends java.awt.geom.AffineTransform:
     result.concatenate(that)
     result
 
+  
   /**
    * Composes this and that transformations.
    * @param that second transformation to compose.
@@ -49,6 +49,9 @@ object Transform:
     new Transform()
 
 
+  def unapply(t: Transform): (Double, Double, Double, Double, Double, Double) =
+    (t.getScaleX, t.getShearX, t.getTranslateX, t.getShearY, t.getScaleY, t.getTranslateY)
+  
   /**
    * Factory method for a rotation transformation.
    * @param alpha rotation in radians

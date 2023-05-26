@@ -221,6 +221,15 @@ import scala.annotation.tailrec
   println(s"Sum from 0 to $upper is $sum")
 
 
+  for i <- 0 until upper do
+    println(i)
+
+  println
+
+  for i <- 0 until upper by 2 do
+    println(i)
+
+
 @main def procedures(): Unit =
   def printMultiplicationTable(n: Int): Unit =
     require(n > 0, "number cannot be negative")

@@ -31,8 +31,8 @@ object Mandelbrot:
     for i <- 0 until pixels do
       for j <- 0 until pixels do
         // Compute point in complex plane corresponding to pixel with coordinates (i,j)
-        val re = real - radius + diameter*j/(pixels-1)
-        val im = imaginary - radius + diameter*i/(pixels-1)
+        val re = real - radius + diameter * j / (pixels - 1)
+        val im = imaginary - radius + diameter * i / (pixels - 1)
         val c = Cartesian(re, im)
         // Get its color
         val iters = inMandelbrot(c)

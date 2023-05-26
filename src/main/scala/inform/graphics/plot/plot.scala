@@ -1,10 +1,10 @@
-/** ****************************************************************************
+/******************************************************************************
  * Informática. Grado en Matemáticas. Universidad de Málaga
  * @ Pepe Gallardo
  *
  * Simple charts based on JFreeChart
  *
- * *************************************************************************** */
+ *****************************************************************************/
 
 package inform.graphics.plot
 
@@ -455,6 +455,7 @@ class PieDataset[Label <: Comparable[Label], V: Numeric] extends DefaultPieDatas
 
 
 class PieChart(chart: JFreeChart) extends JFreeChart(chart.getTitle.getText, chart.getPlot) with CanDraw {
+  @annotation.nowarn
   def this(title: String, data: PieDataset[_, _]) = {
     this(ChartFactory.createPieChart3D(title, data, true, false, false))
     PlotUtils.setTheme(this)

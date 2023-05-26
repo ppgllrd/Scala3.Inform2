@@ -1,6 +1,10 @@
-/*
-  Pepe Gallardo, 2022
- */
+/******************************************************************************
+ * Informática. Grado en Matemáticas. Universidad de Málaga
+ * @ Pepe Gallardo
+ *
+ * Colors
+ *
+ *****************************************************************************/
 
 package inform.graphics.color
 

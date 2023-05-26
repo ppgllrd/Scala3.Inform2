@@ -2,21 +2,21 @@
  * Informática. Grado en Matemáticas. Universidad de Málaga
  * @ Pepe Gallardo
  *
- * Colores: paletas de colores
+ * Palettes with colors
  *
  *****************************************************************************/
 
-package inform.graphics.color
+package inform.graphics.color.palette
 
-package palette
+import inform.graphics.color.*
 
-val maxColors: Int = 256
+private val maxColors: Int = 256
 
-lazy val gray : Array[Color] = {
+lazy val gray: Array[Color] = {
   val cs = new Array[Color](maxColors)
   for (i <- 0 until maxColors) {
     val c = maxColors - (i + 1)
-    gray (i) = new Color (c, c, c)
+    gray(i) = new Color (c, c, c)
   }
   cs
 }

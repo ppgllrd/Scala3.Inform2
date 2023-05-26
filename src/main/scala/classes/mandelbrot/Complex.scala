@@ -27,16 +27,16 @@ trait Complex:
 
 case class Cartesian(re: Double, im: Double) extends Complex:
   def mod: Double = sqrt(pow(re, 2) + pow(im, 2))
-  def arg: Double = if (re == 0 && im == 0) 0 else atan2(im, re)
+  def arg: Double = if re == 0 && im == 0 then 0 else atan2(im, re)
 
-  override def toString = s"Cartesian($re, $im)"
+  override def toString: String = s"Cartesian($re, $im)"
 
 
 case class Polar(mod: Double, arg: Double) extends Complex:
   def re: Double = mod * cos(arg)
   def im: Double = mod * sin(arg)
 
-  override def toString = s"Polar($mod, $arg)"
+  override def toString: String = s"Polar($mod, $arg)"
 
 
 @main def complexTest(): Unit =

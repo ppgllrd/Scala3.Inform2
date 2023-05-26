@@ -16,6 +16,6 @@ object Point:
   def apply(x: Double, y: Double): Point =
     new Point(x, y)
 
-  def unapply(point: Point): Option[(Double, Double)] =
-    Some((point.x, point.y))
+  def unapply(point: Point): (Double, Double) =
+    (point.x, point.y)
 

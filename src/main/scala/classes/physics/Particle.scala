@@ -9,7 +9,7 @@ import inform.graphics.draw2D.*
 
 import scala.math.*
 
-class Particle(private var pos: Vector2D
+class Particle( private var pos: Vector2D
               , private var vel: Vector2D
               , val mass: Double
               , val radius: Double
@@ -31,7 +31,7 @@ class Particle(private var pos: Vector2D
 
   def drawOn(g2D: Graphics2D): Unit =
     def circle(x: Double, y: Double, r: Double, fillColor: Color, borderColor: Color): Unit =
-      val diameter = 2*r
+      val diameter = 2 * r
       g2D.setColor(fillColor)
       g2D.fill(Ellipse(x - r, y - r, diameter, diameter))
 

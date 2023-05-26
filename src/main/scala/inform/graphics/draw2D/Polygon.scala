@@ -7,9 +7,9 @@ package inform.graphics.draw2D
 
 class Polygon(xs: Seq[Double], ys: Seq[Double]) extends java.awt.geom.Path2D.Double:
   if xs.length != ys.length then
-    throw new IllegalArgumentException("Polygon: both args should have same length")
-  if xs.length < 1 || ys.length < 1 then
-    throw new IllegalArgumentException("Polygon: both args should be non-empty")
+    throw new IllegalArgumentException("Polygon: both arguments should have same length")
+  if xs.length < 1 then
+    throw new IllegalArgumentException("Polygon: both arguments should be non-empty")
 
   this.moveTo(xs(0), ys(0))
   for i <- 1 until xs.length do
@@ -48,8 +48,8 @@ object Polygon:
   def apply(xys: (Double, Double)*) =
     new Polygon(xys)
 
-  def unapply(p: Polygon): Option[Seq[(Double, Double)]] =
-    Some(p.points.map(p => (p.x, p.y)))
+  def unapply(p: Polygon): Seq[(Double, Double)] =
+    (p.points.map(p => (p.x, p.y)))
 
   object Points:
     def apply(xys: Iterable[Point]) =
@@ -58,6 +58,6 @@ object Polygon:
     def apply(xys: Point*) =
       new Polygon(xys.map(_.x), xys.map(_.y))
 
-    def unapply(polygon: Polygon): Option[Seq[Point]] =
-      Some(polygon.points)
+    def unapply(polygon: Polygon): Seq[Point] =
+      (polygon.points)
 

@@ -6,7 +6,7 @@
  *
  *****************************************************************************/
 
-package inform.robots
+package inform.robot
 
 import java.awt.Color
 

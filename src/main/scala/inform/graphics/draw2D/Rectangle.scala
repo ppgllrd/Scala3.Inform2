@@ -24,6 +24,7 @@ object Rectangle:
   def apply(left: Double, top: Double, width: Double, height: Double): Rectangle =
     new Rectangle(left, top, width, height)
 
+  
   /**
    * Constructs a Rectangle from the specified coordinates.
    * @param leftTop X and Y coordinates of the upper-left corner of the rectangle.
@@ -33,6 +34,7 @@ object Rectangle:
   def apply(leftTop: Point, width: Double, height: Double): Rectangle =
     new Rectangle(leftTop.x, leftTop.y, width, height)
 
+  
   /**
    * Constructs the framing rectangle for the specified Ellipse.
    * @param ellipse Ellipse to frame.
@@ -40,7 +42,8 @@ object Rectangle:
   def fromEllipse(ellipse: Ellipse): Rectangle =
     Rectangle(ellipse.left, ellipse.top, ellipse.width, ellipse.height)
 
-  def unapply(rectangle: Rectangle): Option[(Double, Double, Double, Double)] =
-    Some(rectangle.left, rectangle.top, rectangle.width, rectangle.height)
+  
+  def unapply(rectangle: Rectangle): (Double, Double, Double, Double) =
+    (rectangle.left, rectangle.top, rectangle.width, rectangle.height)
     
     

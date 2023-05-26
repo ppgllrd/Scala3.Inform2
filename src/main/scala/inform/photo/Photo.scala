@@ -1,6 +1,10 @@
-/*
-  Pepe Gallardo, 2022
- */
+/******************************************************************************
+ * Informática. Grado en Matemáticas. Universidad de Málaga
+ * @ Pepe Gallardo
+ *
+ * Photos
+ *
+ *****************************************************************************/
 
 package inform.photo
 
@@ -95,9 +99,8 @@ class Photo private(private val image: BufferedImage):
     show()
 
 
+  import Photo.*
   private val menuBar: MenuBar = new MenuBar:
-    val extension1 = "png"
-    val extension2 = "jpg"
     contents += new Menu("File"):
       contents += new MenuItem(Action("Save") {
         saveAs(fileName, showDialog = true)
@@ -133,7 +136,7 @@ class Photo private(private val image: BufferedImage):
 
   /** Saves Photo to a file. Prompts for file name. */
   def save(): Unit =
-    val chooser = new FileDialog(frame.peer, "Use .png or .jpg extension", FileDialog.SAVE)
+    val chooser = new FileDialog(frame.peer, s"Use .$extension1 or $extension2 extension", FileDialog.SAVE)
     chooser.setVisible(true)
     if chooser.getFile != null then
       saveAs(chooser.getDirectory + File.separator + chooser.getFile)
@@ -202,7 +205,7 @@ class Photo private(private val image: BufferedImage):
 
 
   /** @return This row from Photo. */
-  def apply(row: Int): PhotoRow = new PhotoRow(row)
+  def apply(row: Int): PhotoRow = PhotoRow(row)
 
   /** Modifies pixel at provided row and column with provided color.
    */
@@ -211,6 +214,9 @@ class Photo private(private val image: BufferedImage):
 
 
 object Photo:
+  private val extension1 = "png"
+  private val extension2 = "jpg"
+
   private var numWindows: Int = 0
 
   /** Creates a new white Photo with given dimensions.
@@ -239,7 +245,7 @@ object Photo:
 
   private def imageFromFile(fileName: String): BufferedImage =
     val file = new File(fileName)
-    try {
+    try
       val image =
         if file.isFile then
           ImageIO.read(file)
@@ -254,10 +260,10 @@ object Photo:
         throw new RuntimeException(s"Invalid file name: $fileName")
 
       image
-    } catch {
+    catch
       case _: IOException =>
         throw new RuntimeException(s"File $fileName doesn't exists.")
-    }
+
 
 
 

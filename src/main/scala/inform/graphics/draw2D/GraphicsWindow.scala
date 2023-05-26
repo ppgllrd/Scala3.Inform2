@@ -34,20 +34,18 @@ object GraphicsWindow {
     new GraphicsWindow()
 
   import scala.language.implicitConversions
-  implicit def _GraphicsWindow2g2D(v: GraphicsWindow) : Graphics2D = v.getGraphics2D
+  implicit def _GraphicsWindow2g2D(w: GraphicsWindow) : Graphics2D = w.getGraphics2D
 
   private var windowsCounter: Int = 0
 }
 
 
-class GraphicsWindow(title : String, width : Int, height : Int, backgroundColor : Color = GraphicsWindow.defaultBackgroundColor) {
-  def this(width : Int, height : Int) = {
+class GraphicsWindow(title: String, width: Int, height: Int, backgroundColor: Color = GraphicsWindow.defaultBackgroundColor) {
+  def this(width: Int, height: Int) = 
     this(GraphicsWindow.defaultTitle, width, height, GraphicsWindow.defaultBackgroundColor)
-  }
 
-  def this() = {
+  def this() = 
     this (GraphicsWindow.defaultWidth, GraphicsWindow.defaultHeight)
-  }
 
   private lazy val originalWidth = width
   private lazy val originalHeight = height + menuBar.size.height
@@ -123,7 +121,6 @@ class GraphicsWindow(title : String, width : Int, height : Int, backgroundColor 
     }
   }
 
-
   GraphicsWindow.windowsCounter += 1
 
   mainFrame.title = title
@@ -146,12 +143,13 @@ class GraphicsWindow(title : String, width : Int, height : Int, backgroundColor 
 
   private def mkTransform(width: Int, height: Int): AffineTransform = {
     val transform = new AffineTransform()
-    transform.translate(width/2, height/2)
-    transform.scale(programmedScale*windowRedimensionedScale*factor, programmedScale*windowRedimensionedScale*factor)
+    transform.translate(width / 2, height / 2)
+    transform.scale(programmedScale * windowRedimensionedScale * factor
+      , programmedScale * windowRedimensionedScale * factor)
     transform
   }
 
-  private val image = new BufferedImage(panel.size.width, panel.size.height, BufferedImage.TYPE_INT_ARGB)
+  private val image: BufferedImage = new BufferedImage(panel.size.width, panel.size.height, BufferedImage.TYPE_INT_ARGB)
   private val imageG2D: Graphics2D = image.createGraphics()
 
   def getGraphics2D: Graphics2D = imageG2D
@@ -199,7 +197,7 @@ class GraphicsWindow(title : String, width : Int, height : Int, backgroundColor 
     panel.repaint()
   }
 
-  import scala.language.reflectiveCalls
+  import scala.reflect.Selectable.reflectiveSelectable
   def jFreeChartDraw(chart: {def draw(g2D: Graphics2D, rect: Rectangle2D): Unit}): Unit = {
     drawingProcedure =
       g2D => {

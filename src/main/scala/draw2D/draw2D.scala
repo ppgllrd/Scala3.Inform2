@@ -5,8 +5,8 @@
 package draw2D
 
 @main def rectanglesTest1(): Unit =
-  import inform.graphics.draw2D._
-  import inform.graphics.color._
+  import inform.graphics.draw2D.*
+  import inform.graphics.color.*
 
   def draw(g2D: Graphics2D): Unit =
     g2D.setColor(Color.red)
@@ -28,8 +28,8 @@ package draw2D
 
 
 @main def rectanglesTest2(): Unit =
-  import inform.graphics.draw2D._
-  import inform.graphics.color._
+  import inform.graphics.draw2D.*
+  import inform.graphics.color.*
 
   val window = GraphicsWindow(450, 450)
 
@@ -51,8 +51,8 @@ package draw2D
 
 
 @main def ellipsesTest(): Unit =
-  import inform.graphics.draw2D._
-  import inform.graphics.color._
+  import inform.graphics.draw2D.*
+  import inform.graphics.color.*
 
   def draw(g2D: Graphics2D): Unit =
     g2D.setColor(Color.red)
@@ -74,9 +74,9 @@ package draw2D
 
 
 @main def lineArcTextTest(): Unit =
-  import inform.graphics.draw2D._
-  import inform.graphics.color._
-  import scala.math._
+  import inform.graphics.draw2D.*
+  import inform.graphics.color.*
+  import scala.math.*
 
   def draw(g2D: Graphics2D): Unit =
     val stroke = Stroke(5)
@@ -98,8 +98,8 @@ package draw2D
 
 
 @main def polygonsTest(): Unit =
-  import inform.graphics.draw2D._
-  import inform.graphics.color._
+  import inform.graphics.draw2D.*
+  import inform.graphics.color.*
 
   def draw(g2D: Graphics2D): Unit =
     val triangle = Polygon((-60, -40), (0,100), (60, -40))
@@ -122,13 +122,13 @@ package draw2D
 
 
 @main def alphaTest(): Unit =
-  import inform.graphics.draw2D._
-  import inform.graphics.color._
+  import inform.graphics.draw2D.*
+  import inform.graphics.color.*
 
   def draw(g2D: Graphics2D): Unit =
     def drawEllipse(dx: Double, dy: Double, rx: Double, ry: Double, alpha: Double, c: Color): Unit =
       g2D.setColor(c)
-      val ellipse = Ellipse(-rx, -ry, 2*rx, 2*ry)
+      val ellipse = Ellipse(-rx, -ry, 2 * rx, 2 * ry)
       val t = Transform.rotate(alpha) * Transform.translate(dx, dy)
       g2D.fill(t(ellipse))
 

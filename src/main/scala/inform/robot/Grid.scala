@@ -6,7 +6,7 @@
  *
  *****************************************************************************/
 
-package inform.robots
+package inform.robot
 
 import java.awt._
 import java.awt.event._
@@ -36,7 +36,7 @@ private class Grid extends JComponent with KeyListener with MouseListener {
     setTitle(assetFile)
   }
 
-  def init(numRows: Int, numCols: Int): Unit = {
+  private def init(numRows: Int, numCols: Int): Unit = {
     lastKeyPressed = -1
     lastLocationClicked = null
     lineColor = null
@@ -255,6 +255,6 @@ private class Grid extends JComponent with KeyListener with MouseListener {
   }
 
   def showInputDialog(message: String) : String = {
-      JOptionPane.showInputDialog(this, message)
+    JOptionPane.showInputDialog(this, message)
   }
 }

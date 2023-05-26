@@ -15,6 +15,7 @@ package lists
   println(s"First element is $y and rest of list is $ys")
 
   // using pattern binding
+  @annotation.nowarn
   val z::zs = xs // error if xs is empty
   println(s"First element is $z and rest of list is $zs")
 

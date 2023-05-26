@@ -5,7 +5,6 @@
 package arrays
 
 object Search:
-
   // Left to right linear search of element x in array xs.
   // Returns Some(index) if x was firstly found at xs(index)
   // or None if x is not in xs

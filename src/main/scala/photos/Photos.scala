@@ -18,14 +18,14 @@ object Photos:
 
   val black: Color = Color.RGB(0,0,0)
   val white: Color = Color.RGB(255,255,255)
-  val grays: Array[Color] = (for(x <- 0 to 255 by 32) yield Color.RGB(x, x, x)).toArray
+  val grays: Array[Color] = (for x <- 0 to 255 by 32 yield Color.RGB(x, x, x)).toArray
 
   val r: Int = red.getRed
   val g: Int = red.getGreen
   val b: Int = red.getBlue
 
   def luminescence(color: Color): Double =
-    val Color(r, g, b) = color
+    val Color.RGB(r, g, b) = color
     0.299*r + 0.587*g + 0.114*b
 
   def toBlackWhite(color: Color): Color =

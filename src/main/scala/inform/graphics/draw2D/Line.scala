@@ -10,7 +10,7 @@ class Line(_x1: Double, _y1: Double, _x2: Double, _y2: Double) extends java.awt.
 
 object Line:
   /**
-   * Constructs a Line between to Points.
+   * Constructs a Line between two Points.
    * @param x1 X coordinate of first point.
    * @param y1 Y coordinate of first point.
    * @param x2 X coordinate of second point.
@@ -34,9 +34,9 @@ object Line:
    * @param p1 First point.
    * @param p2 Second point.
    */
-  def apply(p1: Point, p2: Point): Line =
+  def fromPoints(p1: Point, p2: Point): Line =
     new Line(p1.x, p1.y, p2.x, p2.y)
 
   
-  def unapply(l: Line): Option[(Double, Double, Double, Double)] =
-    Some(l.getX1, l.getY1, l.getX2, l.getY2)
+  def unapply(l: Line): (Double, Double, Double, Double) =
+    (l.getX1, l.getY1, l.getX2, l.getY2)

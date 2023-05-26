@@ -6,7 +6,7 @@
  *
  *****************************************************************************/
 
-package inform.robots
+package inform.robot
 
 import java.awt.Color
 
@@ -17,15 +17,8 @@ object Robot {
    */
   def apply(mapFile: String) =
     new Robot(mapFile)
-}
 
-/** Builds a new robot that will move in provided map.
- *
- * @param mapFile file describing map.
- * @return a new robot that will move in provided map.
- */
-class Robot(mapFile: String) {
-  private def asset(fileName: String) = s"/inform/robots/assets/$fileName"
+  private def asset(fileName: String) = s"/inform/robot/assets/$fileName"
 
   private final val ROBOT_NORTH_IMAGE = asset("robotnorth.gif")
   private final val ROBOT_SOUTH_IMAGE = asset("robotsouth.gif")
@@ -35,56 +28,70 @@ class Robot(mapFile: String) {
 
   private final val LIGHT_COLOR = new Color(229, 170, 122)
   private final val DARK_COLOR = new Color(153, 114, 81)
+}
+
+/** Builds a new robot that will move in provided map.
+ *
+ * @param mapFile file describing map.
+ * @return a new robot that will move in provided map.
+ */
+class Robot(mapFile: String) {
+  import Robot.*
 
   private var robotLoc: Location = null
   private var direction: Char = ' '
   private var delay = 250
 
-  private val mapReader = new MapReader(mapFile)
-  private val lines = new collection.mutable.ArrayBuffer[String]()
-  while (mapReader.hasMoreLines)
-    lines += mapReader.readLine()
+  private def init(): Grid = {
+    val mapReader = new MapReader(mapFile)
+    val lines = new collection.mutable.ArrayBuffer[String]()
+    while (mapReader.hasMoreLines)
+      lines += mapReader.readLine()
 
-  require(lines.nonEmpty, s"Map file \"$mapFile\" cannot be empty")
+    require(lines.nonEmpty, s"Map file \"$mapFile\" cannot be empty")
 
-  val numRows: Int = lines.size
-  val numCols: Int = lines.head.length
-  private val grid = new Grid(numRows, numCols)
-  grid.setTitle(mapFile)
-  grid.setLineColor(new Color(0, 0, 0))
+    val numRows: Int = lines.size
+    val numCols: Int = lines.head.length
+    val grid = new Grid(numRows, numCols)
+    grid.setTitle(mapFile)
+    grid.setLineColor(new Color(0, 0, 0))
 
-  for (row <- 0 until numRows) {
-    for (col <- 0 until numCols) {
-      val loc = Location(row, col)
-      val line = lines(row)
-      if (line.length != numCols)
-        sys.error(s"Inconsistent length of line \"$line\" in map \"$mapFile\"")
+    for (row <- 0 until numRows) {
+      for (col <- 0 until numCols) {
+        val loc = Location(row, col)
+        val line = lines(row)
+        if (line.length != numCols)
+          sys.error(s"Inconsistent length of line \"$line\" in map \"$mapFile\"")
 
-      val ch = lines(row)(col)
-      if (Set.from("NSEWnsew").contains(ch)) {
-        if (Set.from("NSEW").contains(ch))
+        val ch = lines(row)(col)
+        if (Set.from("NSEWnsew").contains(ch)) {
+          if (Set.from("NSEW").contains(ch))
+            grid.setColor(loc, LIGHT_COLOR)
+          else
+            grid.setColor(loc, DARK_COLOR)
+
+          ch match
+            case 'N' | 'n' => grid.setImage(loc, ROBOT_NORTH_IMAGE)
+            case 'S' | 's' => grid.setImage(loc, ROBOT_SOUTH_IMAGE)
+            case 'E' | 'e' => grid.setImage(loc, ROBOT_EAST_IMAGE)
+            case _ => grid.setImage(loc, ROBOT_WEST_IMAGE)
+
+          robotLoc = loc
+          direction = ch.toUpper
+        } else if (ch == 'X')
+          grid.setImage(loc, asset(WALL_IMAGE))
+        else if (ch == '.')
           grid.setColor(loc, LIGHT_COLOR)
-        else
+        else if (ch == ':')
           grid.setColor(loc, DARK_COLOR)
-
-        ch match
-          case 'N' | 'n' => grid.setImage(loc, ROBOT_NORTH_IMAGE)
-          case 'S' | 's' => grid.setImage(loc, ROBOT_SOUTH_IMAGE)
-          case 'E' | 'e' => grid.setImage(loc, ROBOT_EAST_IMAGE)
-          case _         => grid.setImage(loc, ROBOT_WEST_IMAGE)
-
-        robotLoc = loc
-        direction = ch.toUpper
-      } else if (ch == 'X')
-        grid.setImage(loc, asset(WALL_IMAGE))
-      else if (ch == '.')
-        grid.setColor(loc, LIGHT_COLOR)
-      else if (ch == ':')
-        grid.setColor(loc, DARK_COLOR)
-      else
-        sys.error(s"Invalid character $ch in map file \"$mapFile\"")
+        else
+          sys.error(s"Invalid character $ch in map file \"$mapFile\"")
+      }
     }
+    grid
   }
+
+  private val grid: Grid = init()
 
   private def newLocation(loc: Location, direction: Char): Location = {
     val Location(row, col) = loc
@@ -94,7 +101,6 @@ class Robot(mapFile: String) {
       case 'E' => Location(row, col + 1)
       case 'W' => Location(row, col - 1)
   }
-
 
   private def checkMapLoaded(): Unit = {
     if (grid == null)

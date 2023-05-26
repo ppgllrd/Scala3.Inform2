@@ -9,6 +9,7 @@ package random
 
   val rnd = Random(0)
 
+
   val x = rnd.fromSeq(Array(10, 20, 30))
   println(x)
 
@@ -21,14 +22,14 @@ package random
     println(y)
 
 
-  rnd.int()
-  rnd.boolean()
+  println(rnd.int())
+  println(rnd.boolean())
   val z = rnd.double(1.0, 2.0)
   println(z)
-  rnd.float()
+  println(rnd.float())
 
 
-  rnd.uniform(1, 10)
+  println(rnd.uniform(1, 10))
 
   val freqs = Array(50, 20, 30)
   val dicreteGen: () => Int = rnd.discrete(freqs)
