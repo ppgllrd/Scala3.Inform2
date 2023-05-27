@@ -1,0 +1,63 @@
+/*
+  Pepe Gallardo, 2023
+ */
+
+package ADT.lists.invariant
+
+import scala.annotation.tailrec
+
+enum List[A]:
+  case Empty() extends List[A] // this is not an object but a class :(
+  case Cons(hd: A, tl: List[A]) extends List[A]
+
+  def ::(x: A): List[A] = Cons(x, this)
+
+  def head: A = this match
+    case Empty() => sys.error("head of empty list")
+    case Cons(x, _) => x
+
+  def tail: List[A] = this match
+    case Empty() => sys.error("tail of empty list")
+    case Cons(_, xs) => xs
+
+  def length: Int = this match
+    case  Empty() => 0
+    case Cons(_, xs) => 1 + xs.length
+
+  def ++(that: List[A]): List[A] = this match
+    case Empty() => that
+    case Cons(x, xs) => Cons(x, xs ++ that)
+
+  def map[B](f: A => B): List[B] = this match
+    case Empty() => Empty()
+    case Cons(x, xs) => Cons(f(x), xs.map(f))
+
+  def filter(p: A => Boolean): List[A] = this match
+    case Empty() => Empty()
+    case Cons(x, xs) => if p(x) then Cons(x, xs.filter(p)) else xs.filter(p)
+
+  def foldLeft[B](z: B)(f: (B, A) => B): B =
+    @tailrec
+    def aux(ac: B, xs: List[A]): B = xs match
+      case Empty() => ac
+      case Cons(y, ys) => aux(f(ac, y), ys)
+
+    aux(z, this)
+
+  def reverse: List[A] =
+    foldLeft(Empty())((xs, x) => Cons(x, xs))
+
+
+@main def testLists(): Unit =
+  import List.*
+
+  val xs: List[Int] = Cons(1, Cons(2, Cons(3, Empty())))
+
+  val ys: List[Int] = 1 :: 2 :: 3 :: Empty()
+
+  println(ys.map(x => x * 2).filter(x => x > 2))
+
+  println(ys.reverse)
+
+
+
