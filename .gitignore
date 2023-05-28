@@ -1,3 +1,6 @@
 # Project exclude paths
-/project/target/
+.bloop
+.metals
+.vscode
+project
 /target/

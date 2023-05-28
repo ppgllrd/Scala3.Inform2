@@ -76,6 +76,7 @@ class Deck(seed: Int):
 
 object Deck:
   def isPoker(hand: Array[Card]): Boolean =
+    require(hand.length == 5)
     val values = hand.flatMap(_.values)
     val counters = Array.fill(Card.allValues.size)(0)
 
@@ -91,3 +92,16 @@ object Deck:
 
     found
 
+
+@main def testCards(): Unit =
+  val deck = Deck(0)
+
+  val numExperiments = 1000000
+  var sucesses = 0
+  for _ <- 0 until numExperiments do
+    val hand = deck.hand(5)
+    if Deck.isPoker(hand) then
+      sucesses += 1
+  val prob = sucesses.toDouble / numExperiments
+
+  println(s"Probabily of poker: $prob")
