@@ -1,3 +1,7 @@
+/*
+  Pepe Gallardo, 2023
+ */
+
 package options
 
 @main def options(): Unit =
@@ -17,19 +21,16 @@ package options
 
   // pattern matching for Option
   def patternMatch[A](opt: Option[A]): Unit = opt match
-    case None => println(s"argument is a None")
+    case None    => println(s"argument is a None")
     case Some(x) => println(s"argument is a Some and stores value $x")
-
 
   patternMatch(None)
   patternMatch(Some(123))
   patternMatch(Some(true))
 
-
   def multByOption(x: Int, opt: Option[Int]): Int = opt match
-    case None => x
+    case None    => x
     case Some(y) => x * y
-
 
   println(multByOption(10, None))
   println(multByOption(10, Some(20)))

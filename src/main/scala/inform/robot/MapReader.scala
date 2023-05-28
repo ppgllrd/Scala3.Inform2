@@ -1,10 +1,8 @@
-/******************************************************************************
- * Informática. Grado en Matemáticas. Universidad de Málaga
- * @ Pepe Gallardo
- *
- * Robot
- *
- *****************************************************************************/
+/** **************************************************************************************
+  * Informática. Grado en Matemáticas. Universidad de Málaga. \@ Pepe Gallardo
+  *
+  * Robot
+  */
 
 package inform.robot
 
@@ -24,14 +22,14 @@ private class MapReader(fileName: String) {
   def hasMoreLines: Boolean = line != null
 
   def readLine(): String = {
-      try {
-        val toReturn: String = line
-        line = in.readLine()
-        toReturn
-      } catch {
-        case e : IOException => throw new RuntimeException(e)
-      }
+    try {
+      val toReturn: String = line
+      line = in.readLine()
+      toReturn
+    } catch {
+      case e: IOException => throw new RuntimeException(e)
     }
+  }
 
   def close(): Unit = {
     try {

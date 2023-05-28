@@ -1,8 +1,9 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package draw2D
+import inform.graphics.GraphicsWindow
 
 @main def rectanglesTest1(): Unit =
   import inform.graphics.draw2D.*
@@ -26,7 +27,6 @@ package draw2D
   val window = GraphicsWindow(450, 450)
   window.drawWith(draw)
 
-
 @main def rectanglesTest2(): Unit =
   import inform.graphics.draw2D.*
   import inform.graphics.color.*
@@ -48,7 +48,6 @@ package draw2D
   window.draw(rect)
 
   window.update()
-
 
 @main def ellipsesTest(): Unit =
   import inform.graphics.draw2D.*
@@ -72,7 +71,6 @@ package draw2D
   val window = GraphicsWindow(450, 450)
   window.drawWith(draw)
 
-
 @main def lineArcTextTest(): Unit =
   import inform.graphics.draw2D.*
   import inform.graphics.color.*
@@ -85,7 +83,7 @@ package draw2D
     g2D.draw(Line(-200, 100, -100, -150))
 
     g2D.setColor(Color.green)
-    g2D.draw(Arc(50, -250, 300, 200, Pi/2, 3*Pi/2, Arc.OPEN))
+    g2D.draw(Arc(50, -250, 300, 200, Pi / 2, 3 * Pi / 2, Arc.OPEN))
 
     val font = Font("Arial", Font.ITALIC, 75)
     g2D.setFont(font)
@@ -96,13 +94,12 @@ package draw2D
   val window = GraphicsWindow(450, 450)
   window.drawWith(draw)
 
-
 @main def polygonsTest(): Unit =
   import inform.graphics.draw2D.*
   import inform.graphics.color.*
 
   def draw(g2D: Graphics2D): Unit =
-    val triangle = Polygon((-60, -40), (0,100), (60, -40))
+    val triangle = Polygon((-60, -40), (0, 100), (60, -40))
     val stroke = Stroke(5)
     g2D.setStroke(stroke)
 
@@ -120,13 +117,19 @@ package draw2D
   val window = GraphicsWindow(450, 450)
   window.drawWith(draw)
 
-
 @main def alphaTest(): Unit =
   import inform.graphics.draw2D.*
   import inform.graphics.color.*
 
   def draw(g2D: Graphics2D): Unit =
-    def drawEllipse(dx: Double, dy: Double, rx: Double, ry: Double, alpha: Double, c: Color): Unit =
+    def drawEllipse(
+        dx: Double,
+        dy: Double,
+        rx: Double,
+        ry: Double,
+        alpha: Double,
+        c: Color
+    ): Unit =
       g2D.setColor(c)
       val ellipse = Ellipse(-rx, -ry, 2 * rx, 2 * ry)
       val t = Transform.rotate(alpha) * Transform.translate(dx, dy)
@@ -142,7 +145,14 @@ package draw2D
 
     val numEllipses = 12
     for i <- 0 until numEllipses do
-      drawEllipse(225,0,100,80,2 * math.Pi * i / numEllipses, colors(i % colors.length))
+      drawEllipse(
+        225,
+        0,
+        100,
+        80,
+        2 * math.Pi * i / numEllipses,
+        colors(i % colors.length)
+      )
 
   val window = GraphicsWindow(450, 450)
   window.drawWith(draw)

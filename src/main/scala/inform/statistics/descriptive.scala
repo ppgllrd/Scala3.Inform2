@@ -1,10 +1,8 @@
-/******************************************************************************
- * Informática. Grado en Matemáticas. Universidad de Málaga
- * @ Pepe Gallardo.
- *
- * Basic descriptive statistics
- *
- *****************************************************************************/
+/** **************************************************************************************
+  * Informática. Grado en Matemáticas. Universidad de Málaga. \@ Pepe Gallardo.
+  *
+  * Basic descriptive statistics
+  */
 
 package inform.statistics
 
@@ -12,22 +10,19 @@ import scala.annotation.tailrec
 import scala.language.postfixOps
 import scala.math.*
 
-
 object descriptive:
   def mean[D](xs: Array[D])(using ev: D => Double): Double =
     var s = 0.0
-    for x <- xs do
-      s += ev(x)
+    for x <- xs do s += ev(x)
     s / xs.length
 
   def average[D](xs: Array[D])(using ev: D => Double): Double =
     mean(xs)
 
-  def meanAndStandardDeviation[D](xs: Array[D])(using ev: D => Double): (Double,  Double) =
+  def meanAndStandardDeviation[D](xs: Array[D])(using ev: D => Double): (Double, Double) =
     val m = mean(xs)
     var s = 0.0
-    for x <- xs do
-      s += pow(ev(x) - m, 2)
+    for x <- xs do s += pow(ev(x) - m, 2)
     val dev = sqrt(s / xs.length)
     (m, dev)
 
@@ -38,7 +33,9 @@ object descriptive:
     val copy: Array[Double] = xs.map(ev)
     findMedianInPlace(copy)((xs: ArrayView) => xs(0))
 
-  def statistics[D](xs: Array[D])(using ord: Ordering[D], ev: D => Double): (Double,  Double, Double, Double, Double) =
+  def statistics[D](
+      xs: Array[D]
+  )(using ord: Ordering[D], ev: D => Double): (Double, Double, Double, Double, Double) =
     val ys = xs.map(ev)
     val (m, d) = meanAndStandardDeviation(ys)
     (m, d, median(xs), ys.min, ys.max)
@@ -65,11 +62,12 @@ object descriptive:
 
     override def toString: String = arr mkString ("ArrayView(", ", ", ")")
 
-  
   protected object ArrayView:
     def apply(arr: Array[Double]) = new ArrayView(arr, 0, arr.length)
 
-  @tailrec private def findKMedianInPlace(arr: ArrayView, k: Int)(choosePivot: ArrayView => Double): Double =
+  @tailrec private def findKMedianInPlace(arr: ArrayView, k: Int)(
+      choosePivot: ArrayView => Double
+  ): Double =
     val a = choosePivot(arr)
     val (s, b) = arr partitionInPlace (a >)
     if s.size == k then a
@@ -83,4 +81,3 @@ object descriptive:
 
   private def findMedianInPlace(arr: Array[Double])(choosePivot: ArrayView => Double) =
     findKMedianInPlace(ArrayView(arr), (arr.length - 1) / 2)(choosePivot)
-

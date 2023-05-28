@@ -1,5 +1,5 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package classes.mandelbrot
@@ -16,10 +16,9 @@ object Mandelbrot:
     var bounded = true
     var i = 0
     while bounded && i < maxIters do
-      if z.mod > 2.0 then
-        bounded = false  // gets out of loop to return i
+      if z.mod > 2.0 then bounded = false // gets out of loop to return i
       else
-        z = z*z + c
+        z = z * z + c
         i += 1
     i // i will be maxIters if all modulus were <= 2.0
 
@@ -39,7 +38,6 @@ object Mandelbrot:
         photo(i)(j) = inform.graphics.color.palette.fire(iters)
       photo.show()
     photo.show()
-
 
   @main def mandelbrotTest(): Unit =
     drawMandelbrot(-0.5, 0, 2)

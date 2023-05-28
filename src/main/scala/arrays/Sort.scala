@@ -1,5 +1,5 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package arrays
@@ -12,10 +12,8 @@ object Sort:
     var sorted = true
     var i = 0
     while sorted && i < xs.length - 1 do
-      if xs(i) <= xs(i + 1) then
-        i += 1
-      else
-        sorted = false
+      if xs(i) <= xs(i + 1) then i += 1
+      else sorted = false
     sorted
 
   // In place sorts an array using Selection Sort algorithm
@@ -30,11 +28,8 @@ object Sort:
 
     for i <- 0 until xs.length - 1 do
       var minIndex = i
-      for j <- i + 1 until xs.length do
-        if xs(j) < xs(minIndex) then
-          minIndex = j
+      for j <- i + 1 until xs.length do if xs(j) < xs(minIndex) then minIndex = j
       swap(i, minIndex)
-
 
   // In place sorts an array using Quick Sort algorithm
   def quickSort[A](xs: Array[A])(using ord: Ordering[A]): Unit =
@@ -77,7 +72,6 @@ object Sort:
 
     aux(0, xs.length - 1) // initial call to sort full array
 
-
 @main def quickSortTest(): Unit =
   val xs = Array(6, 4, 3, 8, 1, 4, 9, 2, 5, 7)
   Sort.quickSort(xs)
@@ -87,11 +81,9 @@ object Sort:
   Sort.quickSort(ys)
   println(s"Sorted array is ${ys.mkString("Array(", ", ", ")")}")
 
-
 // checks whether arrays xs and ys have same elements (may be in different orders)
 def sameElements[A](xs: Array[A], ys: Array[A]): Boolean =
   xs.diff(ys).isEmpty && ys.diff(xs).isEmpty
-
 
 def SortCorrectness(name: String, sort: Array[Int] => Unit): Unit =
   val numTests = 1000 // number of tests to perform
@@ -113,22 +105,18 @@ def SortCorrectness(name: String, sort: Array[Int] => Unit): Unit =
     // elements (although they could be in different orders)
     val correct = Sort.isSorted(ys) && sameElements(xs, ys)
 
-    if !correct then
-      sys.error(s"$name algorithm failed")
+    if !correct then sys.error(s"$name algorithm failed")
 
   // if we reach this point without an error, then we passed all tests
   println(s"$name algorithm passed all sorting tests")
-
 
 // tests Selection Sort with different random arrays
 @main def selectionSortCorrectness(): Unit =
   SortCorrectness("Selection Sort", Sort.selectionSort)
 
-
 // tests Quick Sort with different random arrays
 @main def quickSortCorrectness(): Unit =
   SortCorrectness("Quick Sort", Sort.quickSort)
-
 
 // chart of running times for sorting algorithms
 @main def sortingTimes(): Unit =
@@ -155,8 +143,8 @@ def SortCorrectness(name: String, sort: Array[Int] => Unit): Unit =
     Sort.selectionSort(ys)
     val t2 = System.currentTimeMillis()
 
-    val tQuickSort = t1-t0
-    val tSelection = t2-t1
+    val tQuickSort = t1 - t0
+    val tSelection = t2 - t1
 
     println(s"Length: $length\t\tQS: $tQuickSort\tSS: $tSelection")
 
@@ -167,10 +155,7 @@ def SortCorrectness(name: String, sort: Array[Int] => Unit): Unit =
   seriesColl += seriesQS
   seriesColl += seriesSS
 
-  val chart = XYLineChart ( "Sorting Algorithms"
-    , "Array length", "Sorting time (ms)"
-    , seriesColl
-  )
+  val chart = XYLineChart("Sorting Algorithms", "Array length", "Sorting time (ms)", seriesColl)
 
   chart.config(seriesQS, strokeWidth = 2)
   chart.config(seriesSS, strokeWidth = 2)

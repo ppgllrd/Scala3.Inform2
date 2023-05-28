@@ -1,5 +1,5 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package classes.inheritance
@@ -17,18 +17,15 @@ class Point(x0: Double, y0: Double):
   override def toString: String =
     s"Point($x, $y)"
 
-
-class ColoredPoint(x0: Double, y0: Double, c0: Color)
-  extends Point(x0, y0):
+class ColoredPoint(x0: Double, y0: Double, c0: Color) extends Point(x0, y0):
 
   protected var c: Color = c0
 
   def fade(): Unit =
-    c = Color(c.getRed/2, c.getGreen/2, c.getBlue/2)
+    c = Color(c.getRed / 2, c.getGreen / 2, c.getBlue / 2)
 
   override def toString: String =
     s"ColoredPoint($x, $y, $c)"
-
 
 @main def pointTest(): Unit =
   val p1: Point = Point(1, 2)
@@ -46,6 +43,5 @@ class ColoredPoint(x0: Double, y0: Double, c0: Color)
   val points: List[Point] = List(p1, p2, p3)
   println(points)
 
-  for p <- points do
-    p.moveBy(100,100)
+  for p <- points do p.moveBy(100, 100)
   println(points)

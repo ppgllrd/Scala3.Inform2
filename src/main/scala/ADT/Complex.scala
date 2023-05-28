@@ -7,13 +7,14 @@ package ADT
 import scala.math.*
 
 enum Complex:
-  case Cartesian(override val re: Double, override val im: Double) 
-    def mod: Double = sqrt(pow(re, 2) + pow(im, 2))
-    def arg: Double = if re == 0 && im == 0 then 0 else atan2(im, re)
+  case Cartesian(override val re: Double, override val im: Double)
 
-  case Polar(override val mod: Double, override val arg: Double) 
-    def re: Double = mod * cos(arg)
-    def im: Double = mod * sin(arg)
+  case Polar(override val mod: Double, override val arg: Double)
+
+  def mod: Double = sqrt(pow(re, 2) + pow(im, 2))
+  def arg: Double = if re == 0 && im == 0 then 0 else atan2(im, re)
+  def re: Double = mod * cos(arg)
+  def im: Double = mod * sin(arg)
 
   def +(that: Complex): Complex =
     Cartesian(re + that.re, im + that.im)
@@ -34,9 +35,8 @@ enum Complex:
 
     obj match
       case that: Complex => eq(re, that.re) && eq(im, that.im)
-      case n: Double => eq(re, n) && eq(im, 0)
-      case _ => false
-
+      case n: Double     => eq(re, n) && eq(im, 0)
+      case _             => false
 
 @main def complexTest(): Unit =
   val c1: Complex = Complex.Cartesian(1, 1)

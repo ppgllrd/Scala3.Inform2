@@ -1,5 +1,5 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package classes.physics
@@ -17,14 +17,11 @@ class Vector2D(val x: Double, val y: Double):
   def magnitude: Double = sqrt(pow(x, 2) + pow(y, 2))
 
   def direction: Vector2D =
-    if magnitude == 0.0 then
-      sys.error("Null Vector has no direction")
-    else
-      this * (1.0 / this.magnitude)
+    if magnitude == 0.0 then sys.error("Null Vector has no direction")
+    else this * (1.0 / this.magnitude)
 
   override def toString: String =
     s"Vector2D($x, $y)"
-
 
 @main def vectorTest(): Unit =
   val v1 = Vector2D(1, 2)

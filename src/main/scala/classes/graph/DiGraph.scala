@@ -1,5 +1,5 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package classes.graph
@@ -18,8 +18,7 @@ class DiGraph[V]() extends classes.graph.Traversable[V]:
   def deleteVertex(v: V): Unit =
     require(map.contains(v), s"Vertex $v is not in graph.")
     map = map - v
-    for (src, destinations) <- map do
-      map = map + (src -> (destinations - v))
+    for (src, destinations) <- map do map = map + (src -> (destinations - v))
 
   def addEdge(src: V, dst: V): Unit =
     require(map.contains(src), s"Vertex $src is not in graph.")
@@ -45,9 +44,7 @@ class DiGraph[V]() extends classes.graph.Traversable[V]:
 
   def edges: immutable.Set[DiEdge[V]] =
     var es = immutable.Set[DiEdge[V]]()
-    for (src, destinations) <- map do
-      for dst <- destinations do
-        es = es + DiEdge(src, dst)
+    for (src, destinations) <- map do for dst <- destinations do es = es + DiEdge(src, dst)
     es
 
   def successors(v: V): immutable.Set[V] =
@@ -61,8 +58,6 @@ class DiGraph[V]() extends classes.graph.Traversable[V]:
     val verticesStr = vertices.mkString("Vertices(", ", ", ")")
     val edgesStr = edges.mkString("Edges(", ", ", ")")
     s"Graph($verticesStr, $edgesStr)"
-
-
 
 @main def graphTest(): Unit =
   val g = new DiGraph[Int]()
@@ -84,10 +79,8 @@ class DiGraph[V]() extends classes.graph.Traversable[V]:
 
   println()
   val dft = g.depthFirstTraversal(1)
-  for v <- g.vertices do
-    println(dft.pathTo(v))
+  for v <- g.vertices do println(dft.pathTo(v))
 
   println()
   val bft = g.breadthFirstTraversal(1)
-  for v <- g.vertices do
-    println(bft.pathTo(v))
+  for v <- g.vertices do println(bft.pathTo(v))

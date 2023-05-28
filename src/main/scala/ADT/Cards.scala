@@ -13,9 +13,8 @@ enum Suit:
   case Clubs, Diamonds, Hearts, Spades
 
   def color: Color = this match
-    case Clubs | Spades => Black
+    case Clubs | Spades    => Black
     case Diamonds | Hearts => Red
-
 
 import Suit.*
 
@@ -24,17 +23,14 @@ object Card:
   val allValues: Set[Int] = Set.from(1 to 13)
   val numJokers: Int = 2
 
-
 trait Card:
   def suits: Set[Suit]
   def values: Set[Int]
-
 
 case object Joker extends Card:
   override def suits: Set[Suit] = Card.allSuits
 
   override def values: Set[Int] = Card.allValues
-
 
 case class Pair(value: Int, suit: Suit) extends Card:
   require(Card.allValues.contains(value), s"value $value is wrong")
@@ -42,7 +38,6 @@ case class Pair(value: Int, suit: Suit) extends Card:
   override def suits: Set[Suit] = Set(suit)
 
   override def values: Set[Int] = Set(value)
-
 
 class Deck(seed: Int):
   private val rnd = inform.util.random.Random(seed)
@@ -73,7 +68,6 @@ class Deck(seed: Int):
     shuffle()
     cards.take(size)
 
-
 object Deck:
   def isPoker(hand: Array[Card]): Boolean =
     require(hand.length == 5)
@@ -85,13 +79,10 @@ object Deck:
     while i < values.length && !found do
       val value = values(i) - 1
       counters(value) += 1
-      if counters(value) >= 4 then
-        found = true
-      else
-        i += 1
+      if counters(value) >= 4 then found = true
+      else i += 1
 
     found
-
 
 @main def testCards(): Unit =
   val deck = Deck(0)
@@ -100,8 +91,7 @@ object Deck:
   var sucesses = 0
   for _ <- 0 until numExperiments do
     val hand = deck.hand(5)
-    if Deck.isPoker(hand) then
-      sucesses += 1
+    if Deck.isPoker(hand) then sucesses += 1
   val prob = sucesses.toDouble / numExperiments
 
   println(s"Probabily of poker: $prob")

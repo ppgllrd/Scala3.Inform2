@@ -1,5 +1,5 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package arrays
@@ -14,13 +14,10 @@ object Search:
 
     // while not found and while i is a valid index
     while opt.isEmpty && i < xs.length do
-      if xs(i) == x then
-        opt = Some(i) // element found at index i. Stops loop
-      else
-        i += 1 // not found at index i. Move to next cell in array
+      if xs(i) == x then opt = Some(i) // element found at index i. Stops loop
+      else i += 1 // not found at index i. Move to next cell in array
 
     opt
-
 
   def binarySearch[A](x: A, xs: Array[A])(using ord: Ordering[A]): Option[Int] =
     import ord.*
@@ -33,24 +30,20 @@ object Search:
     while opt.isEmpty && left <= right do
       val mid = (left + right) / 2
       val y = xs(mid)
-      if x == y then
-        opt = Some(mid)
-      else if x > y then
-        left = mid + 1
-      else
-        right = mid - 1
+      if x == y then opt = Some(mid)
+      else if x > y then left = mid + 1
+      else right = mid - 1
 
     opt
-
 
 @main def searchTest(): Unit =
   def printResult(opt: Option[Int]): Unit =
     println(opt match
-              case Some(index) => s"Element was found at cell $index"
-              case None => s"Element was not found"
+      case Some(index) => s"Element was found at cell $index"
+      case None        => s"Element was not found"
     )
 
-  val xs = Array(7,4,2,0,5,3,1,4)
+  val xs = Array(7, 4, 2, 0, 5, 3, 1, 4)
 
   val opt1 = Search.linearSearch(0, xs)
   printResult(opt1)
@@ -62,7 +55,7 @@ object Search:
   printResult(opt3)
 
   // Array must be sorted for using binary Search
-  val ys = Array(0,1,2,3,4,5,7,8)
+  val ys = Array(0, 1, 2, 3, 4, 5, 7, 8)
 
   val opt4 = Search.binarySearch(0, ys)
   printResult(opt4)

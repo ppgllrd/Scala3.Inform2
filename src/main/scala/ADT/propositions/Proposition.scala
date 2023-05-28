@@ -77,8 +77,7 @@ enum Proposition:
     val vs = this.variables
     val is = Proposition.interpretations(vs)
     for i <- is do
-      for (v, b) <- i.toList.sortBy(_._1) do
-        print(f"$v%s: ${Proposition.bool2String(b)}%s  ")
+      for (v, b) <- i.toList.sortBy(_._1) do print(f"$v%s: ${Proposition.bool2String(b)}%s  ")
       println(s"   $this: ${Proposition.bool2String(eval(i))}")
 
 @main def PropositionTest(): Unit =

@@ -1,5 +1,5 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package classes.physics
@@ -9,25 +9,24 @@ import inform.graphics.draw2D.*
 
 import scala.math.*
 
-class Particle( private var pos: Vector2D
-              , private var vel: Vector2D
-              , val mass: Double
-              , val radius: Double
-              ):
+class Particle(
+    private var pos: Vector2D,
+    private var vel: Vector2D,
+    val mass: Double,
+    val radius: Double
+):
 
   def moveBy(force: Vector2D, dt: Double): Unit =
     val acc = force * (1 / mass)
     vel += acc * dt
     pos += vel * dt
 
-  
   def forceFrom(that: Particle): Vector2D =
     val G = 6.67e-11
     val delta = that.pos - this.pos
     val dist = delta.magnitude
     val f = (G * this.mass * that.mass) / pow(dist, 2)
     delta.direction * f
-
 
   def drawOn(g2D: Graphics2D): Unit =
     def circle(x: Double, y: Double, r: Double, fillColor: Color, borderColor: Color): Unit =
@@ -40,4 +39,3 @@ class Particle( private var pos: Vector2D
       g2D.draw(Ellipse(x - r, y - r, diameter, diameter))
 
     circle(pos.x, pos.y, radius, Color.green, Color.blue)
-

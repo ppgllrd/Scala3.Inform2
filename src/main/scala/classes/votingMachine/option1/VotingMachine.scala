@@ -1,5 +1,5 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package classes.votingMachine.option1
@@ -9,7 +9,6 @@ class VotingMachine:
 
   override def toString: String =
     s"VotingMachine($votes)"
-
 
 @main def cheatingTest(): Unit =
   val m = VotingMachine()

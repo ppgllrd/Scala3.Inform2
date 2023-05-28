@@ -1,10 +1,8 @@
-/******************************************************************************
- * Informática. Grado en Matemáticas. Universidad de Málaga
- * @ Pepe Gallardo
- *
- * Robot
- *
- *****************************************************************************/
+/** **************************************************************************************
+  * Informática. Grado en Matemáticas. Universidad de Málaga. \@ Pepe Gallardo
+  *
+  * Robot
+  */
 
 package inform.robot
 

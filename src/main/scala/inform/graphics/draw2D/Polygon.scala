@@ -1,9 +1,8 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package inform.graphics.draw2D
-
 
 class Polygon(xs: Seq[Double], ys: Seq[Double]) extends java.awt.geom.Path2D.Double:
   if xs.length != ys.length then
@@ -12,31 +11,29 @@ class Polygon(xs: Seq[Double], ys: Seq[Double]) extends java.awt.geom.Path2D.Dou
     throw new IllegalArgumentException("Polygon: both arguments should be non-empty")
 
   this.moveTo(xs(0), ys(0))
-  for i <- 1 until xs.length do
-    this.lineTo(xs(i), ys(i))
+  for i <- 1 until xs.length do this.lineTo(xs(i), ys(i))
   this.closePath()
 
   def coordinates: Seq[(Double, Double)] =
     xs.zip(ys)
-    
+
   def points: Seq[Point] =
-    coordinates.map{case (x, y) => Point(x, y)}
+    coordinates.map { case (x, y) => Point(x, y) }
 
   def this(xs: Iterable[Double], ys: Iterable[Double]) =
     this(xs.toSeq, ys.toSeq)
-    
+
   def this(t: (Iterable[Double], Iterable[Double])) =
-    this(t._1, t._2)  
-    
+    this(t._1, t._2)
+
   def this(xys: Iterable[(Double, Double)]) =
-    this (xys.unzip)
+    this(xys.unzip)
 
   def this(xys: (Double, Double)*) =
     this(xys.toSeq)
 
   override def toString: String =
     points.mkString("Polygon(", ", ", ")")
-
 
 object Polygon:
   def apply(xs: Seq[Double], ys: Seq[Double]) =
@@ -60,4 +57,3 @@ object Polygon:
 
     def unapply(polygon: Polygon): Seq[Point] =
       (polygon.points)
-

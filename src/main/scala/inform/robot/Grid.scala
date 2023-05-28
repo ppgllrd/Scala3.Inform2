@@ -1,10 +1,8 @@
-/******************************************************************************
- * Informática. Grado en Matemáticas. Universidad de Málaga
- * @ Pepe Gallardo
- *
- * Robot
- *
- *****************************************************************************/
+/** **************************************************************************************
+  * Informática. Grado en Matemáticas. Universidad de Málaga. \@ Pepe Gallardo
+  *
+  * Robot
+  */
 
 package inform.robot
 
@@ -56,16 +54,16 @@ private class Grid extends JComponent with KeyListener with MouseListener {
     frame.setVisible(true)
   }
 
-  private def loadImage(assetFile: String) : BufferedImage = {
-      val url: URL = getClass.getResource(assetFile)
-      if (url == null)
-        sys.error(s"cannot find file: $assetFile")
-      try {
-        ImageIO.read(url)
-      } catch {
-        case _: IOException => sys.error(s"unable to read from file: $assetFile")
-      }
+  private def loadImage(assetFile: String): BufferedImage = {
+    val url: URL = getClass.getResource(assetFile)
+    if (url == null)
+      sys.error(s"cannot find file: $assetFile")
+    try {
+      ImageIO.read(url)
+    } catch {
+      case _: IOException => sys.error(s"unable to read from file: $assetFile")
     }
+  }
 
   def getNumRows: Int = cells.length
 
@@ -87,10 +85,10 @@ private class Grid extends JComponent with KeyListener with MouseListener {
   }
 
   private def getCellSize: Int = {
-      val cellWidth = getWidth / getNumCols
-      val cellHeight = getHeight / getNumRows
-      cellWidth min cellHeight
-    }
+    val cellWidth = getWidth / getNumCols
+    val cellHeight = getHeight / getNumRows
+    cellWidth min cellHeight
+  }
 
   def keyPressed(e: KeyEvent): Unit =
     lastKeyPressed = e.getKeyCode
@@ -172,11 +170,10 @@ private class Grid extends JComponent with KeyListener with MouseListener {
   def setTitle(title: String): Unit =
     frame.setTitle(title)
 
-
   def isValid(loc: Location): Boolean = {
-      val Location(row, col) = loc
-      0 <= row && row < getNumRows && 0 <= col && col < getNumCols
-    }
+    val Location(row, col) = loc
+    0 <= row && row < getNumRows && 0 <= col && col < getNumCols
+  }
 
   def setColor(loc: Location, color: Color): Unit = {
     if (!isValid(loc))
@@ -186,10 +183,10 @@ private class Grid extends JComponent with KeyListener with MouseListener {
   }
 
   def getColor(loc: Location): Color = {
-      if (!isValid(loc))
-        sys.error(s"cannot get color from invalid location $loc")
-      cells(loc.row)(loc.column).color
-    }
+    if (!isValid(loc))
+      sys.error(s"cannot get color from invalid location $loc")
+    cells(loc.row)(loc.column).color
+  }
 
   def setImage(loc: Location, assetFile: String): Unit = {
     if (!isValid(loc))
@@ -199,10 +196,10 @@ private class Grid extends JComponent with KeyListener with MouseListener {
   }
 
   def getAssetFile(loc: Location): String = {
-      if (!isValid(loc))
-        sys.error(s"cannot get image for invalid location $loc")
-      cells(loc.row)(loc.column).assetFile
-    }
+    if (!isValid(loc))
+      sys.error(s"cannot get image for invalid location $loc")
+    cells(loc.row)(loc.column).assetFile
+  }
 
   def pause(milliseconds: Int): Unit = {
     try {
@@ -212,20 +209,20 @@ private class Grid extends JComponent with KeyListener with MouseListener {
     }
   }
 
-  //returns -1 if no key pressed since last call.
-  //otherwise returns the code for the last key pressed.
-  def checkLastKeyPressed() : Int = {
-      val key = lastKeyPressed
-      lastKeyPressed = -1
-      key
-    }
+  // returns -1 if no key pressed since last call.
+  // otherwise returns the code for the last key pressed.
+  def checkLastKeyPressed(): Int = {
+    val key = lastKeyPressed
+    lastKeyPressed = -1
+    key
+  }
 
-  //returns null if no location clicked since last call.
-  def checkLastLocationClicked() : Location = {
-      val loc = lastLocationClicked
-      lastLocationClicked = null
-      loc
-    }
+  // returns null if no location clicked since last call.
+  def checkLastLocationClicked(): Location = {
+    val loc = lastLocationClicked
+    lastLocationClicked = null
+    loc
+  }
 
   def load(imageFileName: String): Unit = {
     showImage(loadImage(imageFileName))
@@ -241,7 +238,7 @@ private class Grid extends JComponent with KeyListener with MouseListener {
         sys.error(s"invalid image file name:  $imageFileName")
       ImageIO.write(bi, imageFileName.substring(index + 1), new File(imageFileName))
     } catch {
-      case e : IOException => sys.error("unable to save image to file: $imageFileName")
+      case e: IOException => sys.error("unable to save image to file: $imageFileName")
     }
   }
 
@@ -254,7 +251,7 @@ private class Grid extends JComponent with KeyListener with MouseListener {
     JOptionPane.showMessageDialog(this, message)
   }
 
-  def showInputDialog(message: String) : String = {
+  def showInputDialog(message: String): String = {
     JOptionPane.showInputDialog(this, message)
   }
 }

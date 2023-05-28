@@ -1,5 +1,5 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package charts
@@ -24,7 +24,6 @@ package charts
   val chart = XYLineChart("Lines", "X", "Y", seriesColl)
   chart.draw(500, 300)
 
-
 @main def lineChartTest2(): Unit =
   import inform.graphics.plot.*
   import scala.math.*
@@ -32,14 +31,14 @@ package charts
   val series1 = XYSeries("sin(x)/x")
   val series2 = XYSeries("3·sin(x)/x")
 
-  val xMin = -5*Pi // min x
-  val xMax =  5*Pi // max x
+  val xMin = -5 * Pi // min x
+  val xMax = 5 * Pi // max x
   val delta = 0.01 // distance between 2 points
 
   var x = xMin
   while x <= xMax do
-    series1 += (x, sin(x)/x)
-    series2 += (x, 3*sin(x)/x)
+    series1 += (x, sin(x) / x)
+    series2 += (x, 3 * sin(x) / x)
     x += delta
 
   val seriesColl = XYSeriesCollection()

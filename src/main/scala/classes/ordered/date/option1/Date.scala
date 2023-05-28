@@ -1,19 +1,22 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package classes.ordered.date.option1
 
 class Date(val day: Int, val month: Int, val year: Int) extends Ordered[Date]:
   // class precondition
-  require(day >= 1 && day <= Date.days(month, year) && month >= 1 && month <= 12 && year >= 0, "Invalid date")
+  require(
+    day >= 1 && day <= Date.days(month, year) && month >= 1 && month <= 12 && year >= 0,
+    "Invalid date"
+  )
 
   override def toString: String =
     s"Date($day, $month, $year)"
 
   override def equals(obj: Any): Boolean = obj match
     case that: Date => this.day == that.day && this.month == that.month && this.year == that.year
-    case _ => false
+    case _          => false
 
   override def hashCode(): Int =
     var code = 1
@@ -26,10 +29,8 @@ class Date(val day: Int, val month: Int, val year: Int) extends Ordered[Date]:
     var cmp = this.year.compare(that.year)
     if cmp == 0 then
       cmp = this.month.compare(that.month)
-      if cmp == 0 then
-        cmp = this.day.compare(that.day)
+      if cmp == 0 then cmp = this.day.compare(that.day)
     cmp
-
 
 object Date:
   private def isLeap(year: Int): Boolean =
@@ -39,9 +40,8 @@ object Date:
 
   private def days(month: Int, year: Int): Int = month match
     case 1 | 3 | 5 | 7 | 8 | 10 | 12 => 31
-    case 4 | 6 | 9 | 11 => 31
-    case 2 => if isLeap(year) then 29 else 28
-
+    case 4 | 6 | 9 | 11              => 31
+    case 2                           => if isLeap(year) then 29 else 28
 
 @main def dateTest(): Unit =
   val d1 = Date(1, 1, 2011)
@@ -61,6 +61,6 @@ object Date:
 
   val ds2 = ds.sorted(summon[Ordering[Date]].reverse)
   println(ds2)
-  
+
   println(ds.min)
   println(ds.max)

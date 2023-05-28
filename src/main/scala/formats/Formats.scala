@@ -1,5 +1,5 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package formats
@@ -11,7 +11,7 @@ package formats
 
   val name = "John"
   println(s"Name is $name and age is $age")
-  println(s"Name is $name and twice of age is ${age*2}")
+  println(s"Name is $name and twice of age is ${age * 2}")
 
   val num: Double = 3.141592653589793
   println(s"Number is $num")

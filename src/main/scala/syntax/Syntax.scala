@@ -1,3 +1,7 @@
+/*
+  Pepe Gallardo, 2023
+ */
+
 package syntax
 
 import scala.annotation.tailrec
@@ -14,7 +18,6 @@ import scala.annotation.tailrec
   val c: Char = 'a'
 
   val s: String = "hello"
-
 
 @main def expressions(): Unit =
   val n1: Int = 10 * 2
@@ -34,8 +37,6 @@ import scala.annotation.tailrec
   val d1: Double = 2 * Pi
   val d2: Double = cos(d1) / 3
 
-
-
 @main def blocks(): Unit =
   val x: Int =
     // a block for defining x
@@ -49,7 +50,6 @@ import scala.annotation.tailrec
     // a block for defining z
     val n = 3 * 2
     n + y
-
 
 @main def vars(): Unit =
   var x: Int = 10
@@ -68,7 +68,6 @@ import scala.annotation.tailrec
   y *= 3
   println(s"x=$x y=$y")
 
-
 @main def conditionals(): Unit =
   import scala.util.Random
 
@@ -77,23 +76,16 @@ import scala.annotation.tailrec
 
   val n: Int = rnd.between(0, 100)
 
-  if n % 2 == 0 then
-    println(s"$n is an even number")
-  else
-    println(s"$n is an odd number")
+  if n % 2 == 0 then println(s"$n is an even number")
+  else println(s"$n is an odd number")
 
   val mark: Double = rnd.between(0.0, 10.0)
   println(s"Mark is $mark")
 
-  if mark < 5.0 then
-    println("Low")
-  else if mark < 8.0 then
-    println("Nice")
-  else if mark < 9.0 then
-    println("Good")
-  else
-    println("Very good")
-
+  if mark < 5.0 then println("Low")
+  else if mark < 8.0 then println("Nice")
+  else if mark < 9.0 then println("Good")
+  else println("Very good")
 
 @main def functions(): Unit =
   def square(x: Int): Int = x * x
@@ -105,15 +97,11 @@ import scala.annotation.tailrec
 
   // recursion
   def factorial(n: Long): Long =
-    if n == 0 then
-      1
-    else if n > 0 then
-      n * factorial(n - 1)
-    else
-      sys.error(s"$n shouldn't be a negative number")
+    if n == 0 then 1
+    else if n > 0 then n * factorial(n - 1)
+    else sys.error(s"$n shouldn't be a negative number")
 
   println(factorial(5))
-
 
   // local functions
   def areaCylinder(r: Double, h: Double): Double =
@@ -134,23 +122,18 @@ import scala.annotation.tailrec
 
     2 * circ + rect
 
-
   // recursion and accumulator parameters
   def factorialAc(n: Long): Long =
     // aux is a local function
     @tailrec
     def aux(i: Long, ac: Long): Long =
-      if i == 0 then
-        ac
-      else
-        aux(i - 1, i * ac)
+      if i == 0 then ac
+      else aux(i - 1, i * ac)
 
     require(n >= 0, s"$n shouldn't be a negative number")
     aux(n, 1)
 
   println(factorialAc(5))
-
-
 
   // higher order functions
   def twice(f: Int => Int, x: Int): Double =
@@ -178,18 +161,16 @@ import scala.annotation.tailrec
   println(odd(10))
 
   val odd2: Int => Boolean =
-    compose((x: Boolean) => !x, (x:Int) => x % 2 == 0)
+    compose((x: Boolean) => !x, (x: Int) => x % 2 == 0)
   println(odd2(10))
-
 
   def not(x: Boolean): Boolean = !x
   def even(x: Int): Boolean = x % 2 == 0
   val odd3: Int => Boolean = compose(not, even)
   println(odd3(11))
 
-
 @main def curriedFunctions(): Unit =
-  def f(x: Int)(y: Int): Int = x*x + y*y
+  def f(x: Int)(y: Int): Int = x * x + y * y
 
   val v: Int = f(10)(20) // if we apply both arguments we get an Int
   println(s"v is $v")
@@ -197,7 +178,6 @@ import scala.annotation.tailrec
   val g: Int => Int = f(10) // if we apply just onr argument we get a function
   val z: Int = g(20)
   println(s"z is $z")
-
 
 @main def whileLoop(): Unit =
   val upper = 10
@@ -210,25 +190,19 @@ import scala.annotation.tailrec
 
   println(s"Sum from 0 to $upper is $sum")
 
-
 @main def forLoop(): Unit =
   val upper = 10
 
   var sum = 0
-  for i <- 0 to upper do
-    sum += i
+  for i <- 0 to upper do sum += i
 
   println(s"Sum from 0 to $upper is $sum")
 
-
-  for i <- 0 until upper do
-    println(i)
+  for i <- 0 until upper do println(i)
 
   println
 
-  for i <- 0 until upper by 2 do
-    println(i)
-
+  for i <- 0 until upper by 2 do println(i)
 
 @main def procedures(): Unit =
   def printMultiplicationTable(n: Int): Unit =

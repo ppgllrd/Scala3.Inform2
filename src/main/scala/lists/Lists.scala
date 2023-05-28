@@ -1,3 +1,7 @@
+/*
+  Pepe Gallardo, 2023
+ */
+
 package lists
 
 @main def lists1(): Unit =
@@ -16,13 +20,14 @@ package lists
 
   // using pattern binding
   @annotation.nowarn
-  val z::zs = xs // error if xs is empty
+  val z :: zs = xs // error if xs is empty
   println(s"First element is $z and rest of list is $zs")
 
   // processing a list using pattern matching and recursion
   def add(xs: List[Int]): Int = xs match
     case Nil => 0 // we use this case if xs is an empty list
-    case y::ys => y + add(ys)  // we use this case if xs in non-empty. y is the head and ys is the tail
+    case y :: ys =>
+      y + add(ys) // we use this case if xs in non-empty. y is the head and ys is the tail
 
   // processing a list using head/tail and a loop
   def add2(xs: List[Int]): Int =
@@ -36,10 +41,8 @@ package lists
 // processing a list using foreach loop
 def add3(xs: List[Int]): Int =
   var s = 0
-  for x <- xs do
-    s += x
+  for x <- xs do s += x
   s
-
 
 @main def lists2(): Unit =
   val xs = List[Int](10, 20, 30)
@@ -50,13 +53,11 @@ def add3(xs: List[Int]): Int =
   println(s"xs is $xs")
   println(s"ys is $ys")
 
-
   // lists concatenation. ++ is O(n)
   val zs = xs ++ ys // zs is List[Int](10, 20, 30, 5, 10, 20, 30)
   println(s"xs is $xs")
   println(s"ys is $ys")
   println(s"zs is $zs")
-
 
 @main def lists3(): Unit =
   val xs = List[Int](10, 21, 30)
@@ -68,7 +69,6 @@ def add3(xs: List[Int]): Int =
   println(s"xs is $xs")
   println(s"ys is $ys")
 
-
   // filter, filterNot, partition
   val zs = xs.filter(x => x % 2 == 0) // zs is List[Int](10, 30)
   val hs = xs.filterNot(x => x % 2 == 0) // hs is List[Int](21)
@@ -78,12 +78,10 @@ def add3(xs: List[Int]): Int =
   println(s"evens is $evens")
   println(s"odds is $odds")
 
-
   // list comprehensions
   // ns is a list with even numbers in xs but squared
   val ns = for x <- xs if x % 2 == 0 yield x * x
   println(s"ns is $ns")
-
 
   // folds
   val s = xs.foldLeft(0)((x, y) => x + y)
@@ -98,7 +96,6 @@ def add3(xs: List[Int]): Int =
   // reversing a list
   val rs = xs.foldLeft(List[Int]())((xs, x) => x :: xs)
   println(s"rs is $rs")
-
 
 @main def lists4(): Unit =
   val xs = List[Int](10, 20, 30, 40, 50)
@@ -117,9 +114,7 @@ def add3(xs: List[Int]): Int =
 
   val someMultOf3 = xs.exists(x => x % 3 == 0)
 
-
   // arithmetic sequences
   val ns = List.range(1, 100) // List[Int](1, 2, 3, ..., 98, 99)
 
   val ms = List.range(1, 100, 2) // List[Int](1, 3, 5, ..., 97, 99)
-

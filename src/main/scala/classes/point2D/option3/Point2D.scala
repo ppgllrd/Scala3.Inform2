@@ -1,5 +1,5 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package classes.point2D.option3
@@ -29,24 +29,17 @@ class Point2D(x0: Double, y0: Double):
 
   override def equals(obj: Any): Boolean = obj match
     case that: Point2D => abscissa == that.abscissa && ordinate == that.ordinate
-    case _ => false
+    case _             => false
 
   def apply(index: Int): Double =
-    if index == 0 then
-      abscissa
-    else if index == 1 then
-      ordinate
-    else
-      sys.error("Invalid index")
+    if index == 0 then abscissa
+    else if index == 1 then ordinate
+    else sys.error("Invalid index")
 
   def update(index: Int, value: Double): Unit =
-    if index == 0 then
-      xs(0) = value
-    else if index == 1 then
-      xs(1) = value
-    else
-      sys.error("Invalid index")
-
+    if index == 0 then xs(0) = value
+    else if index == 1 then xs(1) = value
+    else sys.error("Invalid index")
 
 @main def point2DTest(): Unit =
   val p1 = Point2D(5, 10)

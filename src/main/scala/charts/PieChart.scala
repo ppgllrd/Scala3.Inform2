@@ -1,12 +1,12 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package charts
 
 @main def pieChartTest(): Unit =
   import inform.graphics.plot.*
-  
+
   val pieDataset = PieDataset()
   pieDataset += ("Fail", 35)
   pieDataset += ("Pass", 30)

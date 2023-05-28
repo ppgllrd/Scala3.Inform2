@@ -1,3 +1,7 @@
+/*
+  Pepe Gallardo, 2023
+ */
+
 package objects
 
 object John:
@@ -19,8 +23,6 @@ object John:
   override def toString: String =
     s"John($name, $surname, $age, $height)"
 
-
-
 @main def objectsTest(): Unit =
   println(John.toString)
 
@@ -28,5 +30,3 @@ object John:
   John.getsTaller(5) // grows by 5 centimeters
 
   println(John) // same as println(John.toString)
-
-

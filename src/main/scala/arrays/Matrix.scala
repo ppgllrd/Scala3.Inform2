@@ -1,5 +1,5 @@
 /*
-  Pepe Gallardo, 2022
+  Pepe Gallardo, 2023
  */
 
 package arrays
@@ -8,10 +8,7 @@ object Matrix:
   type Matrix = Array[Array[Double]]
 
   val matrix: Matrix =
-    Array( Array( 1.0,  2.0,  3.0,  4.0)
-         , Array( 5.0,  6.0,  7.0,  8.0)
-         , Array( 9.0, 10.0, 11.0, 12.0)
-         )
+    Array(Array(1.0, 2.0, 3.0, 4.0), Array(5.0, 6.0, 7.0, 8.0), Array(9.0, 10.0, 11.0, 12.0))
 
   def printMatrix(m: Matrix): Unit =
     for r <- 0 until m.length do
@@ -20,7 +17,6 @@ object Matrix:
         print(str)
 
       println
-
 
 @main def matrixTest(): Unit =
   import Matrix._

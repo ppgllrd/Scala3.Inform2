@@ -1,5 +1,6 @@
-/** ****************************************************************************
-  * Informática. Grado en Matemáticas. Universidad de Málaga \@ Pepe Gallardo.
+/** ***************************************************************************************
+  * Informática. Grado en Matemáticas. Universidad de Málaga. \@ Pepe Gallardo.
+  *
   * Taken from Dave Feinberg Java version
   *
   * Robot
@@ -113,8 +114,8 @@ class Robot(mapFile: String) {
       sys.error("Map not loaded yet")
   }
 
-  /** Makes robot move to next cell in front of current cell. Raises an error if
-    * destination cell is non-free or if it is out of map.
+  /** Makes robot move to next cell in front of current cell. Raises an error if destination cell is
+    * non-free or if it is out of map.
     */
   def forward(): Unit = {
     checkMapLoaded()
@@ -179,8 +180,7 @@ class Robot(mapFile: String) {
     grid.pause(delay)
   }
 
-  /** Makes robot lighten current cell. Raises an error if cell is already
-    * light.
+  /** Makes robot lighten current cell. Raises an error if cell is already light.
     */
   def lighten(): Unit = {
     checkMapLoaded()
@@ -221,8 +221,8 @@ class Robot(mapFile: String) {
   }
 
   /** @return
-    *   true if robot can move one cell forward from its current location and
-    *   direction. Checks if destination cell is free and within the map.
+    *   true if robot can move one cell forward from its current location and direction. Checks if
+    *   destination cell is free and within the map.
     */
   def canMoveForward: Boolean = {
     checkMapLoaded()

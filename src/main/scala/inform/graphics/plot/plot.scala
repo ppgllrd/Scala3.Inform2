@@ -1,15 +1,13 @@
-/******************************************************************************
- * Informática. Grado en Matemáticas. Universidad de Málaga
- * @ Pepe Gallardo
- *
- * Simple charts based on JFreeChart
- *
- *****************************************************************************/
+/** **************************************************************************************
+  * Informática. Grado en Matemáticas. Universidad de Málaga. \@ Pepe Gallardo
+  *
+  * Simple charts based on JFreeChart
+  */
 
 package inform.graphics.plot
 
 import inform.graphics.draw2D
-import inform.graphics.draw2D.GraphicsWindow
+import inform.graphics.GraphicsWindow
 import inform.graphics.plot.Orientation.Orientation
 import org.jfree.chart.axis.{LogAxis, LogarithmicAxis, NumberAxis, NumberTickUnit}
 import org.jfree.chart.plot.PlotOrientation
@@ -33,7 +31,7 @@ private object PlotUtils {
     val renderer = chart.getXYPlot.getRenderer().asInstanceOf[XYBarRenderer]
     renderer.setDrawBarOutline(true)
     renderer.setShadowVisible(false)
-    //renderer.setOutlinePaint(java.awt.Color.GRAY)
+    // renderer.setOutlinePaint(java.awt.Color.GRAY)
     renderer.setBarPainter(new StandardXYBarPainter())
     for (i <- 0 until chart.getXYPlot.getDataset.getSeriesCount)
       renderer.setSeriesOutlineStroke(i, new BasicStroke(2.5f))
@@ -43,22 +41,33 @@ private object PlotUtils {
     val renderer = chart.getCategoryPlot.getRenderer().asInstanceOf[BarRenderer]
     renderer.setDrawBarOutline(true)
     renderer.setShadowVisible(false)
-    //renderer.setOutlinePaint(java.awt.Color.GRAY)
+    // renderer.setOutlinePaint(java.awt.Color.GRAY)
     renderer.setBarPainter(new StandardBarPainter())
-    for (i <- 0 until chart.getCategoryPlot.getDataset.getRowCount * chart.getCategoryPlot.getDataset.getColumnCount)
+    for (
+      i <-
+        0 until chart.getCategoryPlot.getDataset.getRowCount * chart.getCategoryPlot.getDataset.getColumnCount
+    )
       renderer.setSeriesOutlineStroke(i, new BasicStroke(2.5f))
   }
 
   def setXYStyle(chart: JFreeChart): Unit = {
-    val renderer = chart.getXYPlot.getRenderer().asInstanceOf[XYLineAndShapeRenderer] //new XYLineAndShapeRenderer()
+    val renderer = chart.getXYPlot
+      .getRenderer()
+      .asInstanceOf[XYLineAndShapeRenderer] // new XYLineAndShapeRenderer()
     for (i <- 0 until chart.getXYPlot.getDataset.getSeriesCount)
       renderer.setSeriesStroke(i, stroke(2.5f))
   }
 
-  def stroke(width: Double) = new BasicStroke(width.toFloat, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
+  def stroke(width: Double) = new BasicStroke(
+    width.toFloat,
+    BasicStroke.CAP_ROUND,
+    BasicStroke.JOIN_ROUND
+  )
 
   def setTheme(chart: JFreeChart, fontName: String = "Arial"): Unit = {
-    val chartTheme = org.jfree.chart.StandardChartTheme.createJFreeTheme().asInstanceOf[StandardChartTheme]
+    val chartTheme = org.jfree.chart.StandardChartTheme
+      .createJFreeTheme()
+      .asInstanceOf[StandardChartTheme]
 
     def font(sz: Int, bold: Boolean = false) =
       new Font(fontName, if (bold) Font.BOLD else Font.PLAIN, sz)
@@ -86,7 +95,6 @@ private object PlotUtils {
   }
 }
 
-
 trait CanDraw {
   private val defaultWidth = 600
   private val defaultHeight = 400
@@ -97,8 +105,12 @@ trait CanDraw {
   def draw(width: Int, height: Int): Unit =
     draw(defaultTitle, width, height)
 
-  def draw(title: String = defaultTitle, width: Int = defaultWidth, height: Int = defaultHeight): Unit = {
-    val window = draw2D.GraphicsWindow(title, width, height)
+  def draw(
+      title: String = defaultTitle,
+      width: Int = defaultWidth,
+      height: Int = defaultHeight
+  ): Unit = {
+    val window = GraphicsWindow(title, width, height)
     window.draw(this)
   }
 
@@ -107,46 +119,53 @@ trait CanDraw {
   }
 }
 
-
-class XYSeries[Label <: Comparable[Label]](label: Label) extends org.jfree.data.xy.XYSeries(label) with Iterable[(Double, Double)] {
+class XYSeries[Label <: Comparable[Label]](label: Label)
+    extends org.jfree.data.xy.XYSeries(label)
+    with Iterable[(Double, Double)] {
   def +=[X: Numeric, Y: Numeric](t: (X, Y)): Unit =
     super.add(t._1.asInstanceOf[Number], t._2.asInstanceOf[Number])
 
   override def isEmpty: Boolean =
     super.isEmpty
 
-  override def iterator: Iterator[(Double, Double)] = new Iterator[(Double, Double)] {
-    private var i = 0
+  override def iterator: Iterator[(Double, Double)] =
+    new Iterator[(Double, Double)] {
+      private var i = 0
 
-    override def hasNext: Boolean =
-      i < getItemCount
+      override def hasNext: Boolean =
+        i < getItemCount
 
-    override def next(): (Double, Double) = {
-      if (!hasNext)
-        throw new NoSuchElementException
-      val x = getX(i).doubleValue()
-      val y = getY(i).doubleValue()
-      i += 1
-      (x, y)
+      override def next(): (Double, Double) = {
+        if (!hasNext)
+          throw new NoSuchElementException
+        val x = getX(i).doubleValue()
+        val y = getY(i).doubleValue()
+        i += 1
+        (x, y)
+      }
     }
-  }
 }
-
 
 object XYSeries {
   def apply[Label <: Comparable[Label]](label: Label) = new XYSeries(label)
 
-  def apply[Label <: Comparable[Label], X: Numeric, Y: Numeric](label: Label, xs: Iterable[X], ys: Iterable[Y]): XYSeries[Label] =
+  def apply[Label <: Comparable[Label], X: Numeric, Y: Numeric](
+      label: Label,
+      xs: Iterable[X],
+      ys: Iterable[Y]
+  ): XYSeries[Label] =
     apply(label, xs.zip(ys))
 
-  def apply[Label <: Comparable[Label], X: Numeric, Y: Numeric](label: Label, xys: Iterable[(X, Y)]): XYSeries[Label] = {
+  def apply[Label <: Comparable[Label], X: Numeric, Y: Numeric](
+      label: Label,
+      xys: Iterable[(X, Y)]
+  ): XYSeries[Label] = {
     val xySeries = new XYSeries(label)
     for ((x, y) <- xys)
       xySeries += (x, y)
     xySeries
   }
 }
-
 
 class XYSeriesCollection extends org.jfree.data.xy.XYSeriesCollection with Iterable[XYSeries[_]] {
   override def clone: AnyRef = super.clone()
@@ -169,7 +188,6 @@ class XYSeriesCollection extends org.jfree.data.xy.XYSeriesCollection with Itera
   }
 }
 
-
 object XYSeriesCollection {
   def apply() = new XYSeriesCollection
 
@@ -182,12 +200,10 @@ object XYSeriesCollection {
   }
 }
 
-
 object Orientation extends Enumeration {
   type Orientation = Value
   val Horizontal, Vertical = Value
 }
-
 
 trait HasOrientation {
   val chart: JFreeChart
@@ -199,20 +215,25 @@ trait HasOrientation {
       Orientation.Vertical
 
   def orientation_=(o: Orientation): Unit = {
-    val po = if (o == Orientation.Horizontal)
-      PlotOrientation.HORIZONTAL
-    else
-      PlotOrientation.VERTICAL
+    val po =
+      if (o == Orientation.Horizontal)
+        PlotOrientation.HORIZONTAL
+      else
+        PlotOrientation.VERTICAL
     chart.getXYPlot.setOrientation(po)
   }
 }
-
 
 trait HasXYAxis {
   val chart: JFreeChart
   val domainMargin: Double
 
-  def setRangeAxis(yMin: Double, yMax: Double, tickUnit: Double = -1.0, log: Boolean = false): Unit = {
+  def setRangeAxis(
+      yMin: Double,
+      yMax: Double,
+      tickUnit: Double = -1.0,
+      log: Boolean = false
+  ): Unit = {
     val plot: XYPlot = chart.getXYPlot
     val label = plot.getRangeAxis().getLabel
     val tickFont = plot.getRangeAxis().getTickLabelFont
@@ -244,7 +265,12 @@ trait HasXYAxis {
     plot.setRangeAxis(axis)
   }
 
-  def setDomainAxis(xMin: Double, xMax: Double, tickUnit: Double = -1.0, log: Boolean = false): Unit = {
+  def setDomainAxis(
+      xMin: Double,
+      xMax: Double,
+      tickUnit: Double = -1.0,
+      log: Boolean = false
+  ): Unit = {
     val plot: XYPlot = chart.getXYPlot
     val label = plot.getDomainAxis().getLabel
     val tickFont = plot.getDomainAxis().getTickLabelFont
@@ -278,40 +304,66 @@ trait HasXYAxis {
   }
 }
 
-
-class XYLineChart(val chart: JFreeChart) extends JFreeChart(chart.getTitle.getText, chart.getPlot)
-  with CanDraw with HasOrientation with HasXYAxis {
+class XYLineChart(val chart: JFreeChart)
+    extends JFreeChart(chart.getTitle.getText, chart.getPlot)
+    with CanDraw
+    with HasOrientation
+    with HasXYAxis {
 
   val domainMargin = 0.0
 
   def setSeriesLinesVisible(numSeries: Int, visible: Boolean): Unit = {
     val plot: XYPlot = chart.getXYPlot
-    val renderer = plot.getRenderer().asInstanceOf[XYLineAndShapeRenderer] //new XYLineAndShapeRenderer()
+    val renderer =
+      plot
+        .getRenderer()
+        .asInstanceOf[XYLineAndShapeRenderer] // new XYLineAndShapeRenderer()
     renderer.setSeriesLinesVisible(numSeries, visible)
   }
 
   def setSeriesShapesVisible(numSeries: Int, visible: Boolean): Unit = {
     val plot: XYPlot = chart.getXYPlot
-    val renderer = plot.getRenderer().asInstanceOf[XYLineAndShapeRenderer] //new XYLineAndShapeRenderer()
+    val renderer =
+      plot
+        .getRenderer()
+        .asInstanceOf[XYLineAndShapeRenderer] // new XYLineAndShapeRenderer()
     renderer.setSeriesShapesVisible(numSeries, visible)
   }
 
   def setSeriesStrokeWidth(numSeries: Int, width: Double): Unit = {
     val plot: XYPlot = chart.getXYPlot
-    val renderer = plot.getRenderer().asInstanceOf[XYLineAndShapeRenderer] //new XYLineAndShapeRenderer()
+    val renderer =
+      plot
+        .getRenderer()
+        .asInstanceOf[XYLineAndShapeRenderer] // new XYLineAndShapeRenderer()
     renderer.setSeriesStroke(numSeries, PlotUtils.stroke(width))
   }
 
-  def config(xySeries: XYSeries[_], lineVisible: Boolean = true, shapeVisible: Boolean = false, strokeWidth: Double = -1.0, color: Color = null): Unit = {
+  def config(
+      xySeries: XYSeries[_],
+      lineVisible: Boolean = true,
+      shapeVisible: Boolean = false,
+      strokeWidth: Double = -1.0,
+      color: Color = null
+  ): Unit = {
     val plot: XYPlot = chart.getXYPlot
     val numSeries = plot.getDataset.indexOf(xySeries.getKey)
 
     config(numSeries, lineVisible, shapeVisible, strokeWidth, color)
   }
 
-  def config(numSeries: Int, lineVisible: Boolean, shapeVisible: Boolean, strokeWidth: Double, color: Color): Unit = {
+  def config(
+      numSeries: Int,
+      lineVisible: Boolean,
+      shapeVisible: Boolean,
+      strokeWidth: Double,
+      color: Color
+  ): Unit = {
     val plot: XYPlot = chart.getXYPlot
-    val renderer = plot.getRenderer().asInstanceOf[XYLineAndShapeRenderer] //new XYLineAndShapeRenderer()
+    val renderer =
+      plot
+        .getRenderer()
+        .asInstanceOf[XYLineAndShapeRenderer] // new XYLineAndShapeRenderer()
 
     renderer.setSeriesLinesVisible(numSeries, lineVisible)
     renderer.setSeriesShapesVisible(numSeries, shapeVisible)
@@ -322,27 +374,47 @@ class XYLineChart(val chart: JFreeChart) extends JFreeChart(chart.getTitle.getTe
   }
 }
 
-
 object XYLineChart {
-  def apply[X: Numeric, Y: Numeric](title: String, domainLabel: String, rangeLabel: String, serieLabel: String, data: Iterable[(X, Y)]): XYLineChart = {
+  def apply[X: Numeric, Y: Numeric](
+      title: String,
+      domainLabel: String,
+      rangeLabel: String,
+      serieLabel: String,
+      data: Iterable[(X, Y)]
+  ): XYLineChart = {
     val series = XYSeries(serieLabel)
     for (kv <- data)
       series += kv
     apply(title, domainLabel, rangeLabel, series)
   }
 
-  def apply(title: String, domainLabel: String, rangeLabel: String, data: XYSeries[_]): XYLineChart = {
+  def apply(
+      title: String,
+      domainLabel: String,
+      rangeLabel: String,
+      data: XYSeries[_]
+  ): XYLineChart = {
     val collection = XYSeriesCollection()
     collection.addSeries(data)
     apply(title, domainLabel, rangeLabel, collection, true)
   }
 
-  def apply(title: String, domainLabel: String, rangeLabel: String, data: XYSeriesCollection, vertical: Boolean = true): XYLineChart = {
+  def apply(
+      title: String,
+      domainLabel: String,
+      rangeLabel: String,
+      data: XYSeriesCollection,
+      vertical: Boolean = true
+  ): XYLineChart = {
     val chart = ChartFactory.createXYLineChart(
-      title
-      , domainLabel, rangeLabel
-      , data
-      , if (vertical) PlotOrientation.VERTICAL else PlotOrientation.HORIZONTAL, true, false, false
+      title,
+      domainLabel,
+      rangeLabel,
+      data,
+      if (vertical) PlotOrientation.VERTICAL else PlotOrientation.HORIZONTAL,
+      true,
+      false,
+      false
     )
     PlotUtils.setTheme(chart)
     PlotUtils.setXYStyle(chart)
@@ -350,18 +422,31 @@ object XYLineChart {
   }
 }
 
-class XYBarChart(val chart: JFreeChart) extends JFreeChart(chart.getTitle.getText, chart.getPlot)
-  with CanDraw with HasOrientation with HasXYAxis {
+class XYBarChart(val chart: JFreeChart)
+    extends JFreeChart(chart.getTitle.getText, chart.getPlot)
+    with CanDraw
+    with HasOrientation
+    with HasXYAxis {
 
   val domainMargin = 0.8
 
-  def config(xySeries: XYSeries[_], color: Color = null, outlineColor: Color = null, strokeWidth: Double = -1.0): Unit = {
+  def config(
+      xySeries: XYSeries[_],
+      color: Color = null,
+      outlineColor: Color = null,
+      strokeWidth: Double = -1.0
+  ): Unit = {
     val plot: XYPlot = chart.getXYPlot
     val numSeries = plot.getDataset.indexOf(xySeries.getKey)
     config(numSeries, color, outlineColor, strokeWidth)
   }
 
-  def config(numSeries: Int, color: Color, outlineColor: Color, strokeWidth: Double): Unit = {
+  def config(
+      numSeries: Int,
+      color: Color,
+      outlineColor: Color,
+      strokeWidth: Double
+  ): Unit = {
     val plot: XYPlot = chart.getXYPlot
     val renderer = plot.getRenderer().asInstanceOf[XYBarRenderer]
 
@@ -373,7 +458,10 @@ class XYBarChart(val chart: JFreeChart) extends JFreeChart(chart.getTitle.getTex
       renderer.setSeriesOutlinePaint(numSeries, outlineColor)
     }
     if (strokeWidth >= 0)
-      renderer.setSeriesOutlineStroke(numSeries, new BasicStroke(strokeWidth.toFloat))
+      renderer.setSeriesOutlineStroke(
+        numSeries,
+        new BasicStroke(strokeWidth.toFloat)
+      )
   }
 
   def config(strokeWidth: Double): Unit = {
@@ -386,23 +474,48 @@ class XYBarChart(val chart: JFreeChart) extends JFreeChart(chart.getTitle.getTex
 }
 
 object XYBarChart {
-  def apply[X: Numeric, Y: Numeric](title: String, domainLabel: String, rangeLabel: String, serieLabel: String,
-                                    data: Iterable[(X, Y)]): XYBarChart = {
+  def apply[X: Numeric, Y: Numeric](
+      title: String,
+      domainLabel: String,
+      rangeLabel: String,
+      serieLabel: String,
+      data: Iterable[(X, Y)]
+  ): XYBarChart = {
     val series = XYSeries(serieLabel)
     for (kv <- data)
       series += kv
     apply(title, domainLabel, rangeLabel, series)
   }
 
-  def apply(title: String, domainLabel: String, rangeLabel: String, data: XYSeries[_]): XYBarChart = {
+  def apply(
+      title: String,
+      domainLabel: String,
+      rangeLabel: String,
+      data: XYSeries[_]
+  ): XYBarChart = {
     val collection = XYSeriesCollection()
     collection.addSeries(data)
     apply(title, domainLabel, rangeLabel, collection, true)
   }
 
-  def apply(title: String, domainLabel: String, rangeLabel: String, data: XYSeriesCollection, vertical: Boolean = true): XYBarChart = {
-    val chart = ChartFactory.createXYBarChart(title, domainLabel, false, rangeLabel, data,
-      if (vertical) PlotOrientation.VERTICAL else PlotOrientation.HORIZONTAL, true, false, false)
+  def apply(
+      title: String,
+      domainLabel: String,
+      rangeLabel: String,
+      data: XYSeriesCollection,
+      vertical: Boolean = true
+  ): XYBarChart = {
+    val chart = ChartFactory.createXYBarChart(
+      title,
+      domainLabel,
+      false,
+      rangeLabel,
+      data,
+      if (vertical) PlotOrientation.VERTICAL else PlotOrientation.HORIZONTAL,
+      true,
+      false,
+      false
+    )
     PlotUtils.setTheme(chart)
     PlotUtils.setXYBarStyle(chart)
     new XYBarChart(chart)
@@ -412,29 +525,41 @@ object XYBarChart {
 object PieDataset {
   def apply() = new PieDataset[String, Double]
 
-  def withType[Label <: Comparable[Label], V: Numeric]() = new PieDataset[Label, V]
+  def withType[Label <: Comparable[Label], V: Numeric]() =
+    new PieDataset[Label, V]
 
-  def apply[Label <: Comparable[Label], V: Numeric](labels: Iterable[Label], values: Iterable[V]): PieDataset[Label, V] =
+  def apply[Label <: Comparable[Label], V: Numeric](
+      labels: Iterable[Label],
+      values: Iterable[V]
+  ): PieDataset[Label, V] =
     apply(labels zip values)
 
-  def apply[Label <: Comparable[Label], V: Numeric](etVs: Iterable[(Label, V)]): PieDataset[Label, V] = {
+  def apply[Label <: Comparable[Label], V: Numeric](
+      etVs: Iterable[(Label, V)]
+  ): PieDataset[Label, V] = {
     val pieDS = new PieDataset[Label, V]
     for ((lb, v) <- etVs)
       pieDS.add(lb, v)
     pieDS
   }
 
-  def apply[Label <: Comparable[Label], V: Numeric](etVs: (Label, V)*): PieDataset[Label, V] = apply(etVs)
+  def apply[Label <: Comparable[Label], V: Numeric](
+      etVs: (Label, V)*
+  ): PieDataset[Label, V] = apply(etVs)
 }
 
-class PieDataset[Label <: Comparable[Label], V: Numeric] extends DefaultPieDataset[Label] with Iterable[(Label, V)] {
+class PieDataset[Label <: Comparable[Label], V: Numeric]
+    extends DefaultPieDataset[Label]
+    with Iterable[(Label, V)] {
   override def clone: AnyRef = super.clone()
 
-  def add(label: Label, value: V): Unit = super.setValue(label, value.asInstanceOf[Number])
+  def add(label: Label, value: V): Unit =
+    super.setValue(label, value.asInstanceOf[Number])
 
   def +=(t: (Label, V)): Unit = super.setValue(t._1, t._2.asInstanceOf[Number])
 
-  def +=(label: Label, value: V): Unit = super.setValue(label, value.asInstanceOf[Number])
+  def +=(label: Label, value: V): Unit =
+    super.setValue(label, value.asInstanceOf[Number])
 
   override def iterator: Iterator[(Label, V)] = new Iterator[(Label, V)] {
     private var i = 0
@@ -453,8 +578,9 @@ class PieDataset[Label <: Comparable[Label], V: Numeric] extends DefaultPieDatas
   }
 }
 
-
-class PieChart(chart: JFreeChart) extends JFreeChart(chart.getTitle.getText, chart.getPlot) with CanDraw {
+class PieChart(chart: JFreeChart)
+    extends JFreeChart(chart.getTitle.getText, chart.getPlot)
+    with CanDraw {
   @annotation.nowarn
   def this(title: String, data: PieDataset[_, _]) = {
     this(ChartFactory.createPieChart3D(title, data, true, false, false))
@@ -462,9 +588,11 @@ class PieChart(chart: JFreeChart) extends JFreeChart(chart.getTitle.getText, cha
   }
 }
 
-
 object PieChart {
-  def apply[Label <: Comparable[Label], V: Numeric](title: String, map: scala.collection.immutable.Map[Label, V]): PieChart = {
+  def apply[Label <: Comparable[Label], V: Numeric](
+      title: String,
+      map: scala.collection.immutable.Map[Label, V]
+  ): PieChart = {
     val pieDataset = new PieDataset[Label, V]()
     for ((k, v) <- map)
       pieDataset.add(k, v)
@@ -475,22 +603,31 @@ object PieChart {
     new PieChart(title, data)
 }
 
-
 object HistogramDataset {
   def apply(relativeFreq: Boolean = false): HistogramDataset = {
     val hds = new HistogramDataset()
-    hds.setType(if (relativeFreq) HistogramType.RELATIVE_FREQUENCY else HistogramType.FREQUENCY)
+    hds.setType(
+      if (relativeFreq) HistogramType.RELATIVE_FREQUENCY
+      else HistogramType.FREQUENCY
+    )
     hds
   }
 }
 
-
-class HistogramChart(val chart: JFreeChart) extends JFreeChart(chart.getTitle.getText, chart.getPlot)
-  with CanDraw with HasOrientation with HasXYAxis {
+class HistogramChart(val chart: JFreeChart)
+    extends JFreeChart(chart.getTitle.getText, chart.getPlot)
+    with CanDraw
+    with HasOrientation
+    with HasXYAxis {
 
   val domainMargin = 0.5
 
-  def config(color: Color = null, outlineColor: Color = null, strokeWidth: Double = -1.0, relativeFreq: Boolean = false): Unit = {
+  def config(
+      color: Color = null,
+      outlineColor: Color = null,
+      strokeWidth: Double = -1.0,
+      relativeFreq: Boolean = false
+  ): Unit = {
     val renderer = chart.getXYPlot.getRenderer().asInstanceOf[XYBarRenderer]
     renderer.setDrawBarOutline(true)
 
@@ -502,10 +639,11 @@ class HistogramChart(val chart: JFreeChart) extends JFreeChart(chart.getTitle.ge
       renderer.setSeriesOutlinePaint(0, outlineColor)
     }
 
-    val histType = if (relativeFreq)
-      HistogramType.RELATIVE_FREQUENCY
-    else
-      HistogramType.FREQUENCY
+    val histType =
+      if (relativeFreq)
+        HistogramType.RELATIVE_FREQUENCY
+      else
+        HistogramType.FREQUENCY
     chart.getXYPlot.getDataset.asInstanceOf[HistogramDataset].setType(histType)
 
     if (strokeWidth >= 0)
@@ -514,24 +652,45 @@ class HistogramChart(val chart: JFreeChart) extends JFreeChart(chart.getTitle.ge
   }
 }
 
-
 object HistogramChart {
-  def apply[Y](title: String, domainLabel: String, rangeLabel: String, data: Iterable[Y], dataLabel: String = null, buckets: Int = -1)(implicit toDouble: Y => Double): HistogramChart = {
+  def apply[Y](
+      title: String,
+      domainLabel: String,
+      rangeLabel: String,
+      data: Iterable[Y],
+      dataLabel: String = null,
+      buckets: Int = -1
+  )(implicit toDouble: Y => Double): HistogramChart = {
     val dataset = HistogramDataset()
     val xs: Array[Double] = data.map(toDouble(_)).toArray
 
     val numBuckets = if (buckets > 0) buckets else data.size
 
-    dataset.addSeries(if (dataLabel == null) title else dataLabel, xs, numBuckets)
+    dataset.addSeries(
+      if (dataLabel == null) title else dataLabel,
+      xs,
+      numBuckets
+    )
 
     apply(title, domainLabel, rangeLabel, dataset)
   }
 
-  def apply(title: String, domainLabel: String, rangeLabel: String, dataset: HistogramDataset): HistogramChart = {
+  def apply(
+      title: String,
+      domainLabel: String,
+      rangeLabel: String,
+      dataset: HistogramDataset
+  ): HistogramChart = {
     val chart = ChartFactory.createHistogram(
       title,
-      domainLabel, rangeLabel, dataset,
-      PlotOrientation.VERTICAL, true, false, false)
+      domainLabel,
+      rangeLabel,
+      dataset,
+      PlotOrientation.VERTICAL,
+      true,
+      false,
+      false
+    )
     PlotUtils.setTheme(chart)
     PlotUtils.setXYBarStyle(chart)
     val hChart = new HistogramChart(chart)
@@ -556,7 +715,6 @@ object HistogramChart {
   }
 }
 
-
 object JFreeChart {
   def apply(title: String, plot: Plot): JFreeChart = {
     val chart = new JFreeChart(title, plot)
@@ -565,8 +723,10 @@ object JFreeChart {
   }
 }
 
-
-class CategoryDataset[V: Numeric, Row <: Comparable[Row], Col <: Comparable[Col]] extends DefaultCategoryDataset with Iterable[(V, Row, Col)] {
+class CategoryDataset[V: Numeric, Row <: Comparable[Row], Col <: Comparable[
+  Col
+]] extends DefaultCategoryDataset
+    with Iterable[(V, Row, Col)] {
   override def clone: AnyRef = super.clone()
 
   def add(value: V, rowKey: Row, colKey: Col): Unit =
@@ -602,43 +762,58 @@ class CategoryDataset[V: Numeric, Row <: Comparable[Row], Col <: Comparable[Col]
   }
 }
 
-
 object CategoryDataset {
   def apply() = new CategoryDataset[Double, String, String]
 
-  def apply[V: Numeric, Row <: Comparable[Row], Col <: Comparable[Col]]
-              ( values: Iterable[V]
-              , rows: Iterable[Row]
-              , cols: Iterable[Col]
-              ): CategoryDataset[V, Row, Col] =
+  def apply[V: Numeric, Row <: Comparable[Row], Col <: Comparable[Col]](
+      values: Iterable[V],
+      rows: Iterable[Row],
+      cols: Iterable[Col]
+  ): CategoryDataset[V, Row, Col] =
     apply(values.lazyZip(rows).lazyZip(cols))
 
-  def apply[V: Numeric, Row <: Comparable[Row], Col <: Comparable[Col]](vrcs: Iterable[(V, Row, Col)]): CategoryDataset[V, Row, Col] = {
+  def apply[V: Numeric, Row <: Comparable[Row], Col <: Comparable[Col]](
+      vrcs: Iterable[(V, Row, Col)]
+  ): CategoryDataset[V, Row, Col] = {
     val catDS = CategoryDataset.withType[V, Row, Col]()
     for ((v, r, c) <- vrcs)
       catDS.add(v, r, c)
     catDS
   }
 
-  def withType[V: Numeric, Row <: Comparable[Row], Col <: Comparable[Col]]() = new CategoryDataset[V, Row, Col]
+  def withType[V: Numeric, Row <: Comparable[Row], Col <: Comparable[Col]]() =
+    new CategoryDataset[V, Row, Col]
 
-  def apply[V: Numeric, Row <: Comparable[Row], Col <: Comparable[Col]](vrcs: (V, Row, Col)*): CategoryDataset[V, Row, Col] =
+  def apply[V: Numeric, Row <: Comparable[Row], Col <: Comparable[Col]](
+      vrcs: (V, Row, Col)*
+  ): CategoryDataset[V, Row, Col] =
     apply(vrcs)
 }
 
-
-class BarChart(val chart: JFreeChart) extends JFreeChart(chart.getTitle.getText, chart.getPlot) with CanDraw
-  with HasOrientation {
+class BarChart(val chart: JFreeChart)
+    extends JFreeChart(chart.getTitle.getText, chart.getPlot)
+    with CanDraw
+    with HasOrientation {
 
   val domainMargin = 0.8
 
-  def config(row: Comparable[_], color: Color = null, outlineColor: Color = null, strokeWidth: Double = -1.0): Unit = {
+  def config(
+      row: Comparable[_],
+      color: Color = null,
+      outlineColor: Color = null,
+      strokeWidth: Double = -1.0
+  ): Unit = {
     val plot = chart.getCategoryPlot
     val numSeries = plot.getDataset.getRowIndex(row)
     config(numSeries, color, outlineColor, strokeWidth)
   }
 
-  def config(numSeries: Int, color: Color, outlineColor: Color, strokeWidth: Double): Unit = {
+  def config(
+      numSeries: Int,
+      color: Color,
+      outlineColor: Color,
+      strokeWidth: Double
+  ): Unit = {
     val renderer = chart.getCategoryPlot.getRenderer().asInstanceOf[BarRenderer]
 
     renderer.setDrawBarOutline(true)
@@ -649,7 +824,10 @@ class BarChart(val chart: JFreeChart) extends JFreeChart(chart.getTitle.getText,
       renderer.setSeriesOutlinePaint(numSeries, outlineColor)
     }
     if (strokeWidth >= 0)
-      renderer.setSeriesOutlineStroke(numSeries, new BasicStroke(strokeWidth.toFloat))
+      renderer.setSeriesOutlineStroke(
+        numSeries,
+        new BasicStroke(strokeWidth.toFloat)
+      )
   }
 
   def config(strokeWidth: Double): Unit = {
@@ -660,13 +838,19 @@ class BarChart(val chart: JFreeChart) extends JFreeChart(chart.getTitle.getText,
         renderer.setSeriesOutlineStroke(i, new BasicStroke(strokeWidth.toFloat))
   }
 
-  def setRangeAxis(yMin: Double, yMax: Double, tickUnit: Double = -1.0, log: Boolean = false): Unit = {
+  def setRangeAxis(
+      yMin: Double,
+      yMax: Double,
+      tickUnit: Double = -1.0,
+      log: Boolean = false
+  ): Unit = {
     val plot = chart.getCategoryPlot
     val label = plot.getRangeAxis().getLabel
     val tickFont = plot.getRangeAxis().getTickLabelFont
     val labelFont = plot.getRangeAxis().getLabelFont
-    val axis = if (log) new LogarithmicAxis(label)
-    else new NumberAxis(label)
+    val axis =
+      if (log) new LogarithmicAxis(label)
+      else new NumberAxis(label)
 
     val margin = 0
     axis.setRange(yMin - margin, yMax + margin)
@@ -693,12 +877,25 @@ class BarChart(val chart: JFreeChart) extends JFreeChart(chart.getTitle.getText,
 }
 
 object BarChart {
-  def apply(title: String, domainLabel: String, rangeLabel: String, data: CategoryDataset[_, _, _], vertical: Boolean = true): BarChart = {
-    val chart = ChartFactory.createBarChart(title, domainLabel, rangeLabel, data,
-      if (vertical) PlotOrientation.VERTICAL else PlotOrientation.HORIZONTAL, true, false, false)
+  def apply(
+      title: String,
+      domainLabel: String,
+      rangeLabel: String,
+      data: CategoryDataset[_, _, _],
+      vertical: Boolean = true
+  ): BarChart = {
+    val chart = ChartFactory.createBarChart(
+      title,
+      domainLabel,
+      rangeLabel,
+      data,
+      if (vertical) PlotOrientation.VERTICAL else PlotOrientation.HORIZONTAL,
+      true,
+      false,
+      false
+    )
     PlotUtils.setTheme(chart)
     PlotUtils.setBarStyle(chart)
     new BarChart(chart)
   }
 }
-
