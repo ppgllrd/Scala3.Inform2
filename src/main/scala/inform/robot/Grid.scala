@@ -144,7 +144,7 @@ private class Grid extends JComponent with KeyListener with MouseListener {
 
         val imageFileName = cell.assetFile
         if (imageFileName != null) {
-          val url : URL = getClass.getResource(imageFileName)
+          val url: URL = getClass.getResource(imageFileName)
           if (url == null)
             sys.error(s"File not found: $imageFileName")
           else {

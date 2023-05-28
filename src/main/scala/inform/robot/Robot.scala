@@ -1,24 +1,26 @@
-/******************************************************************************
- * Informática. Grado en Matemáticas. Universidad de Málaga
- * @ Pepe Gallardo. Taken from Dave Feinberg Java version
- *
- * Robot
- *
- *****************************************************************************/
+/** ****************************************************************************
+  * Informática. Grado en Matemáticas. Universidad de Málaga \@ Pepe Gallardo.
+  * Taken from Dave Feinberg Java version
+  *
+  * Robot
+  */
 
 package inform.robot
 
 import java.awt.Color
 
 object Robot {
+
   /** Builds a new robot that will move in provided map.
-   * @param mapFile file describing map.
-   * @return a new robot that will move in provided map.
-   */
+    * @param mapFile
+    *   file describing map.
+    * @return
+    *   a new robot that will move in provided map.
+    */
   def apply(mapFile: String) =
     new Robot(mapFile)
 
-  private def asset(fileName: String) = s"/inform/robot/assets/$fileName"
+  private def asset(fileName: String) = s"/robot/$fileName"
 
   private final val ROBOT_NORTH_IMAGE = asset("robotnorth.gif")
   private final val ROBOT_SOUTH_IMAGE = asset("robotsouth.gif")
@@ -31,10 +33,12 @@ object Robot {
 }
 
 /** Builds a new robot that will move in provided map.
- *
- * @param mapFile file describing map.
- * @return a new robot that will move in provided map.
- */
+  *
+  * @param mapFile
+  *   file describing map.
+  * @return
+  *   a new robot that will move in provided map.
+  */
 class Robot(mapFile: String) {
   import Robot.*
 
@@ -61,7 +65,9 @@ class Robot(mapFile: String) {
         val loc = Location(row, col)
         val line = lines(row)
         if (line.length != numCols)
-          sys.error(s"Inconsistent length of line \"$line\" in map \"$mapFile\"")
+          sys.error(
+            s"Inconsistent length of line \"$line\" in map \"$mapFile\""
+          )
 
         val ch = lines(row)(col)
         if (Set.from("NSEWnsew").contains(ch)) {
@@ -74,7 +80,7 @@ class Robot(mapFile: String) {
             case 'N' | 'n' => grid.setImage(loc, ROBOT_NORTH_IMAGE)
             case 'S' | 's' => grid.setImage(loc, ROBOT_SOUTH_IMAGE)
             case 'E' | 'e' => grid.setImage(loc, ROBOT_EAST_IMAGE)
-            case _ => grid.setImage(loc, ROBOT_WEST_IMAGE)
+            case _         => grid.setImage(loc, ROBOT_WEST_IMAGE)
 
           robotLoc = loc
           direction = ch.toUpper
@@ -107,8 +113,8 @@ class Robot(mapFile: String) {
       sys.error("Map not loaded yet")
   }
 
-  /** Makes robot move to next cell in front of current cell.
-    * Raises an error if destination cell is non-free or if it is out of map.
+  /** Makes robot move to next cell in front of current cell. Raises an error if
+    * destination cell is non-free or if it is out of map.
     */
   def forward(): Unit = {
     checkMapLoaded()
@@ -116,7 +122,9 @@ class Robot(mapFile: String) {
     val newLoc = newLocation(robotLoc, direction)
 
     if (!grid.isValid(newLoc))
-      sys.error(s"Trying to move robot from $robotLoc to a non-valid location $newLoc")
+      sys.error(
+        s"Trying to move robot from $robotLoc to a non-valid location $newLoc"
+      )
     if (grid.getAssetFile(newLoc) != null)
       sys.error(s"Trying to move robot from $robotLoc to a non-free location")
 
@@ -127,8 +135,7 @@ class Robot(mapFile: String) {
     grid.pause(delay)
   }
 
-  /**
-   * Makes robot chance its direction by turning 90 degrees left.
+  /** Makes robot chance its direction by turning 90 degrees left.
     */
   def left(): Unit = {
     checkMapLoaded()
@@ -150,8 +157,7 @@ class Robot(mapFile: String) {
     grid.pause(delay)
   }
 
-  /**
-    * Makes robot chance its direction by turning 90 degrees right.
+  /** Makes robot chance its direction by turning 90 degrees right.
     */
   def right(): Unit = {
     checkMapLoaded()
@@ -173,8 +179,9 @@ class Robot(mapFile: String) {
     grid.pause(delay)
   }
 
-  /** Makes robot lighten current cell. Raises an error if cell is already light.
-   */
+  /** Makes robot lighten current cell. Raises an error if cell is already
+    * light.
+    */
   def lighten(): Unit = {
     checkMapLoaded()
 
@@ -185,7 +192,7 @@ class Robot(mapFile: String) {
   }
 
   /** Makes robot darken current cell. Raises an error if cell is already dark.
-   */
+    */
   def darken(): Unit = {
     checkMapLoaded()
 
@@ -195,28 +202,28 @@ class Robot(mapFile: String) {
     grid.pause(delay)
   }
 
-  /**
-   * @return true if robot is currently on a dark cell.
-   */
+  /** @return
+    *   true if robot is currently on a dark cell.
+    */
   def isOnDark: Boolean = {
     checkMapLoaded()
 
     grid.getColor(robotLoc).equals(DARK_COLOR)
   }
 
-  /**
-    * @return true if robot is currently on a light cell.
+  /** @return
+    *   true if robot is currently on a light cell.
     */
-  def isOnLight : Boolean = {
+  def isOnLight: Boolean = {
     checkMapLoaded()
 
     grid.getColor(robotLoc).equals(LIGHT_COLOR)
   }
 
-  /**
-   * @return true if robot can move one cell forward from its current location and direction.
-   *          Checks if destination cell is free and within the map.
-   */
+  /** @return
+    *   true if robot can move one cell forward from its current location and
+    *   direction. Checks if destination cell is free and within the map.
+    */
   def canMoveForward: Boolean = {
     checkMapLoaded()
 
@@ -224,14 +231,11 @@ class Robot(mapFile: String) {
     grid.isValid(pos) && grid.getAssetFile(pos) == null
   }
 
-  /**
-    * Slows down the animation.
-    * @param milliseconds Time (in milliseconds) that robot takes to perform a single action.
+  /** Slows down the animation.
+    * @param milliseconds
+    *   Time (in milliseconds) that robot takes to perform a single action.
     */
   def setDelay(milliseconds: Int): Unit = {
     delay = milliseconds
   }
 }
-
-
-
