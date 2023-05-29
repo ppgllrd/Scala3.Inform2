@@ -27,7 +27,7 @@ object GraphicsWindow {
     * @param title
     *   title of window.
     * @param width
-    *   width in pixews of window.
+    *   width in pixels of window.
     * @param height
     *   height in pixels of window.
     * @param backgroundColor
@@ -46,7 +46,7 @@ object GraphicsWindow {
   /** Creates a new graphic window configured with specified parameters.
     *
     * @param width
-    *   width in pixews of window.
+    *   width in pixels of window.
     * @param height
     *   height in pixels of window.
     * @return

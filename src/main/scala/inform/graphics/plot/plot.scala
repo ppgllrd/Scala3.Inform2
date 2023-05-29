@@ -102,9 +102,28 @@ trait CanDraw {
 
   def draw(g2D: java.awt.Graphics2D, rect: java.awt.geom.Rectangle2D): Unit
 
+  /** Draws chart in a graphic window with specified dimensions.
+    *
+    * @param width
+    *   width of window.
+    *
+    * @param height
+    *   height of window.
+    */
   def draw(width: Int, height: Int): Unit =
     draw(defaultTitle, width, height)
 
+  /** Draws chart in a graphic window with specified dimensions.
+    *
+    * @param title
+    *   title of window.
+    *
+    * @param width
+    *   width of window.
+    *
+    * @param height
+    *   height of window.
+    */
   def draw(
       title: String = defaultTitle,
       width: Int = defaultWidth,
@@ -114,6 +133,8 @@ trait CanDraw {
     window.draw(this)
   }
 
+  /** Draws chart in a graphic window with default dimensions.
+    */
   def draw(): Unit = {
     draw(defaultTitle, defaultWidth, defaultHeight)
   }
