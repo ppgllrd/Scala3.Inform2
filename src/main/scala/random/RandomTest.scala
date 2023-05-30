@@ -29,10 +29,10 @@ package random
   println(rnd.uniform(1, 10))
 
   val freqs = Array(50, 20, 30)
-  val dicreteGen: () => Int = rnd.discrete(freqs)
+  val discreteGen: () => Int = rnd.discrete(freqs)
 
   for _ <- 1 to 20 do
-    val x = dicreteGen()
+    val x = discreteGen()
     println(x)
 
   val set = scala.collection.immutable.Set.range(1, 10)

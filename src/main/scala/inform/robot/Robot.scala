@@ -136,7 +136,7 @@ class Robot(mapFile: String) {
     grid.pause(delay)
   }
 
-  /** Makes robot chance its direction by turning 90 degrees left.
+  /** Makes robot change its direction by turning 90 degrees left.
     */
   def left(): Unit = {
     checkMapLoaded()
@@ -158,7 +158,7 @@ class Robot(mapFile: String) {
     grid.pause(delay)
   }
 
-  /** Makes robot chance its direction by turning 90 degrees right.
+  /** Makes robot change its direction by turning 90 degrees right.
     */
   def right(): Unit = {
     checkMapLoaded()
