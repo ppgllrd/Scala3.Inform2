@@ -3,6 +3,6 @@
 .metals
 .vscode
 project
-/target/
-/inforlib/target/
+target
+inforlib/target
 .bsp
