@@ -17,20 +17,24 @@ import java.awt.FileDialog
 import inform.graphics.color
 import javax.swing.{ImageIcon, JOptionPane}
 
+/** A digital photograph.
+  *
+  * @param image
+  */
 class Photo private (private val image: BufferedImage):
-  /** number of rows of Photo */
+  /** Number of rows of Photo. */
   val rows: Int = image.getHeight
 
-  /** number of columns of Photo */
+  /** Number of columns of Photo. */
   val columns: Int = image.getWidth
 
   if columns <= 0 || rows <= 0 then
     throw new RuntimeException(s"Photo dimensions must be positive: $rows x $columns.")
 
-  /** number of rows of Photo */
+  /** Number of rows of Photo. */
   val height: Int = rows
 
-  /** number of columns of Photo */
+  /** Number of columns of Photo. */
   val width: Int = columns
 
   // set to TYPE_INT_ARGB to support transparency
@@ -38,7 +42,12 @@ class Photo private (private val image: BufferedImage):
 
   private var fileName = s"Photo.${Photo.numWindows}.$rows-by-$columns.png"
 
-  /** Creates a new white Photo with given dimensions.
+  /** Creates a new Photo with given dimensions.
+    *
+    * @param rows
+    *   number of rows of new photograph.
+    * @param columns
+    *   number of columns of new photograph.
     */
   def this(rows: Int, columns: Int) =
     this(new BufferedImage(columns, rows, BufferedImage.TYPE_INT_RGB))
@@ -47,7 +56,10 @@ class Photo private (private val image: BufferedImage):
     g2D.fillRect(0, 0, columns, rows)
     g2D.dispose()
 
-  /** Creates a new Photo from a file (with format JPG, JPEG, PNG, BMP, GIF, etc.).
+  /** Creates a new Photo from provided file (with format JPG, JPEG, PNG, BMP, GIF, etc.).
+    *
+    * @param fileName
+    *   path of file used for creating new photograph.
     */
   def this(fileName: String) =
     this(Photo.imageFromFile(fileName))
@@ -85,7 +97,7 @@ class Photo private (private val image: BufferedImage):
     createFrameIfNonExistent()
     frame.repaint()
 
-  /** Updates Photo on screen with its current state.
+  /** Updates Photo on screen showing its current state.
     */
   def update(): Unit =
     show()
@@ -127,9 +139,15 @@ class Photo private (private val image: BufferedImage):
         System.exit(0)
       })
 
-  /** Saves Photo to a file. */
-  def saveAs(name: String, showDialog: Boolean = false): Unit =
-    saveToFile(new File(name), showDialog)
+  /** Saves Photo to a file.
+    *
+    * @param fileName
+    *   name of file to save photo.
+    * @param showDialog
+    *   whether to show a dialog for choosing name.
+    */
+  def saveAs(fileName: String, showDialog: Boolean = false): Unit =
+    saveToFile(new File(fileName), showDialog)
 
   /** Saves Photo to a file. Prompts for file name. */
   def save(): Unit =
@@ -141,7 +159,13 @@ class Photo private (private val image: BufferedImage):
   private def extension(fileName: String) =
     fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase()
 
-  /** Saves Photo to a file. */
+  /** Saves Photo to a file.
+    *
+    * @param file
+    *   file to save photo.
+    * @param showDialog
+    *   whether to show a dialog for choosing name.
+    */
   def saveToFile(file: File, showDialog: Boolean = false): Unit =
     val suffix = extension(fileName)
 
@@ -215,22 +239,42 @@ object Photo:
 
   private var numWindows: Int = 0
 
-  /** Creates a new white Photo with given dimensions.
+  /** Creates a new Photo with given dimensions.
+    *
+    * @param columns
+    *   number of columns of new photograph.
+    * @param rows
+    *   number of rows of new photograph.
+    * @return
+    *   a new Photo with given dimensions.
     */
   def apply(rows: Int, columns: Int) =
     new Photo(rows, columns)
 
-  /** Creates a new white Photo with given dimensions.
+  /** Creates a new Photo with given dimensions.
+    *
+    * @param columns
+    *   number of columns of new photograph.
+    * @param rows
+    *   number of rows of new photograph.
+    * @return
+    *   a new Photo with given dimensions.
     */
   def ofDim(rows: Int, columns: Int) =
     new Photo(rows, columns)
 
-  /** Creates a new Photo from a file (with format JPG, JPEG, PNG, BMP, GIF, etc.).
+  /** Creates a new Photo from provided file (with format JPG, JPEG, PNG, BMP, GIF, etc.).
+    *
+    * @param fileName
+    *   path of file used for creating new photograph.
     */
   def apply(fileName: String) =
     new Photo(fileName)
 
-  /** Creates a new Photo from a file (with format JPG, JPEG, PNG, BMP, GIF, etc.).
+  /** Creates a new Photo from provided file (with format JPG, JPEG, PNG, BMP, GIF, etc.).
+    *
+    * @param fileName
+    *   path of file used for creating new photograph.
     */
   def fromFile(fileName: String) =
     new Photo(fileName)

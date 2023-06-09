@@ -58,6 +58,10 @@ object Color:
   def unapply(c: Color): (Int, Int, Int) =
     (c.getRed, c.getGreen, c.getBlue)
 
+  /** Color from its (Red, Green, Blue) components <a
+    * href="https://en.wikipedia.org/wiki/RGB_color_model">RGB</a>. Each parameter must be in range
+    * [0,255].
+    */
   object RGB:
     /** @return
       *   New color from its (Red, Green, Blue) components <a
@@ -74,6 +78,10 @@ object Color:
     def unapply(c: Color): (Int, Int, Int) =
       (c.getRed, c.getGreen, c.getBlue)
 
+  /** Color from its (Red, Green, Blue, Alpha) components <a
+    * href="https://en.wikipedia.org/wiki/RGBA_color_model">RGBA</a>. Each parameter must be in
+    * range [0,255].
+    */
   object RGBA:
     /** @return
       *   New color from its (Red, Green, Blue, Alpha) components <a

@@ -26,7 +26,7 @@ package charts
   data += (2100, females, france)
   data += (3100, females, italy)
 
-  val chart = BarChart("Bars", "X", "Y", data)
+  val chart = CategoryChart("Bars", "X", "Y", data)
   chart.config(males, color = Color(50, 180, 220), outlineColor = Color.blue)
   chart.config(females, color = Color(250, 105, 105), outlineColor = Color.red)
   chart.draw(400, 400)
