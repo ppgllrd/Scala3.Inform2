@@ -4,6 +4,15 @@
 
 package inform.graphics.draw2D
 
+/** A font.
+  *
+  * @param _name
+  *   name of font to use.
+  * @param _style
+  *   the style of font (Font.PLAIN, Font.BOLD or Font.ITALIC).
+  * @param _size
+  *   the point size of the font.
+  */
 class Font(_name: String, _style: Int = Font.PLAIN, _size: Int)
     extends java.awt.Font(_name, _style, _size):
   override def toString: String = s"Font($name, $style, $size)"
@@ -17,7 +26,7 @@ object Font:
     * @param name
     *   name of font to use.
     * @param style
-    *   the style of font (PLAIN, BOLD or ITALIC).
+    *   the style of font (Font.PLAIN, Font.BOLD or Font.ITALIC).
     * @param size
     *   the point size of the font.
     * @return

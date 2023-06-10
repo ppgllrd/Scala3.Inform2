@@ -70,12 +70,30 @@ object GraphicsWindow {
   private var windowsCounter: Int = 0
 }
 
+/** A new graphic window configured with specified parameters.
+  *
+  * @param title
+  *   title of window.
+  * @param width
+  *   width in pixels of window.
+  * @param height
+  *   height in pixels of window.
+  * @param backgroundColor
+  */
 class GraphicsWindow(
     title: String,
     width: Int,
     height: Int,
     backgroundColor: Color = GraphicsWindow.defaultBackgroundColor
 ) {
+
+  /** Creates a new graphic window configured with specified parameters.
+    *
+    * @param width
+    *   width in pixels of window.
+    * @param height
+    *   height in pixels of window.
+    */
   def this(width: Int, height: Int) =
     this(
       GraphicsWindow.defaultTitle,
@@ -84,6 +102,8 @@ class GraphicsWindow(
       GraphicsWindow.defaultBackgroundColor
     )
 
+  /** Creates a new graphic window configured with default parameters.
+    */
   def this() =
     this(GraphicsWindow.defaultWidth, GraphicsWindow.defaultHeight)
 
@@ -276,7 +296,7 @@ class GraphicsWindow(
     panel.repaint()
   }
 
-  /** Draw contents of graphic window using provided drawinvg procedure.
+  /** Draw contents of graphic window using provided drawing procedure.
     *
     * @param procedure
     *   drawing procedure to draw contents of graphic window.
@@ -287,7 +307,7 @@ class GraphicsWindow(
       chart: { def draw(g2D: Graphics2D, rect: Rectangle2D): Unit }
   ): Unit = jFreeChartDraw(chart)
 
-  /** Save contents of graphic window to PNG file.
+  /** Save contents of graphic window to a PNG file.
     *
     * @param file
     *   file where contents of graphic window should be saved.
@@ -303,7 +323,10 @@ class GraphicsWindow(
     g2D.dispose()
   }
 
-  /** Save contents of graphic window to PNG file.
+  /** Save contents of graphic window to /**
+    *
+    * @param chart
+    *   /PNG file.
     *
     * @param fileName
     *   name of file where contents of graphic window should be saved.

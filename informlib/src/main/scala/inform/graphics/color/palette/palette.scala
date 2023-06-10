@@ -10,6 +10,8 @@ import inform.graphics.color.*
 
 private val maxColors: Int = 256
 
+/** A palette of different gray tonalities.
+  */
 lazy val gray: Array[Color] = {
   val cs = new Array[Color](maxColors)
   for (i <- 0 until maxColors) {
@@ -19,6 +21,8 @@ lazy val gray: Array[Color] = {
   cs
 }
 
+/** A palette of different red, yellow and orange tonalities.
+  */
 lazy val fire: Array[Color] =
   Array(
     new Color(0, 0, 0),

@@ -4,6 +4,17 @@
 
 package inform.graphics.draw2D
 
+/** An ellipse.
+  *
+  * @param _left
+  *   X coordinate of the upper-left corner of the framing rectangle.
+  * @param _top
+  *   Y coordinate of the upper-left corner of the framing rectangle.
+  * @param _width
+  *   width of the framing rectangle.
+  * @param _height
+  *   height of the framing rectangle.
+  */
 class Ellipse(_left: Double, _top: Double, _width: Double, _height: Double)
     extends java.awt.geom.Ellipse2D.Double(_left, _top, _width, _height):
   val left: Double = x

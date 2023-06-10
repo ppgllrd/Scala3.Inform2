@@ -4,12 +4,23 @@
 
 package inform.graphics.draw2D
 
+/** A line segment in the plane between two points.
+  *
+  * @param _x1
+  *   x-coordinate of first point.
+  * @param _y1
+  *   y-coordinate of first point.
+  * @param _x2
+  *   x-coordinate of second point.
+  * @param _y2
+  *   y-coordinate of second point.
+  */
 class Line(_x1: Double, _y1: Double, _x2: Double, _y2: Double)
     extends java.awt.geom.Line2D.Double(_x1, _y1, _x2, _y2):
   override def toString: String = s"Line($x1, $y1, $x2, $y2)"
 
 object Line:
-  /** Constructs a Line between two Points.
+  /** Constructs a line segment in the plane between two points.
     * @param x1
     *   X coordinate of first point.
     * @param y1
@@ -22,7 +33,7 @@ object Line:
   def apply(x1: Double, y1: Double, x2: Double, y2: Double): Line =
     new Line(x1, y1, x2, y2)
 
-  /** Constructs a Line between two Points.
+  /** Constructs a line segment in the plane between two points.
     * @param p1
     *   X and Y coordinates of first point.
     * @param p2
@@ -31,7 +42,7 @@ object Line:
   def apply(p1: (Double, Double), p2: (Double, Double)): Line =
     new Line(p1._1, p1._2, p2._1, p2._2)
 
-  /** Constructs a Line between two Points.
+  /** Constructs a line segment in the plane between two points.
     * @param p1
     *   First point.
     * @param p2

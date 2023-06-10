@@ -4,6 +4,23 @@
 
 package inform.graphics.draw2D
 
+/** An arc.
+  *
+  * @param left
+  *   X coordinate of the upper-left corner of the framing rectangle.
+  * @param top
+  *   Y coordinate of the upper-left corner of the framing rectangle.
+  * @param width
+  *   width of the framing rectangle.
+  * @param height
+  *   height of the framing rectangle.
+  * @param alpha
+  *   starting angle of the arc in radians.
+  * @param beta
+  *   angular extent of the arc in radians.
+  * @param kind
+  *   type of arc: Arc.OPEN, Arc.CHORD or Arc.PIE.
+  */
 class Arc(
     val left: Double,
     val top: Double,
@@ -43,9 +60,9 @@ object Arc:
     * @param alpha
     *   starting angle of the arc in radians.
     * @param beta
-    *   angular extent of the arc in rqdians.
+    *   angular extent of the arc in radians.
     * @param kind
-    *   type of arc: OPEN, CHORD or PIE.
+    *   type of arc: Arc.OPEN, Arc.CHORD or Arc.PIE.
     * @return
     *   a new arc constructed from specified parameters.
     */
@@ -94,9 +111,9 @@ object Arc:
     * @param alpha
     *   starting angle of the arc in radians.
     * @param beta
-    *   angular extent of the arc in rqdians.
+    *   angular extent of the arc in radians.
     * @param kind
-    *   type of arc: OPEN, CHORD or PIE.
+    *   type of arc: Arc.OPEN, Arc.CHORD or Arc.PIE.
     * @return
     *   a new arc constructed from specified parameters.
     */
