@@ -28,8 +28,8 @@ package random
 
   println(rnd.uniform(1, 10))
 
-  val freqs = Array(50, 20, 30)
-  val discreteGen: () => Int = rnd.discrete(freqs)
+  val frequencies = Array(50, 20, 30)
+  val discreteGen: () => Int = rnd.discrete(frequencies)
 
   for _ <- 1 to 20 do
     val x = discreteGen()
