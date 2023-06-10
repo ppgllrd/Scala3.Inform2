@@ -323,11 +323,10 @@ class GraphicsWindow(
     g2D.dispose()
   }
 
-  /** Save contents of graphic window to /**
+  /** Save contents of graphic window to a PNG file.
     *
     * @param chart
-    *   /PNG file.
-    *
+    *   chart to be saved.
     * @param fileName
     *   name of file where contents of graphic window should be saved.
     */
