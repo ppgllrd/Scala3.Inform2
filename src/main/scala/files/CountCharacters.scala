@@ -5,21 +5,20 @@
 package files
 
 import scala.collection.*
-import java.io.File
-import java.io.FileReader
+import java.nio.file.{Path, Files}
 
 object CountCharacters:
   def count(fileName: String, character: Char): Int =
-    val file = File(fileName)
-    require(file.exists, s"File $fileName does not exist")
-    val fr = new FileReader(file)
+    val path = Path.of(fileName)
+    require(Files.exists(path), s"File $fileName does not exist")
+    val br = Files.newBufferedReader(path)
     var counter = 0
-    var code: Int = fr.read()
+    var code: Int = br.read()
     while code >= 0 do
       if code == character then counter += 1
-      code = fr.read()
+      code = br.read()
 
-    fr.close()
+    br.close()
     counter
 
 @main def countCharactersTest(): Unit =

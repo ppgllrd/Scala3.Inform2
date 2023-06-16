@@ -4,7 +4,7 @@
 
 package files
 
-import java.io.{File, PrintStream}
+import java.nio.file.{Path, Files}
 import java.util.Scanner
 import scala.collection.*
 
@@ -12,11 +12,11 @@ case class Student(name: String, surname: String, marks: List[Double])
 
 object Report:
   def readMarks(fileName: String): List[Student] =
-    val file = File(fileName)
-    require(file.exists, s"file $fileName does not exist")
+    val path = Path.of(fileName)
+    require(Files.exists(path), s"File $fileName does not exist")
 
     val students = mutable.ArrayBuffer[Student]()
-    val scFile = Scanner(file)
+    val scFile = Scanner(path)
     while scFile.hasNextLine do
       val line = scFile.nextLine()
 
@@ -34,17 +34,22 @@ object Report:
     students.toList
 
   def writeReport(fileName: String, students: List[Student]): Unit =
-    val file = File(fileName)
-    val ps = PrintStream(file)
+    val path = Path.of(fileName)
+    val bw = Files.newBufferedWriter(path)
     val line = "======================================"
-    ps.println(line)
-    ps.println(" Student's marks")
-    ps.println(line)
+    bw.write(line)
+    bw.newLine()
+    bw.write(" Student's marks")
+    bw.newLine()
+    bw.write(line)
+    bw.newLine()
     for Student(name, surname, marks) <- students.sortBy(_.surname) do
       val average = if marks.isEmpty then 0.0 else marks.sum.toDouble / marks.length
-      ps.println(f" $surname%-15s $name%-15s $average%4.2f")
-    ps.println(line)
-    ps.close()
+      bw.write(f" $surname%-15s $name%-15s $average%4.2f")
+      bw.newLine()
+    bw.write(line)
+    bw.newLine()
+    bw.close()
 
 @main def testStudents(): Unit =
   // Using . instead of , as separator for decimals in doubles
