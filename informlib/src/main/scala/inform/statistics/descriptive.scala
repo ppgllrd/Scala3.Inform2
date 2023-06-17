@@ -11,14 +11,41 @@ import scala.language.postfixOps
 import scala.math.*
 
 object descriptive:
+  /** Computes mean of provided values.
+    *
+    * @param xs
+    *   values to compute mean of.
+    * @param ev
+    *   evidence that values can be converted to Double.
+    * @return
+    *   mean of provided values.
+    */
   def mean[D](xs: Array[D])(using ev: D => Double): Double =
     var s = 0.0
     for x <- xs do s += ev(x)
     s / xs.length
 
+  /** Computes average of provided values.
+    *
+    * @param xs
+    *   values to compute average of.
+    * @param ev
+    *   evidence that values can be converted to Double.
+    * @return
+    *   average of provided values.
+    */
   def average[D](xs: Array[D])(using ev: D => Double): Double =
     mean(xs)
 
+  /** Computes mean and standard deviation of provided values.
+    *
+    * @param xs
+    *   values to compute mean and standard deviation of.
+    * @param ev
+    *   evidence that values can be converted to Double.
+    * @return
+    *   mean and standard deviation of provided values.
+    */
   def meanAndStandardDeviation[D](xs: Array[D])(using ev: D => Double): (Double, Double) =
     val m = mean(xs)
     var s = 0.0
@@ -26,13 +53,42 @@ object descriptive:
     val dev = sqrt(s / xs.length)
     (m, dev)
 
+  /** Computes standard deviation of provided values.
+    *
+    * @param xs
+    *   values to compute standard deviation of.
+    * @param ev
+    *   evidence that values can be converted to Double.
+    * @return
+    *   standard deviation of provided values.
+    */
   def standardDeviation[D](xs: Array[D])(using ev: D => Double): Double =
     meanAndStandardDeviation(xs)._2
 
+  /** Computes median of provided values.
+    *
+    * @param xs
+    *   values to compute median of.
+    * @param ev
+    *   evidence that values can be converted to Double.
+    * @return
+    *   median of provided values.
+    */
   def median[D](xs: Array[D])(using ev: D => Double): Double =
     val copy: Array[Double] = xs.map(ev)
     findMedianInPlace(copy)((xs: ArrayView) => xs(0))
 
+  /** Computes mean, standard deviation, median, minimum and maximum of provided values.
+    *
+    * @param xs
+    *   values to compute statistics of.
+    * @param ord
+    *   ordering of values.
+    * @param ev
+    *   evidence that values can be converted to Double.
+    * @return
+    *   mean, standard deviation, median, minimum and maximum of provided values.
+    */
   def statistics[D](
       xs: Array[D]
   )(using ord: Ordering[D], ev: D => Double): (Double, Double, Double, Double, Double) =

@@ -13,6 +13,7 @@ import java.io.File
 import javax.imageio.ImageIO
 import javax.swing.JOptionPane
 import scala.swing.*
+import java.nio.file.Path
 
 object GraphicsWindow {
   private val defaultWidth = 600
@@ -332,6 +333,15 @@ class GraphicsWindow(
     */
   def saveToPNGFile(fileName: String): Unit = {
     saveToPNGFile(new File(fileName))
+  }
+
+  /** Save contents of graphic window to a PNG file.
+    *
+    * @param path
+    *   path of file where contents of graphic window should be saved.
+    */
+  def saveToPNGFile(path: Path): Unit = {
+    saveToPNGFile(path.toFile)
   }
 
   /** Update contents of this graphic window.

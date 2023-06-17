@@ -16,6 +16,7 @@ import java.awt.FileDialog
 
 import inform.graphics.color
 import javax.swing.{ImageIcon, JOptionPane}
+import java.nio.file.Path
 
 /** A digital photograph.
   *
@@ -56,14 +57,14 @@ class Photo private (private val image: BufferedImage):
     g2D.fillRect(0, 0, columns, rows)
     g2D.dispose()
 
-  /** Creates a new Photo from provided file (with format JPG, JPEG, PNG, BMP, GIF, etc.).
+  /** Creates a new Photo from provided source (with format JPG, JPEG, PNG, BMP, GIF, etc.).
     *
-    * @param fileName
+    * @param source
     *   path of file used for creating new photograph.
     */
-  def this(fileName: String) =
-    this(Photo.imageFromFile(fileName))
-    this.fileName = fileName
+  def this(source: String) =
+    this(Photo.imageFromFile(source))
+    this.fileName = source
 
   private var frame: MainFrame = null
 
@@ -194,6 +195,14 @@ class Photo private (private val image: BufferedImage):
         JOptionPane.ERROR_MESSAGE
       )
 
+  /** Saves Photo to a file.
+    *
+    * @param path
+    *   path of file where to save photo.
+    */
+  def saveToPath(path: Path): Unit =
+    saveToFile(path.toFile)
+
   private def errorMessage(msg: String, i: Int, j: Int) =
     s"$msg.\nTrying to access pixel row=$i column=$j.\nPhoto dimensions are ${height}x$width.\nRow must be in range 0 to ${height - 1}.\nColumn must be in range 0 a ${width - 1}."
 
@@ -217,19 +226,41 @@ class Photo private (private val image: BufferedImage):
       }
 
   case class PhotoRow(row: Int):
-    /** @return
+    /** Returns pixel at provided column of this row.
+      *
+      * @param column
+      *   column of pixel to get.
+      *
+      * @return
       *   Pixel in provided column of this row.
       */
     def apply(column: Int): inform.graphics.color.Color = get(row, column)
 
     /** Sets color of pixel at provided column of this row.
+      * @param column
+      *   column of pixel to set.
+      * @param color
+      *   color to set this pixel to.
       */
     def update(column: Int, color: Color): Unit = set(row, column, color)
 
-  /** @return This row from Photo. */
+  /** Returns a row of Photo.
+    *
+    * @param row
+    *   row of Photo to get.
+    *
+    * @return
+    *   Row of Photo.
+    */
   def apply(row: Int): PhotoRow = PhotoRow(row)
 
   /** Modifies pixel at provided row and column with provided color.
+    * @param row
+    *   row of pixel to modify.
+    * @param column
+    *   column of pixel to modify.
+    * @param color
+    *   color to set pixel to.
     */
   def update(row: Int, column: Int, color: Color): Unit = set(row, column, color)
 
@@ -248,51 +279,95 @@ object Photo:
     * @return
     *   a new Photo with given dimensions.
     */
-  def apply(rows: Int, columns: Int) =
+  def apply(rows: Int, columns: Int): Photo =
     new Photo(rows, columns)
+
+  /** Creates a new Photo from provided file (with format JPG, JPEG, PNG, BMP, GIF, etc.).
+    * @param file
+    *   file used for creating new photograph.
+    * @return
+    *   a new Photo from provided file.
+    */
+  def apply(file: File): Photo =
+    new Photo(file.getPath())
+
+  /** Creates a new Photo from provided source (path of file or URL with format JPG, JPEG, PNG, BMP,
+    * GIF, etc.).
+    *
+    * @param source
+    *   path of file used for creating new photograph.
+    * @return
+    *   a new Photo from provided source.
+    */
+  def apply(source: String): Photo =
+    new Photo(source)
+
+  /** Creates a new Photo from provided path (with format JPG, JPEG, PNG, BMP, GIF, etc.).
+    *
+    * @param path
+    *   path of file used for creating new photograph.
+    * @return
+    *   a new Photo from provided path.
+    */
+  def apply(path: Path): Photo =
+    apply(path.toFile())
 
   /** Creates a new Photo with given dimensions.
     *
-    * @param columns
-    *   number of columns of new photograph.
     * @param rows
     *   number of rows of new photograph.
+    * @param columns
+    *   number of columns of new photograph.
     * @return
     *   a new Photo with given dimensions.
     */
-  def ofDim(rows: Int, columns: Int) =
+  def ofDim(rows: Int, columns: Int): Photo =
     new Photo(rows, columns)
 
-  /** Creates a new Photo from provided file (with format JPG, JPEG, PNG, BMP, GIF, etc.).
+  /** Creates a new Photo from provided source (path of file or URL with format JPG, JPEG, PNG, BMP,
+    * GIF, etc.).
     *
-    * @param fileName
+    * @param source
     *   path of file used for creating new photograph.
+    * @return
+    *   a new Photo from provided source.
     */
-  def apply(fileName: String) =
-    new Photo(fileName)
+  def from(source: String): Photo =
+    new Photo(source)
 
   /** Creates a new Photo from provided file (with format JPG, JPEG, PNG, BMP, GIF, etc.).
-    *
-    * @param fileName
-    *   path of file used for creating new photograph.
+    * @param file
+    *   file used for creating new photograph.
+    * @return
+    *   a new Photo from provided file.
     */
-  def fromFile(fileName: String) =
-    new Photo(fileName)
+  def fromFile(file: File): Photo =
+    new Photo(file.getPath())
 
-  private def imageFromFile(fileName: String): BufferedImage =
-    val file = new File(fileName)
+  /** Creates a new Photo from provided path (with format JPG, JPEG, PNG, BMP, GIF, etc.).
+    *
+    * @param path
+    *   path of file used for creating new photograph.
+    * @return
+    *   a new Photo from provided path.
+    */
+  def fromPath(path: Path): Photo =
+    apply(path)
+
+  private def imageFromFile(source: String): BufferedImage =
+    val file = new File(source)
     try
       val image =
         if file.isFile then ImageIO.read(file)
         else
-          var url = getClass.getResource(fileName)
-          if url == null then url = new URL(fileName)
+          var url = getClass.getResource(source)
+          if url == null then url = new URL(source)
           ImageIO.read(url)
 
       // check that image was read in
-      if image == null then throw new RuntimeException(s"Invalid file name: $fileName")
+      if image == null then throw new RuntimeException(s"Invalid file name: $source")
 
       image
     catch
       case _: IOException =>
-        throw new RuntimeException(s"File $fileName doesn't exists.")
+        throw new RuntimeException(s"File $source doesn't exists.")

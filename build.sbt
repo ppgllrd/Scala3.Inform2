@@ -25,7 +25,7 @@ lazy val informlib = project
   .in(file("informlib"))
   .settings(
     name := "inform-lib",
-    version := "0.0.1",
+    version := "0.0.2",
     libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0" withSources (),
     libraryDependencies += "org.jfree" % "jfreechart" % "1.5.4" withSources (),
     libraryDependencies += "org.jfree" % "jcommon" % "1.0.24" withSources ()

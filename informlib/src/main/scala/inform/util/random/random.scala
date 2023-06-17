@@ -35,13 +35,15 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   def this(seed: Int) =
     this(java.util.Random(seed))
 
-  /** @return
+  /** Returns a pseudorandom, uniformly distributed Int value.
+    * @return
     *   A random Int value. Uniform distribution.
     */
   inline def int(): Int =
     rnd.nextInt()
 
-  /** @param n
+  /** Returns pseudorandom, uniformly distributed Int value from 0 (inclusive) to n (exclusive).
+    * @param n
     *   exclusive upper limit of interval to choose from.
     * @return
     *   A random Int in [0, n) range. Uniform distribution.
@@ -49,7 +51,10 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   inline def int(n: Int): Int =
     rnd.nextInt(n)
 
-  /** @param min
+  /** Returns a pseudorandom, uniformly distributed Int value between min (inclusive) and max
+    * (exclusive).
+    *
+    * @param min
     *   inclusive lower limit of interval to choose from.
     * @param max
     *   exclusive upper limit of interval to choose from.
@@ -59,13 +64,18 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   def int(min: Int, max: Int): Int =
     between(min, max)
 
-  /** @return
+  /** Returns a pseudorandom, uniformly distributed Long value.
+    *
+    * @return
     *   A random Long value. Uniform distribution.
     */
   inline def long(): Long =
     rnd.nextLong()
 
-  /** @param n
+  /** Returns a pseudorandom, uniformly distributed Long value between 0 (inclusive) and n
+    * (exclusive).
+    *
+    * @param n
     *   exclusive upper limit of interval to choose from.
     * @return
     *   A random Long in [0, n) range. Uniform distribution.
@@ -73,7 +83,10 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   inline def long(n: Long): Long =
     nextLong(n)
 
-  /** @param min
+  /** Returns a pseudorandom, uniformly distributed Long value between min (inclusive) and max
+    * (exclusive).
+    *
+    * @param min
     *   inclusive lower limit of interval to choose from.
     * @param max
     *   exclusive upper limit of interval to choose from.
@@ -83,28 +96,35 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   def long(min: Long, max: Long): Long =
     between(min, max)
 
-  /** @param l
+  /** Returns a pseudorandom, uniformly distributed String value of length l.
+    *
+    * @param l
     *   length of random string.
     * @return
-    *   A random string with length l. Uniform distribution among all possible characters.
+    *   A random string of length l. Uniform distribution among all possible characters.
     */
   def string(l: Int): String =
     nextString(l)
 
-  /** @return
+  /** Returns a pseudorandom, uniformly distributed Boolean value.
+    * @return
     *   A random Boolean value (false or true). Uniform distribution (probability 1/2 for each
     *   value).
     */
   inline def boolean(): Boolean =
     rnd.nextBoolean()
 
-  /** @return
+  /** Returns a pseudorandom, uniformly distributed Double value between 0.0 and 1.0.
+    *
+    * @return
     *   A random Double value between 0.0 and 1.0. Uniform distribution.
     */
   inline def double(): Double =
     rnd.nextDouble()
 
-  /** @param min
+  /** Returns a pseudorandom, uniformly distributed Double value between min and max.
+    *
+    * @param min
     *   lower limit of interval to choose from.
     * @param max
     *   upper limit of interval to choose from.
@@ -114,7 +134,9 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   def double(min: Double, max: Double): Double =
     between(min, max)
 
-  /** @param n
+  /** Returns a pseudorandom, uniformly distributed Double value between 0.0 and n.
+    *
+    * @param n
     *   upper limit of interval to choose from.
     * @return
     *   A random Double value between 0.0 and n. Uniform distribution.
@@ -126,13 +148,17 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
     if next < n then next
     else Math.nextAfter(n, Double.NegativeInfinity)
 
-  /** @return
+  /** Returns a pseudorandom, uniformly distributed Float value between 0.0 and 1.0.
+    *
+    * @return
     *   A random Float value between 0.0 and 1.0. Uniform distribution.
     */
   inline def float(): Float =
     rnd.nextFloat()
 
-  /** @param min
+  /** Returns a pseudorandom, uniformly distributed Float value between min and max.
+    *
+    * @param min
     *   lower limit of interval to choose from.
     * @param max
     *   upper limit of interval to choose from.
@@ -142,7 +168,9 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   def float(min: Float, max: Float): Float =
     between(min, max)
 
-  /** @param n
+  /** Returns a pseudorandom, uniformly distributed Float value between 0.0 and n.
+    *
+    * @param n
     *   upper limit of interval to choose from.
     * @return
     *   A random Float value between 0.0 and n. Uniform distribution.
@@ -154,7 +182,9 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
     if next < n then next
     else Math.nextAfter(n, Float.NegativeInfinity)
 
-  /** @param seq
+  /** Returns a pseudorandom, uniformly distributed element from a given sequence.
+    *
+    * @param seq
     *   sequence of elements to choose from.
     * @return
     *   A random element taken from sequence seq. Uniform distribution among all elements in seq.
@@ -162,7 +192,9 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   def fromSeq[A](seq: collection.Seq[A]): A =
     seq(rnd.nextInt(seq.length))
 
-  /** @param seq
+  /** Returns a pseudorandom, uniformly distributed element from a given sequence.
+    *
+    * @param seq
     *   sequence of elements to choose from.
     * @return
     *   A random element taken from sequence seq. Uniform distribution among all elements in seq.
@@ -170,7 +202,8 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   inline def oneOf[A](seq: collection.Seq[A]): A =
     fromSeq(seq)
 
-  /** @param iterable
+  /** Returns a pseudorandom, uniformly distributed element taken from given iterable.
+    * @param iterable
     *   iterable of elements to choose from.
     * @return
     *   A random element taken from iterable. Uniform distribution among all elements in iterable.
@@ -183,7 +216,9 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
 
     it.next()
 
-  /** @param set
+  /** Returns a pseudorandom, uniformly distributed element from a given set.
+    *
+    * @param set
     *   set of elements to choose from.
     * @return
     *   A random element taken from set. Uniform distribution among all elements in set.
@@ -191,7 +226,9 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   inline def fromSet[A](set: collection.Set[A]): A =
     fromIterable(set)
 
-  /** @param set
+  /** Returns a pseudorandom, uniformly distributed element from a given set.
+    *
+    * @param set
     *   set of elements to choose from.
     * @return
     *   A random element taken from set. Uniform distribution among all elements in set.
@@ -199,12 +236,16 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   inline def oneOf[A](set: collection.Set[A]): A =
     fromSet(set)
 
-  /** @return
+  /** Returns a pseudorandom, uniformly distributed Double value between 0.0 and 1.0.
+    *
+    * @return
     *   A random Double value between 0.0 and 1.0. Uniform distribution.
     */
   inline def uniform(): Double = rnd.nextDouble()
 
-  /** @param n
+  /** Returns a pseudorandom, uniformly distributed Int value in [0, n) range.
+    *
+    * @param n
     *   exclusive upper limit of interval to choose from.
     * @return
     *   A random Int value in [0, n) range. Uniform distribution.
@@ -212,7 +253,9 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   inline def uniform(n: Int): Int =
     rnd.nextInt(n)
 
-  /** @param min
+  /** Returns a pseudorandom, uniformly distributed Int value in [min, max) range.
+    *
+    * @param min
     *   inclusive lower limit of interval to choose from.
     * @param max
     *   exclusive upper limit of interval to choose from.
@@ -222,7 +265,9 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   inline def uniform(min: Int, max: Int): Int =
     between(min, max)
 
-  /** @param min
+  /** Returns a pseudorandom, uniformly distributed Long value in [min, max) range.
+    *
+    * @param min
     *   inclusive lower limit of interval to choose from.
     * @param max
     *   exclusive upper limit of interval to choose from.
@@ -232,7 +277,8 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   inline def uniform(min: Long, max: Long): Long =
     between(min, max)
 
-  /** @param min
+  /** Returns a pseudorandom, uniformly distributed Double value between min and max.
+    * @param min
     *   lower limit of interval to choose from.
     * @param max
     *   upper limit of interval to choose from.
@@ -242,7 +288,9 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   inline def uniform(min: Double, max: Double): Double =
     between(min, max)
 
-  /** @param min
+  /** Returns a pseudorandom, uniformly distributed Float value between min and max.
+    *
+    * @param min
     *   lower limit of interval to choose from.
     * @param max
     *   upper limit of interval to choose from.
@@ -252,16 +300,20 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   inline def uniform(min: Float, max: Float): Float =
     between(min, max)
 
-  /** @return
+  /** Returns a pseudorandom, uniformly distributed Boolean value.
+    *
+    * @return
     *   A random Boolean value. Bernoulli distribution with success (true) probability of 1/2.
     */
   def bernoulli(): Boolean =
     rnd.nextDouble() < 0.5
 
-  /** @param p
+  /** Returns a pseudorandom Boolean value with success (true) probability of p.
+    *
+    * @param p
     *   success probability.
     * @return
-    *   A random Boolean value. Bernoulli distribution with success probability of p.
+    *   A random Boolean value. Bernoulli distribution with success (true) probability of p.
     */
   def bernoulli(p: Double): Boolean =
     if p < 0.0 || p > 1.0 then
@@ -270,7 +322,9 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
       )
     else rnd.nextDouble() < p
 
-  /** @param p
+  /** Returns a random Int value with Geometric distribution.
+    *
+    * @param p
     *   success probability.
     * @return
     *   A random Int value. Geometric (with success probability of p) distribution.
@@ -284,12 +338,16 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
       // using algorithm given by Knuth
       scala.math.ceil(scala.math.log(rnd.nextDouble()) / scala.math.log(1.0 - p)).toInt
 
-  /** @return
+  /** Returns a Double value with Normal distribution (mean 0.0 and standard deviation 1.0).
+    *
+    * @return
     *   Random Double value. Normal distribution (mean 0.0 and standard deviation 1.0).
     */
   inline def normal(): Double = rnd.nextGaussian()
 
-  /** @param mu
+  /** Returns a Double value with Normal distribution (mean mu and standard deviation sigma).
+    *
+    * @param mu
     *   mean.
     * @param sigma
     *   standard deviation.
@@ -299,12 +357,16 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   def normal(mu: Double = 0, sigma: Double = 1): Double =
     mu + sigma * rnd.nextGaussian()
 
-  /** @return
+  /** Returns a Double value with Lognormal distribution (mean 0.0 and standard deviation 1.0).
+    *
+    * @return
     *   Random Double value. Lognormal distribution (mean 0.0 and standard deviation 1.0).
     */
   def lognormal(): Double = scala.math.exp(normal())
 
-  /** @param mu
+  /** Returns a Double value with Lognormal distribution (mean mu and standard deviation sigma).
+    *
+    * @param mu
     *   mean.
     * @param sigma
     *   standard deviation.
@@ -314,7 +376,9 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   def lognormal(mu: Double = 0, sigma: Double = 1): Double =
     scala.math.exp(normal(mu, sigma))
 
-  /** @param lambda
+  /** Returns a Double value with Exponential distribution (lambda is rate parameter).
+    *
+    * @param lambda
     *   rate parameter.
     * @return
     *   Random Double value. Exponential distribution (lambda is rate parameter).
@@ -323,7 +387,8 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
     if lambda <= 0.0 then throw new IllegalArgumentException("exp: lambda must be greater than 0")
     else -scala.math.log(1.0 - rnd.nextDouble()) / lambda
 
-  /** @param alpha
+  /** Returns a Double value with Weibull distribution (alpha is scale and beta is shape).
+    * @param alpha
     *   scale.
     * @param beta
     *   shape.
@@ -333,7 +398,8 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
   def weibull(alpha: Double, beta: Double): Double =
     alpha * scala.math.pow(-scala.math.log(1.0 - rnd.nextDouble()), 1.0 / beta)
 
-  /** @param lambda
+  /** Returns a Double value with Poisson distribution (lambda is rate parameter).
+    * @param lambda
     *   rate paraemter.
     * @return
     *   Random Double value. Poisson distribution (lambda is rate parameter).
@@ -355,13 +421,17 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
 
     k - 1
 
-  /** @return
+  /** Returns a Double value with Cauchy distribution.
+    *
+    * @return
     *   Random Double value. Cauchy distribution.
     */
   def cauchy(): Double =
     scala.math.tan(scala.math.Pi * (rnd.nextDouble() - 0.5))
 
-  /** @param alpha
+  /** Returns a Double value with Pareto distribution.
+    *
+    * @param alpha
     *   shape parameter
     * @return
     *   Random Double value from Pareto distribution.
@@ -370,7 +440,8 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
     if alpha <= 0.0 then throw new IllegalArgumentException("pareto: alpha must be greater than 0")
     else scala.math.pow(1 - rnd.nextDouble(), -1.0 / alpha) - 1.0
 
-  /** @param seq
+  /** Returns a pseudorandom, uniformly distributed value from sequence seq.
+    * @param seq
     *   sequence of elements to choose from.
     * @return
     *   A random element in sequence seq. Uniform distribution among all elements in seq.

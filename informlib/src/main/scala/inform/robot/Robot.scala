@@ -9,17 +9,47 @@
 package inform.robot
 
 import java.awt.Color
+import java.nio.file.Path
 
 object Robot {
 
   /** Builds a new robot that will move in provided map.
-    * @param mapFile
+    * @param mapFilename
     *   file describing map.
     * @return
     *   a new robot that will move in provided map.
     */
-  def apply(mapFile: String) =
-    new Robot(mapFile)
+  def apply(mapFilename: String): Robot =
+    new Robot(mapFilename)
+
+  /** Builds a new robot that will move in provided map.
+    * @param mapPath
+    *   path to file describing map.
+    *
+    * @return
+    *   a new robot that will move in provided map.
+    */
+  def apply(mapPath: Path): Robot =
+    new Robot(mapPath.toString())
+
+  /** Builds a new robot that will move in provided map.
+    * @param mapFilename
+    *   file describing map.
+    * @return
+    *   a new robot that will move in provided map.
+    */
+  def inMap(mapFilename: String): Robot =
+    Robot.apply(mapFilename)
+
+  /** Builds a new robot that will move in provided map.
+    * @param mapPath
+    *   path to file describing map.
+    *
+    * @return
+    *   a new robot that will move in provided map.
+    */
+  def inMap(mapPath: Path): Robot =
+    Robot.apply(mapPath.toString())
 
   private def asset(fileName: String) = s"/robot/$fileName"
 
@@ -35,12 +65,12 @@ object Robot {
 
 /** Builds a new robot that will move in provided map.
   *
-  * @param mapFile
+  * @param mapFilename
   *   file describing map.
   * @return
   *   a new robot that will move in provided map.
   */
-class Robot(mapFile: String) {
+class Robot(mapFilename: String) {
   import Robot.*
 
   private var robotLoc: Location = null
@@ -48,17 +78,17 @@ class Robot(mapFile: String) {
   private var delay = 250
 
   private def init(): Grid = {
-    val mapReader = new MapReader(mapFile)
+    val mapReader = new MapReader(mapFilename)
     val lines = new collection.mutable.ArrayBuffer[String]()
     while (mapReader.hasMoreLines)
       lines += mapReader.readLine()
 
-    require(lines.nonEmpty, s"Map file \"$mapFile\" cannot be empty")
+    require(lines.nonEmpty, s"Map file \"$mapFilename\" cannot be empty")
 
     val numRows: Int = lines.size
     val numCols: Int = lines.head.length
     val grid = new Grid(numRows, numCols)
-    grid.setTitle(mapFile)
+    grid.setTitle(mapFilename)
     grid.setLineColor(new Color(0, 0, 0))
 
     for (row <- 0 until numRows) {
@@ -67,7 +97,7 @@ class Robot(mapFile: String) {
         val line = lines(row)
         if (line.length != numCols)
           sys.error(
-            s"Inconsistent length of line \"$line\" in map \"$mapFile\""
+            s"Inconsistent length of line \"$line\" in map \"$mapFilename\""
           )
 
         val ch = lines(row)(col)
@@ -92,7 +122,7 @@ class Robot(mapFile: String) {
         else if (ch == ':')
           grid.setColor(loc, DARK_COLOR)
         else
-          sys.error(s"Invalid character $ch in map file \"$mapFile\"")
+          sys.error(s"Invalid character $ch in map file \"$mapFilename\"")
       }
     }
     grid
@@ -202,7 +232,8 @@ class Robot(mapFile: String) {
     grid.pause(delay)
   }
 
-  /** @return
+  /** Checks if robot is currently on a dark cell.
+    * @return
     *   true if robot is currently on a dark cell.
     */
   def isOnDark: Boolean = {
@@ -211,7 +242,8 @@ class Robot(mapFile: String) {
     grid.getColor(robotLoc).equals(DARK_COLOR)
   }
 
-  /** @return
+  /** Checks if robot is currently on a light cell.
+    * @return
     *   true if robot is currently on a light cell.
     */
   def isOnLight: Boolean = {
@@ -220,7 +252,8 @@ class Robot(mapFile: String) {
     grid.getColor(robotLoc).equals(LIGHT_COLOR)
   }
 
-  /** @return
+  /** Checks if robot can move one cell forward from its current location and direction.
+    * @return
     *   true if robot can move one cell forward from its current location and direction. Checks if
     *   destination cell is free and within the map.
     */
@@ -231,7 +264,7 @@ class Robot(mapFile: String) {
     grid.isValid(pos) && grid.getAssetFile(pos) == null
   }
 
-  /** Slows down the animation.
+  /** Slows down the animation of the robot.
     * @param milliseconds
     *   Time (in milliseconds) that robot takes to perform a single action.
     */

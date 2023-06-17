@@ -17,7 +17,7 @@ import inform.robot.*
       line(robot, len)
       robot.right()
 
-  val robot = Robot("data/maps/map27x15.txt")
+  val robot = Robot.inMap("data/maps/map27x15.txt")
   robot.setDelay(125)
   square(robot, 6)
 
@@ -33,6 +33,6 @@ import inform.robot.*
         robot.line(len)
         robot.right()
 
-  val robot = Robot("data/maps/map27x15.txt")
+  val robot = Robot.inMap("data/maps/map27x15.txt")
   robot.setDelay(125)
   robot.square(6)

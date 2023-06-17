@@ -35,7 +35,7 @@ object Photos:
   def toBlackWhite(photo: Photo): Photo =
     val height = photo.height
     val width = photo.width
-    val blackWhitePhoto = Photo(height, width)
+    val blackWhitePhoto = Photo.ofDim(height, width)
 
     for r <- 0 until height do
       for c <- 0 until width do
@@ -45,9 +45,9 @@ object Photos:
     blackWhitePhoto
 
 @main def photoTest1(): Unit =
-  val height = 300
-  val width = 300
-  val photo = Photo(height, width)
+  val height = 350
+  val width = 250
+  val photo = Photo.ofDim(height, width)
 
   for r <- 0 until height do
     val v = r * 255 / (height - 1)
@@ -61,7 +61,7 @@ object Photos:
 
   val height = 300
   val width = 250
-  val photo = Photo(height, width)
+  val photo = Photo.ofDim(height, width)
 
   val rnd = Random(0)
 
@@ -76,7 +76,7 @@ object Photos:
   photo.show()
 
 @main def photoTest3(): Unit =
-  val photo = Photo("data/photos/mandrill.jpg")
+  val photo = Photo.from("data/photos/mandrill.jpg")
   photo.show()
   val blackWhitePhoto = Photos.toBlackWhite(photo)
   blackWhitePhoto.show()
