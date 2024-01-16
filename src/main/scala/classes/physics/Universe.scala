@@ -4,7 +4,7 @@
 
 package classes.physics
 
-import inform.graphics.draw2D.{Graphics2D}
+import inform.graphics.draw2D.Graphics2D
 import inform.graphics.GraphicsWindow
 
 class Universe(private val particles: Array[Particle], val radius: Double):
@@ -12,12 +12,12 @@ class Universe(private val particles: Array[Particle], val radius: Double):
   def advance(dt: Double): Unit =
     val forces = Array.fill(particles.length)(Vector2D(0, 0))
 
-    for i <- 0 until forces.length do
-      for j <- 0 until forces.length do
+    for i <- forces.indices do
+      for j <- forces.indices do
         if (i != j)
           forces(i) += particles(i).forceFrom(particles(j))
 
-    for i <- 0 until particles.length do particles(i).moveBy(forces(i), dt)
+    for i <- particles.indices do particles(i).moveBy(forces(i), dt)
 
   def drawOn(g2D: Graphics2D): Unit =
     for (p <- particles)

@@ -10,12 +10,12 @@ trait Traversable[T]:
   def successors(elem: T): Iterable[T]
 
   def depthFirstTraversal(src: T): Traversal[T] =
-    val dft = new DepthFirstTraversal(src, this)
+    val dft = DepthFirstTraversal(src, this)
     dft.traverse()
     dft
 
   def breadthFirstTraversal(src: T): Traversal[T] =
-    val bft = new BreadthFirstTraversal(src, this)
+    val bft = BreadthFirstTraversal(src, this)
     bft.traverse()
     bft
 
@@ -78,7 +78,7 @@ trait Traversal[T]:
     path
 
 class DepthFirstTraversal[T](val src: T, val traversable: Traversable[T]) extends Traversal[T]:
-  val container = new Traversal.StackContainer[DiEdge[T]]()
+  val container = Traversal.StackContainer[DiEdge[T]]()
 
 class BreadthFirstTraversal[T](val src: T, val traversable: Traversable[T]) extends Traversal[T]:
-  val container = new Traversal.QueueContainer[DiEdge[T]]()
+  val container = Traversal.QueueContainer[DiEdge[T]]()

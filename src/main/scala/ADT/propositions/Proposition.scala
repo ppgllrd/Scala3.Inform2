@@ -21,10 +21,10 @@ object Proposition:
     else
       val v = vars.head
       val vs = vars.tail
-      (for
+      for
         i <- interpretations(vs)
         b <- Set(false, true)
-      yield i + (v -> b))
+      yield i + (v -> b)
 
 enum Proposition:
   case Const(bool: Boolean)

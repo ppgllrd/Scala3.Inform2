@@ -6,7 +6,7 @@ package arrays
 
 @main def basicsTest(): Unit =
 
-  val xs = new Array[Double](100)
+  val xs = Array.ofDim[Double](100)
   for i <- 0 until xs.length do xs(i) = math.sqrt(i.toDouble)
 
   val ys = Array[Int](2, 3, 5, 7, 11, 13)

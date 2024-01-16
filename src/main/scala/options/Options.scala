@@ -28,9 +28,9 @@ package options
   patternMatch(Some(123))
   patternMatch(Some(true))
 
-  def multByOption(x: Int, opt: Option[Int]): Int = opt match
+  def multiplyByOption(x: Int, opt: Option[Int]): Int = opt match
     case None    => x
     case Some(y) => x * y
 
-  println(multByOption(10, None))
-  println(multByOption(10, Some(20)))
+  println(multiplyByOption(10, None))
+  println(multiplyByOption(10, Some(20)))

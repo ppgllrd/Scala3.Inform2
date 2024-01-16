@@ -5,7 +5,7 @@
 package classes.point2D.option3
 
 class Point2D(x0: Double, y0: Double):
-  private var xs = Array(x0, y0)
+  private val xs = Array(x0, y0)
 
   def this() =
     this(0, 0)

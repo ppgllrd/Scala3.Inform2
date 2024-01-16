@@ -45,7 +45,7 @@ class Deck(seed: Int):
   private val cards: Array[Card] = init()
 
   private def init(): Array[Card] =
-    val cs = new Array[Card](Card.allValues.size * Card.allSuits.size + Card.numJokers)
+    val cs = Array.ofDim[Card](Card.allValues.size * Card.allSuits.size + Card.numJokers)
     var i = 0
     for s <- Card.allSuits do
       for v <- Card.allValues do
@@ -88,10 +88,10 @@ object Deck:
   val deck = Deck(0)
 
   val numExperiments = 1000000
-  var sucesses = 0
+  var successes = 0
   for _ <- 0 until numExperiments do
     val hand = deck.hand(5)
-    if Deck.isPoker(hand) then sucesses += 1
-  val prob = sucesses.toDouble / numExperiments
+    if Deck.isPoker(hand) then successes += 1
+  val prob = successes.toDouble / numExperiments
 
-  println(s"Probabily of poker: $prob")
+  println(s"Probability of poker: $prob")

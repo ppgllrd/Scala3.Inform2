@@ -44,7 +44,7 @@ object Report:
     bw.write(line)
     bw.newLine()
     for Student(name, surname, marks) <- students.sortBy(_.surname) do
-      val average = if marks.isEmpty then 0.0 else marks.sum.toDouble / marks.length
+      val average = if marks.isEmpty then 0.0 else marks.sum / marks.length
       bw.write(f" $surname%-15s $name%-15s $average%4.2f")
       bw.newLine()
     bw.write(line)

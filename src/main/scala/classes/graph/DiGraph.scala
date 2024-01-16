@@ -8,7 +8,7 @@ import scala.collection._
 
 case class DiEdge[V](src: V, dst: V)
 
-class DiGraph[V]() extends classes.graph.Traversable[V]:
+class DiGraph[V] extends classes.graph.Traversable[V]:
   private var map = immutable.Map[V, immutable.Set[V]]()
 
   def addVertex(v: V): Unit =
@@ -60,7 +60,7 @@ class DiGraph[V]() extends classes.graph.Traversable[V]:
     s"Graph($verticesStr, $edgesStr)"
 
 @main def graphTest(): Unit =
-  val g = new DiGraph[Int]()
+  val g = DiGraph[Int]
 
   g.addVertex(1)
   g.addVertex(2)

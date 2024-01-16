@@ -31,7 +31,7 @@ class ColoredPoint(x0: Double, y0: Double, c0: Color) extends Point(x0, y0):
   val p1: Point = Point(1, 2)
   val p2: ColoredPoint = ColoredPoint(3, 4, Color.red)
   val p3: Point = ColoredPoint(5, 6, Color.blue)
-  // Compilation error: val p4: ColoredPoint = new Point(7, 8)
+  // Compilation error: val p4: ColoredPoint = Point(7, 8)
 
   println(p1) // uses toString
   println(p2)
