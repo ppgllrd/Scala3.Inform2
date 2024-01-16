@@ -88,7 +88,7 @@ object Arc:
     * @param alpha
     *   starting angle of the arc in radians.
     * @param beta
-    *   angular extent of the arc in rqdians.
+    *   angular extent of the arc in radians.
     * @param kind
     *   type of arc: OPEN, CHORD or PIE.
     * @return

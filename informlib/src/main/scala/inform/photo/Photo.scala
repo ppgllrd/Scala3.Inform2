@@ -21,6 +21,7 @@ import java.nio.file.Path
 /** A digital photograph.
   *
   * @param image
+  *  image of photograph.
   */
 class Photo private (private val image: BufferedImage):
   /** Number of rows of Photo. */
@@ -289,7 +290,7 @@ object Photo:
     *   a new Photo from provided file.
     */
   def apply(file: File): Photo =
-    new Photo(file.getPath())
+    new Photo(file.getPath)
 
   /** Creates a new Photo from provided source (path of file or URL with format JPG, JPEG, PNG, BMP,
     * GIF, etc.).
@@ -310,7 +311,7 @@ object Photo:
     *   a new Photo from provided path.
     */
   def apply(path: Path): Photo =
-    apply(path.toFile())
+    apply(path.toFile)
 
   /** Creates a new Photo with given dimensions.
     *
@@ -342,7 +343,7 @@ object Photo:
     *   a new Photo from provided file.
     */
   def fromFile(file: File): Photo =
-    new Photo(file.getPath())
+    new Photo(file.getPath)
 
   /** Creates a new Photo from provided path (with format JPG, JPEG, PNG, BMP, GIF, etc.).
     *

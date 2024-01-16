@@ -245,6 +245,7 @@ class XYSeriesCollection extends org.jfree.data.xy.XYSeriesCollection with Itera
   /** Adds an `XYSeries`to this collection of series.
     *
     * @param xySeries
+    *  the `XYSeries` to add.
     */
   def +=(xySeries: org.jfree.data.xy.XYSeries): Unit = super.addSeries(xySeries)
 
@@ -647,6 +648,7 @@ class XYBarChart(val chart: JFreeChart)
   /** Configures the stroke width of the outline of all series in chart.
     *
     * @param strokeWidth
+    *  the width of the outline of the bars. 
     */
   def config(strokeWidth: Double): Unit = {
     val renderer = chart.getXYPlot.getRenderer().asInstanceOf[XYBarRenderer]
@@ -902,7 +904,7 @@ object PieChart {
     * @param title
     *   the title of the chart.
     * @param data
-    *   a PieDataset` with the data of the chart.
+    *   a `PieDataset` with the data of the chart.
     * @return
     *   a pie chart with provided data.
     */
@@ -1084,8 +1086,6 @@ object JFreeChart {
 
 /** A bar chart with different groups and categories.
   *
-  * @param chart
-  *   the JFreeChart object.
   */
 class CategoryDataset[V: Numeric, Group <: Comparable[Group], Category <: Comparable[
   Category
@@ -1230,6 +1230,7 @@ class CategoryChart(val chart: JFreeChart)
     * @param outlineColor
     *   the outline color.
     * @param strokeWidth
+    *   the stroke width.
     */
   def config(
       group: Comparable[_],

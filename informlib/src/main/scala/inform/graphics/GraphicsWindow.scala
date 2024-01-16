@@ -14,6 +14,7 @@ import javax.imageio.ImageIO
 import javax.swing.JOptionPane
 import scala.swing.*
 import java.nio.file.Path
+import scala.language.reflectiveCalls
 
 object GraphicsWindow {
   private val defaultWidth = 600
@@ -80,6 +81,7 @@ object GraphicsWindow {
   * @param height
   *   height in pixels of window.
   * @param backgroundColor
+  *   background color of window.
   */
 class GraphicsWindow(
     title: String,
@@ -326,8 +328,6 @@ class GraphicsWindow(
 
   /** Save contents of graphic window to a PNG file.
     *
-    * @param chart
-    *   chart to be saved.
     * @param fileName
     *   name of file where contents of graphic window should be saved.
     */

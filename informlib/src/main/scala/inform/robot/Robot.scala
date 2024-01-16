@@ -30,7 +30,7 @@ object Robot {
     *   a new robot that will move in provided map.
     */
   def apply(mapPath: Path): Robot =
-    new Robot(mapPath.toString())
+    new Robot(mapPath.toString)
 
   /** Builds a new robot that will move in provided map.
     * @param mapFilename
@@ -49,7 +49,7 @@ object Robot {
     *   a new robot that will move in provided map.
     */
   def inMap(mapPath: Path): Robot =
-    Robot.apply(mapPath.toString())
+    Robot.apply(mapPath.toString)
 
   private def asset(fileName: String) = s"/robot/$fileName"
 

@@ -17,7 +17,7 @@ class Polygon(xs: Seq[Double], ys: Seq[Double]) extends java.awt.geom.Path2D.Dou
   if xs.length < 1 then
     throw new IllegalArgumentException("Polygon: both arguments should be non-empty")
 
-  this.moveTo(xs(0), ys(0))
+  this.moveTo(xs.head, ys.head)
   for i <- 1 until xs.length do this.lineTo(xs(i), ys(i))
   this.closePath()
 
@@ -58,6 +58,7 @@ class Polygon(xs: Seq[Double], ys: Seq[Double]) extends java.awt.geom.Path2D.Dou
   /** Constructs a polygon from an `Iterable` of coordinates.
     *
     * @param xys
+    *   the coordinates of points.
     */
   def this(xys: Iterable[(Double, Double)]) =
     this(xys.unzip)
@@ -106,7 +107,7 @@ object Polygon:
     new Polygon(xys)
 
   def unapply(p: Polygon): Seq[(Double, Double)] =
-    (p.points.map(p => (p.x, p.y)))
+    p.points.map(p => (p.x, p.y))
 
   object Points:
     /** Constructs a polygon from an `Iterable` of points.
@@ -129,4 +130,4 @@ object Polygon:
       new Polygon(xys.map(_.x), xys.map(_.y))
 
     def unapply(polygon: Polygon): Seq[Point] =
-      (polygon.points)
+      polygon.points

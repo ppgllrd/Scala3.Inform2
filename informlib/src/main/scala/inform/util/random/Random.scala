@@ -400,7 +400,7 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
 
   /** Returns a Double value with Poisson distribution (lambda is rate parameter).
     * @param lambda
-    *   rate paraemter.
+    *   rate parameter.
     * @return
     *   Random Double value. Poisson distribution (lambda is rate parameter).
     */
