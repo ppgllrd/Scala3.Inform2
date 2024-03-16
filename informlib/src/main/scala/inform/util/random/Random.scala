@@ -468,33 +468,87 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
     *   value i is proportional to frequencies(i).
     */
   def discrete(frequencies: Seq[Int]): () => Int =
-    var sum = 0
-    for f <- frequencies do
-      if f < 0 then
+    val cumulativeFrequencies = new Array[Long](frequencies.length)
+    var observations: Long = 0L
+    for i <- cumulativeFrequencies.indices do
+      val freq = frequencies(i)
+      if freq < 0 then
         throw new IllegalArgumentException(
-          s"All frequencies must be positive values but found $f."
+          s"All frequencies must be positive values but found $freq."
         )
-      sum += f
+      observations += freq
+      cumulativeFrequencies(i) = observations
 
-    if sum == 0 then
+    if observations == 0 then
       throw new IllegalArgumentException("At least one frequency must be greater than 0")
-    if sum >= Integer.MAX_VALUE then
+    if observations >= Integer.MAX_VALUE then
       throw new IllegalArgumentException("Sum of frequencies is too large")
 
-    val accumulators = new Array[Int](frequencies.length)
-    sum = 0
-    for i <- accumulators.indices do
-      sum += frequencies(i)
-      accumulators(i) = sum
+    def searcher(): Int =
+      val target = rnd.nextLong(observations)
+      var left = 0
+      var right = cumulativeFrequencies.length - 1
+      var index = -1
+      while left <= right do
+        val center = left + (right - left) / 2
+        if cumulativeFrequencies(center) <= target then left = center + 1
+        else
+          index = center
+          right = center - 1
+      index
+
+    searcher
+
+  /** Constructs an impure function returning random Ints from 0 to probabilities.length - 1.
+    *
+    * @param probabilities
+    *   array defining probabilities for each possible random outcome.
+    * @return
+    *   An impure function returning random Ints from 0 to probabilities.length - 1. Probability of
+    *   value i is probabilities(i).
+    */
+  def discreteProbabilities(probabilities: Array[Double]): () => Int =
+    discreteProbabilities(probabilities.toIndexedSeq)
+
+  /** Constructs an impure function returning random Ints from 0 to probabilities.length - 1.
+    *
+    * @param probabilities
+    *   array defining probabilities for each possible random outcome.
+    * @return
+    *   An impure function returning random Ints from 0 to probabilities.length - 1. Probability of
+    *   value i is probabilities(i).
+    */
+  def discreteProbabilities(probabilities: Seq[Double]): () => Int =
+    val cumulativeDistribution = new Array[Double](probabilities.length)
+    var totalProb: Double = 0
+    for i <- cumulativeDistribution.indices do
+      val prob = probabilities(i)
+      if prob < 0 then
+        throw new IllegalArgumentException(
+          s"All probabilities must be positive values but found $prob."
+        )
+      totalProb += prob
+      cumulativeDistribution(i) = totalProb
+
+    val epsilon = 1e-10
+    if totalProb > 1.0 + epsilon || totalProb < 1.0 - epsilon then
+      throw new IllegalArgumentException(
+        s"Sum of all probabilities must be close to 1.0 but it is $totalProb"
+      )
 
     def searcher(): Int =
-      val n = rnd.nextInt(sum)
-      var found = false
-      var i = 0
-      while !found && i < accumulators.length do
-        if accumulators(i) > n then found = true
-        else i += 1
-      if found then i else -1
+      var index = -1
+      while index < 0 do
+        val target = rnd.nextDouble()
+        var left = 0
+        var right = cumulativeDistribution.length - 1
+        while left <= right do
+          val center = left + (right - left) / 2
+          if cumulativeDistribution(center) <= target then left = center + 1
+          else
+            index = center
+            right = center - 1
+      index
 
     searcher
 
