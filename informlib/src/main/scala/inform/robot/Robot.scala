@@ -116,7 +116,7 @@ class Robot(mapFilename: String) {
           robotLoc = loc
           direction = ch.toUpper
         } else if (ch == 'X')
-          grid.setImage(loc, asset(WALL_IMAGE))
+          grid.setImage(loc, WALL_IMAGE)
         else if (ch == '.')
           grid.setColor(loc, LIGHT_COLOR)
         else if (ch == ':')
