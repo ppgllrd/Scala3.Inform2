@@ -558,7 +558,7 @@ class Random private (rnd: java.util.Random) extends scala.util.Random(rnd):
     */
   def shuffleInPlace[A](seq: scala.collection.mutable.Seq[A]): Unit =
     val l = seq.length
-    for i <- 0 until l do
+    for i <- 0 until l - 1 do
       val j = i + rnd.nextInt(l - i)
       val tmp = seq(i)
       seq(i) = seq(j)
