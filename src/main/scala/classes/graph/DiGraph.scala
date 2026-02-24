@@ -6,20 +6,25 @@ package classes.graph
 
 import scala.collection._
 
+/** A directed edge from vertex `src` to vertex `dst`. */
 case class DiEdge[V](src: V, dst: V)
 
+/** A directed graph using an adjacency-set representation (immutable Map of immutable Sets). */
 class DiGraph[V] extends classes.graph.Traversable[V]:
   private var map = immutable.Map[V, immutable.Set[V]]()
 
+  /** Adds a vertex to the graph. Vertex must not already exist. */
   def addVertex(v: V): Unit =
     require(!map.contains(v), s"Vertex $v is already in graph.")
     map = map + (v -> immutable.Set[V]())
 
+  /** Removes a vertex and all edges pointing to it. */
   def deleteVertex(v: V): Unit =
     require(map.contains(v), s"Vertex $v is not in graph.")
     map = map - v
     for (src, destinations) <- map do map = map + (src -> (destinations - v))
 
+  /** Adds a directed edge from `src` to `dst`. Self-loops are not allowed. */
   def addEdge(src: V, dst: V): Unit =
     require(map.contains(src), s"Vertex $src is not in graph.")
     require(map.contains(dst), s"Vertex $dst is not in graph.")
@@ -47,6 +52,7 @@ class DiGraph[V] extends classes.graph.Traversable[V]:
     for (src, destinations) <- map do for dst <- destinations do es = es + DiEdge(src, dst)
     es
 
+  /** Returns the set of immediate successors of vertex `v`. */
   def successors(v: V): immutable.Set[V] =
     map.get(v) match
       case None =>

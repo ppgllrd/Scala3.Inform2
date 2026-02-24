@@ -6,6 +6,9 @@ package inform.graphics.draw2D
 
 import scala.annotation.targetName
 
+/** An affine transformation that can be applied to geometric shapes.
+  * Supports composition of transformations via the `*` operator.
+  */
 class Transform extends java.awt.geom.AffineTransform:
   /** Applies a transformation to a geometric shape.
     * @param shape
@@ -75,7 +78,7 @@ object Transform:
     t.translate(dx, dy)
     t
 
-  /** Factory method for an scaling transformation.
+  /** Factory method for a scaling transformation.
     * @param sx
     *   scale in X axis.
     * @param sy

@@ -4,8 +4,9 @@
 
 package classes.point2D.option3
 
+/** A mutable 2D point using an internal array for storage. Option 3: array-backed representation. */
 class Point2D(x0: Double, y0: Double):
-  private val xs = Array(x0, y0)
+  private val xs = Array(x0, y0) // coordinates stored in a two-element array
 
   def this() =
     this(0, 0)

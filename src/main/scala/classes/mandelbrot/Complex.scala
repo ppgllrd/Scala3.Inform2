@@ -6,6 +6,11 @@ package classes.mandelbrot
 
 import scala.math.*
 
+/**
+ * Trait representing a complex number.
+ * Arithmetic is dispatched to the most efficient representation:
+ * addition/subtraction use Cartesian form; multiplication/division use Polar form.
+ */
 trait Complex:
   def re: Double // real part
   def im: Double // imaginary part
@@ -24,12 +29,14 @@ trait Complex:
   def /(that: Complex): Complex =
     Polar(mod / that.mod, arg / that.arg)
 
+/** Complex number in Cartesian (rectangular) form: re + im*i. */
 case class Cartesian(re: Double, im: Double) extends Complex:
   def mod: Double = sqrt(pow(re, 2) + pow(im, 2))
   def arg: Double = if re == 0 && im == 0 then 0 else atan2(im, re)
 
   override def toString: String = s"Cartesian($re, $im)"
 
+/** Complex number in Polar form: mod * e^(i*arg). */
 case class Polar(mod: Double, arg: Double) extends Complex:
   def re: Double = mod * cos(arg)
   def im: Double = mod * sin(arg)

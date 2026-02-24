@@ -4,14 +4,19 @@
 
 package charts
 
+// Demonstrates a grouped bar chart using categories and groups.
+// Each category (country) has bars for each group (sex), shown side by side.
+
 @main def categoryChartTest(): Unit =
   import inform.graphics.plot.*
   import inform.graphics.color.*
 
+  // Groups define the different bar series within each category
   type Sex = String // groups
   val males = "Males"
   val females = "Females"
 
+  // Categories define the x-axis labels; each category gets one cluster of bars
   type Country = String // categories
   val spain = "Spain"
   val france = "France"

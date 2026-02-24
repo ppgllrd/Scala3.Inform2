@@ -2,13 +2,17 @@
   Pepe Gallardo, 2023
  */
 
+// N-body gravitational simulation rendered in a graphics window.
+
 package classes.physics
 
 import inform.graphics.draw2D.Graphics2D
 import inform.graphics.GraphicsWindow
 
+/** A universe of particles that interact via gravitational forces. */
 class Universe(private val particles: Array[Particle], val radius: Double):
 
+  /** Advances the simulation by one time step `dt`, computing pairwise forces. */
   def advance(dt: Double): Unit =
     val forces = Array.fill(particles.length)(Vector2D(0, 0))
 

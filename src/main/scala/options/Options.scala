@@ -2,6 +2,8 @@
   Pepe Gallardo, 2023
  */
 
+// Demonstrates Scala Option type: None, Some, isEmpty, get, and pattern matching on optional values.
+
 package options
 
 @main def options(): Unit =

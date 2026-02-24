@@ -2,6 +2,8 @@
   Pepe Gallardo, 2023
  */
 
+// Demonstrates Scala string formatting and interpolation (s"..." and f"..." interpolators).
+
 package formats
 
 @main def formatsTest(): Unit =

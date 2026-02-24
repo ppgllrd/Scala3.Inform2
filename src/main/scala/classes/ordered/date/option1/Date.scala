@@ -4,6 +4,7 @@
 
 package classes.ordered.date.option1
 
+/** An ordered Date. Option 1: extends Ordered[Date] with a manual compare method. */
 class Date(val day: Int, val month: Int, val year: Int) extends Ordered[Date]:
   // class precondition
   require(
@@ -25,6 +26,7 @@ class Date(val day: Int, val month: Int, val year: Int) extends Ordered[Date]:
     code = 31 * code + year.##
     code
 
+  /** Lexicographic comparison: year, then month, then day. */
   override def compare(that: Date): Int =
     var cmp = this.year.compare(that.year)
     if cmp == 0 then

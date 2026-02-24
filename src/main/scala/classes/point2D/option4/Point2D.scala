@@ -4,13 +4,15 @@
 
 package classes.point2D.option4
 
+/** Companion object that tracks how many Point2D instances have been created. */
 object Point2D:
   private var counter: Int = 0
 
   def numberOfPoints: Int = counter
 
+/** A mutable 2D point with a companion object. Option 4: instance counting via companion. */
 class Point2D(private var x: Double, private var y: Double):
-  Point2D.counter += 1
+  Point2D.counter += 1 // increment global counter on each instantiation
 
   def this() =
     this(0, 0)

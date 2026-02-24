@@ -5,8 +5,9 @@
 package classes.inheritance
 
 object Car:
-  private val vat = 0.21
+  private val vat = 0.21 // value-added tax rate
 
+/** A car with a model name and base cost. Price includes VAT. */
 class Car(mod: String, cost: Double):
   def price: Double =
     cost + cost * Car.vat // cost plus taxes
@@ -16,6 +17,7 @@ class Car(mod: String, cost: Double):
   override def toString: String =
     f"Car($mod, $cost%.2f)"
 
+/** An imported car that adds an import tax on top of the base price. */
 class ImportedCar(mod: String, cost: Double, tax: Double) extends Car(mod, cost):
 
   override def price: Double =

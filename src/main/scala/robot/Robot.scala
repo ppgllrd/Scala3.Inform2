@@ -2,6 +2,9 @@
   Pepe Gallardo, 2023
  */
 
+// Demonstrates robot navigation on a grid map: drawing lines, squares, and following paths.
+// Also shows Scala 3 extension methods to add capabilities to the Robot type.
+
 package robot
 
 import inform.robot.*

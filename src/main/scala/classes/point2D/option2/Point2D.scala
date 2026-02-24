@@ -4,6 +4,7 @@
 
 package classes.point2D.option2
 
+/** A mutable 2D point with private fields and accessor methods. Option 2: encapsulation with auxiliary constructors, apply/update. */
 class Point2D(x0: Double, y0: Double):
   private var x: Double = x0
   private var y: Double = y0

@@ -4,6 +4,17 @@
 
 package inform.graphics.draw2D
 
+/** A rectangle defined by its upper-left corner coordinates, width and height.
+  *
+  * @param _left
+  *   X coordinate of the upper-left corner of the rectangle.
+  * @param _top
+  *   Y coordinate of the upper-left corner of the rectangle.
+  * @param _width
+  *   width of the rectangle.
+  * @param _height
+  *   height of the rectangle.
+  */
 class Rectangle(_left: Double, _top: Double, _width: Double, _height: Double)
     extends java.awt.geom.Rectangle2D.Double(_left, _top, _width, _height):
   val left: Double = x

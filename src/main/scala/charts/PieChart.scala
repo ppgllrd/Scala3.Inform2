@@ -4,6 +4,9 @@
 
 package charts
 
+// Demonstrates creating a pie chart from labeled percentage data.
+
+// Pie chart showing the distribution of student marks across grade categories
 @main def pieChartTest(): Unit =
   import inform.graphics.plot.*
 

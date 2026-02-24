@@ -4,6 +4,21 @@
 
 package inform.graphics.draw2D
 
+/** A drawing stroke that controls how lines and shape outlines are rendered.
+  *
+  * @param width
+  *   width of the stroke.
+  * @param cap
+  *   the decoration of the ends of a stroke (CAP_BUTT, CAP_ROUND, or CAP_SQUARE).
+  * @param join
+  *   the decoration applied where path segments meet (JOIN_MITER, JOIN_ROUND, or JOIN_BEVEL).
+  * @param miterlimit
+  *   the limit to trim the miter join. Must be >= 1.0.
+  * @param dash
+  *   the array representing the dashing pattern, or null for solid lines.
+  * @param dashPhase
+  *   the offset to start the dashing pattern.
+  */
 class Stroke(
     width: Double = 1,
     cap: Int = Stroke.CAP_SQUARE,
@@ -49,6 +64,7 @@ object Stroke:
     * @param dashPhase
     *   the offset to start the dashing pattern
     * @return
+    *   a new Stroke constructed from specified parameters.
     */
   def apply(
       width: Double = 1,

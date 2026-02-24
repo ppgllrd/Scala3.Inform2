@@ -6,15 +6,18 @@ package ADT
 
 import ADT.Direction.{East, North, West}
 
+/** Represents a cardinal compass direction with rotation operations. */
 enum Direction:
   case North, West, South, East
 
+  /** Returns the direction after a 90-degree counter-clockwise turn. */
   def turnLeft: Direction = this match
     case North => West
     case West  => South
     case South => East
     case East  => North
 
+  /** Returns the direction after a 90-degree clockwise turn. */
   def turnRight: Direction = this match
     case North => East
     case West  => North
