@@ -30,6 +30,7 @@ object Font:
     * @param size
     *   the point size of the font.
     * @return
+    *   a new Font constructed from specified parameters.
     */
   def apply(name: String, style: Int = Font.PLAIN, size: Int): Font =
     new Font(name, style, size)

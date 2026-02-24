@@ -14,6 +14,9 @@ import java.net._
 import javax.imageio._
 import javax.swing._
 
+/** A GUI component that displays a 2D grid of colored cells with optional images.
+  * Handles keyboard and mouse input events for interactive grid applications.
+  */
 private class Grid extends JComponent with KeyListener with MouseListener {
   private var cells: Array[Array[Cell]] = null
   private var frame: JFrame = null
@@ -21,11 +24,21 @@ private class Grid extends JComponent with KeyListener with MouseListener {
   private var lastLocationClicked: Location = null
   private var lineColor: Color = null
 
+  /** Creates a grid with the specified number of rows and columns.
+    * @param numRows
+    *   number of rows in the grid.
+    * @param numCols
+    *   number of columns in the grid.
+    */
   def this(numRows: Int, numCols: Int) = {
     this()
     init(numRows, numCols)
   }
 
+  /** Creates a grid initialized from an image asset file.
+    * @param assetFile
+    *   path to the image file to load into the grid.
+    */
   def this(assetFile: String) = {
     this()
     val image: BufferedImage = loadImage(assetFile)
@@ -238,7 +251,7 @@ private class Grid extends JComponent with KeyListener with MouseListener {
         sys.error(s"invalid image file name:  $imageFileName")
       ImageIO.write(bi, imageFileName.substring(index + 1), new File(imageFileName))
     } catch {
-      case e: IOException => sys.error("unable to save image to file: $imageFileName")
+      case e: IOException => sys.error(s"unable to save image to file: $imageFileName")
     }
   }
 

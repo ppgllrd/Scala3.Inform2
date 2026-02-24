@@ -1,23 +1,19 @@
-## Intellij IDEA Settings
+## IntelliJ IDEA Settings
 
-- Show documentation on mouse over identifier:
+- Show documentation on mouse hover over an identifier:
 
-> Settings -> Editor -> Code editing -> Quick Documentation -> Show quick Documentation on hover -> check mark on
+> Settings -> Editor -> Code Editing -> Quick Documentation -> Show quick documentation on hover -> check mark on
 
+- Show documentation popup alongside the list of methods for an object after typing a dot:
 
+> Settings -> Editor -> General -> Code Completion -> Show the documentation popup in 1000 ms -> check mark on
 
-- Show documentation besides list of methods for an object after writing dot:
+- Reformat code according to `.scalafmt.conf` whenever a source file is saved:
 
-> Settings -> Editor -> General -> Code completion -> Show the documentation popup in 1000 ms -> check mark on
+> Settings -> Editor -> Code Style -> Scala ->
 
+>> Scheme: -> Default IDE
 
+>> Formatter -> Scalafmt
 
-- Reformat code according to .scalafmt.conf whenever source file is saved:
-
-> Settings -> Editor -> Code Style -> Scala -> 
-
->>	Scheme: -> Default IDE
-
->>	Formatter -> Scalafmt
-
->>	Scalafmt tab -> Reformat on save (Crtl+S) -> check mark on
+>> Scalafmt tab -> Reformat on save (Ctrl+S) -> check mark on
