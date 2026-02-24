@@ -4,6 +4,9 @@
 
 package charts
 
+// Demonstrates creating XY bar charts with single and multiple data series.
+
+// Simple bar chart with a single data series
 @main def barChartTest1(): Unit =
   import inform.graphics.plot.*
 
@@ -20,6 +23,7 @@ package charts
   val chart = XYBarChart("Bars", "X", "Y", seriesColl)
   chart.draw(300, 400)
 
+// Bar chart with two data series and custom colors
 @main def barChartTest2(): Unit =
   import inform.graphics.color.*
   import inform.graphics.plot.*

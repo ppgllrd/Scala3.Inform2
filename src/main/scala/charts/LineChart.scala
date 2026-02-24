@@ -4,6 +4,9 @@
 
 package charts
 
+// Demonstrates creating XY line charts with discrete data points and continuous mathematical functions.
+
+// Simple line chart with two series of discrete data points
 @main def lineChartTest1(): Unit =
   import inform.graphics.plot.*
 
@@ -24,6 +27,7 @@ package charts
   val chart = XYLineChart("Lines", "X", "Y", seriesColl)
   chart.draw(500, 300)
 
+// Line chart plotting mathematical functions: sin(x)/x and 3·sin(x)/x (sinc-like functions)
 @main def lineChartTest2(): Unit =
   import inform.graphics.plot.*
   import scala.math.*
@@ -35,10 +39,11 @@ package charts
   val xMax = 5 * Pi // max x
   val delta = 0.01 // distance between 2 points
 
+  // Sample both functions at small intervals to produce smooth curves
   var x = xMin
   while x <= xMax do
-    series1 += (x, sin(x) / x)
-    series2 += (x, 3 * sin(x) / x)
+    series1 += (x, sin(x) / x)       // sinc-like function
+    series2 += (x, 3 * sin(x) / x)   // scaled version (3× amplitude)
     x += delta
 
   val seriesColl = XYSeriesCollection()
