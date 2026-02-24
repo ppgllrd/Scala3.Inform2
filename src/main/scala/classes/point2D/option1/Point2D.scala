@@ -4,6 +4,7 @@
 
 package classes.point2D.option1
 
+/** A mutable 2D point with public coordinates. Option 1: simplest design with default values. */
 class Point2D:
   var x: Double = 0
   var y: Double = 0

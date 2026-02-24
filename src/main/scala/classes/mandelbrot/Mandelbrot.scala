@@ -4,6 +4,7 @@
 
 package classes.mandelbrot
 
+/** Computes and renders the Mandelbrot set by iterating z = z² + c in the complex plane. */
 object Mandelbrot:
   import inform.photo.*
 

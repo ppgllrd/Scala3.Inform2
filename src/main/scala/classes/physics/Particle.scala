@@ -9,6 +9,13 @@ import inform.graphics.draw2D.*
 
 import scala.math.*
 
+/**
+ * A particle in a 2D gravitational simulation.
+ * @param pos  current position
+ * @param vel  current velocity
+ * @param mass particle mass (kg)
+ * @param radius particle radius (m), used for rendering
+ */
 class Particle(
     private var pos: Vector2D,
     private var vel: Vector2D,
@@ -16,11 +23,13 @@ class Particle(
     val radius: Double
 ):
 
+  /** Updates position and velocity using Newton's second law: F = ma. */
   def moveBy(force: Vector2D, dt: Double): Unit =
-    val acc = force * (1 / mass)
+    val acc = force * (1 / mass) // acceleration = force / mass
     vel += acc * dt
     pos += vel * dt
 
+  /** Computes the gravitational force exerted on this particle by `that` particle. */
   def forceFrom(that: Particle): Vector2D =
     val G = 6.67e-11
     val delta = that.pos - this.pos

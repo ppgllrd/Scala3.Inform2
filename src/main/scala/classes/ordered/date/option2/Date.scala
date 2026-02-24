@@ -4,6 +4,7 @@
 
 package classes.ordered.date.option2
 
+/** A Date with ordering. Option 2: uses a given Ordering[Date] instance with manual compare. */
 class Date(val day: Int, val month: Int, val year: Int):
   // class precondition
   require(
@@ -36,6 +37,7 @@ object Date:
     case 4 | 6 | 9 | 11              => 31
     case 2                           => if isLeap(year) then 29 else 28
 
+  // Define an Ordering[Date] as a given instance in the companion object
   given dateOrdering: Ordering[Date] with
     def compare(d1: Date, d2: Date): Int =
       var cmp = d1.year.compare(d2.year)
@@ -44,7 +46,7 @@ object Date:
         if cmp == 0 then cmp = d1.day.compare(d2.day)
       cmp
 
-  // export math.Ordered.orderingToOrdered
+  // Export infix operators (<, >, <=, >=) so Dates can be compared with operator syntax
   export math.Ordering.Implicits.infixOrderingOps
 
 @main def dateTest(): Unit =

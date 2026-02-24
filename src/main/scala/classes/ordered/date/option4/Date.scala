@@ -4,6 +4,7 @@
 
 package classes.ordered.date.option4
 
+/** An ordered Date. Option 4: extends Ordered[Date] and delegates compare to a given Ordering. */
 class Date(val day: Int, val month: Int, val year: Int) extends Ordered[Date]:
   // class precondition
   require(
@@ -25,6 +26,7 @@ class Date(val day: Int, val month: Int, val year: Int) extends Ordered[Date]:
     code = 31 * code + year.##
     code
 
+  /** Delegates to the Ordering defined in the companion object. */
   override def compare(that: Date): Int =
     Date.dateOrdering.compare(this, that)
 

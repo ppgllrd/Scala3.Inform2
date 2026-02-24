@@ -4,6 +4,7 @@
 
 package objects
 
+/** A singleton object representing a person with mutable age and height attributes. */
 object John:
   // immutable attributes
   val name: String = "John"

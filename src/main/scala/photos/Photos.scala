@@ -2,11 +2,14 @@
   Pepe Gallardo, 2023
  */
 
+// Demonstrates photo creation, manipulation, and conversion to grayscale.
+
 package photos
 
 import inform.photo.*
 import inform.graphics.color.*
 
+/** Utility object for color constants and photo transformations. */
 object Photos:
   val red: Color = Color.RGB(255, 0, 0)
   val green: Color = Color.RGB(0, 255, 0)
@@ -24,6 +27,7 @@ object Photos:
   val g: Int = red.getGreen
   val b: Int = red.getBlue
 
+  /** Computes perceived brightness using the ITU-R BT.601 luma formula. */
   def luminescence(color: Color): Double =
     val Color.RGB(r, g, b) = color
     0.299 * r + 0.587 * g + 0.114 * b

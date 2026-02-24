@@ -4,6 +4,7 @@
 
 package classes.ordered.date.option3
 
+/** A Date with ordering. Option 3: uses Ordering combinators (on/orElse) for concise comparison. */
 class Date(val day: Int, val month: Int, val year: Int):
   // class precondition
   require(
@@ -36,13 +37,14 @@ object Date:
     case 4 | 6 | 9 | 11              => 31
     case 2                           => if isLeap(year) then 29 else 28
 
+  // Compose ordering from year, then month, then day using Ordering combinators
   given dateOrdering: Ordering[Date] =
     import scala.math.*
     Ordering.Int.on[Date](_.year) orElse
       Ordering.Int.on[Date](_.month) orElse
       Ordering.Int.on[Date](_.day)
 
-  // export math.Ordered.orderingToOrdered
+  // Export infix operators (<, >, <=, >=) so Dates can be compared with operator syntax
   export math.Ordering.Implicits.infixOrderingOps
 
 @main def dateTest(): Unit =

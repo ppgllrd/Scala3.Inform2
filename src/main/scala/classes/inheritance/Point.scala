@@ -6,6 +6,7 @@ package classes.inheritance
 
 import inform.graphics.color.*
 
+/** A mutable 2D point with protected coordinates, serving as a base class. */
 class Point(x0: Double, y0: Double):
   protected var x: Double = x0
   protected var y: Double = y0
@@ -17,6 +18,7 @@ class Point(x0: Double, y0: Double):
   override def toString: String =
     s"Point($x, $y)"
 
+/** A Point extended with a color attribute. Demonstrates single inheritance. */
 class ColoredPoint(x0: Double, y0: Double, c0: Color) extends Point(x0, y0):
 
   protected var c: Color = c0

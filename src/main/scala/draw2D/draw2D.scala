@@ -2,6 +2,8 @@
   Pepe Gallardo, 2023
  */
 
+// Demonstrates 2D graphics drawing: rectangles, ellipses, lines, arcs, polygons, and transparency.
+
 package draw2D
 import inform.graphics.GraphicsWindow
 
